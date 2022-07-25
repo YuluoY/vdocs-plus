@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^3.5.1",
+    "express": "^4.18.1",
+    "inflection": "^1.13.2",
+    "require-all": "^3.0.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "mongoose": "^6.3.3"
+  }
+}

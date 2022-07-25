@@ -1,0 +1,41 @@
+.border-gradual {
+  position: relative;
+}
+
+.border-gradual:before, .border-gradual:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  position: absolute;
+}
+
+.border-gradual:before {
+  top: 0;
+  left: 0;
+  transition: border-color 0s ease-in 0.8s, width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
+}
+
+.border-gradual:after {
+  right: 0;
+  bottom: 0;
+  transition: border-color 0s ease-in 0.4s, width 0.2s ease-in 0.2s, height 0.2s ease-in;
+}
+
+.border-gradual:hover:before {
+  width: 100%;
+  height: 100%;
+  transition: width 0.2s ease-in, height 0.2s ease-in 0.2s;
+  border-top-color: #409EFF;
+  border-right-color: #409EFF;
+}
+
+.border-gradual:hover:after {
+  width: 100%;
+  height: 100%;
+  transition: border-color 0s ease-in 0.4s, width 0.2s ease-in 0.4s, height 0.3s ease-in 0.6s;
+  border-bottom-color: #409EFF;
+  border-left-color: #409EFF;
+}

@@ -1,0 +1,121 @@
+.h-header-transparent {
+  display: block !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+}
+
+.h-header-hide {
+  display: none !important;
+}
+
+.h-header-show {
+  display: block !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.h-header {
+  top: 0;
+  z-index: 99;
+  //position: sticky;
+  position: fixed;
+  transition: .8s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+
+  .h-header-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    .info {
+      width: 15%;
+
+      a {
+        width: 12.3em;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .logo {
+          width: 3em;
+          margin-left: 2em;
+          border-radius: 50%;
+        }
+
+        .name {
+          font-size: 1.5em;
+        }
+      }
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      font-size: 1.1em;
+      z-index: 999999;
+
+      .nav-link-box {
+        position: relative;
+        z-index: 9999;
+
+        .dropList-wrapper {
+          box-shadow: 0px 0px 2px silver;
+          height: auto;
+          background-color: rgba(255, 255, 255, 0.9);
+          position: absolute;
+          transition: .8s;
+          font-size: .8em;
+          display: none;
+
+          .h-router-link {
+            padding: 10px 30px;
+            display: block;
+            white-space: nowrap;
+
+            a {
+              margin: 0;
+              padding: 0;
+            }
+          }
+        }
+
+        a {
+          margin-right: 2em;
+          font-size: 1.2em;
+          padding-bottom: .15em;
+        }
+      }
+    }
+
+    .contact {
+      width: 15%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .little-tools {
+        position: absolute;
+        right: 1.5em;
+      }
+
+      .little-tools > div {
+        margin-right: 10px;
+        transition: .8s;
+        font-size: 2em;
+
+        &:hover {
+          cursor: pointer;
+          color: #409eff;
+        }
+      }
+    }
+  }
+}

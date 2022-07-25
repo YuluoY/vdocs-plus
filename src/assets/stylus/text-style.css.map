@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAc;EACZ,OAAO,EAAE,YAAY;EACrB,QAAQ,EAAE,MAAM;EAChB,aAAa,EAAE,QAAQ;EACvB,WAAW,EAAE,MAAM",
+"sources": ["../../../../../%E6%A1%8C%E9%9D%A2/vdocs2/src/assets/stylus/text-style.scss"],
+"names": [],
+"file": "text-style.css"
+}

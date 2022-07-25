@@ -1,0 +1,90 @@
+@import "border-style";
+@import "text-style";
+@import "adaptation-style";
+@import "header-style";
+@import "main-style";
+
+// router active effect
+.router-link-active {
+  color: rgba(42, 142, 225, 1);
+  border-bottom: rgba(42, 142, 225, 1) solid 2px;
+}
+
+
+// container
+.h-container {
+  //min-height: 479vh;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+// section
+.h-section {
+  width: 100vw;
+  margin: 0 auto;
+
+  .section-main-page {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+}
+
+.baseBackgroundImg {
+  background-repeat: no-repeat;
+  background-position: center/cover;
+  background-size: cover;
+}
+
+.baseStyle {
+  width: 100%;
+  height: auto;
+
+  .backgroundImg {
+    width: 100%;
+    height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+      font-size: 4em;
+      color: white;
+      text-shadow: 5px 2px 8px black;
+    }
+  }
+}
+
+.file {
+  width: 100%;
+  height: 100%;
+
+  .file-wrapper {
+    width: 75%;
+    margin: 20px auto;
+  }
+}
+
+.log {
+  .log-wrapper {
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

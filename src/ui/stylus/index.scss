@@ -1,0 +1,220 @@
+@import "_variables";
+
+@each $key, $size in $sizes {
+  .fs-#{$key} {
+    font-size: $size * $base-font-size;
+  }
+}
+
+@each $k, $v in $color {
+  .bg-#{$k} {
+    background: $v !important;
+    color: white !important;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 1;
+    }
+  }
+  .bg-#{$k}-hollow {
+    border: 1px solid $v !important;
+    color: $v !important;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 1;
+    }
+  }
+}
+
+@each $k, $v in $circles {
+  .borRadius-#{$k} {
+    border-radius: $v !important;
+    width: if($k=='circle', 4em, '') !important;
+    height: if($k=='circle', 4em, '') !important;
+  }
+  .borRadius-#{$k} {
+    border-radius: $v !important;
+  }
+}
+
+.h-disabled {
+  background: map-get($color, 'base') !important;
+  opacity: 0.2;
+
+  &:hover {
+    cursor: wait !important;
+    opacity: 0.2;
+  }
+
+  &:active {
+    border: solid 1.5px map-get($color, 'base-4') !important;
+  }
+}
+
+//#region loading component style
+.fade-enter,
+.animation-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.animation-leave-active {
+  transition: opacity 0.618s;
+}
+
+.h-loading {
+  width: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1em;
+}
+
+//#endregion
+
+//#region card component style
+.h-card {
+  width: 100%;
+  height: 50px;
+  box-shadow: 0px 0px 8px silver;
+  margin: 0 auto;
+  transition: all .8s;
+  background: white;
+  border-radius: 5px;
+
+  .title {
+    font-size: 2em;
+    padding: .8em 0;
+  }
+}
+
+.h-hover {
+  border: solid 1px silver;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px silver !important;
+  }
+}
+
+//#endregion
+
+//#region notification component style
+.h-notification {
+  top: 0;
+  width: 15em;
+  padding: 1em;
+  font-size: 1em;
+  position: fixed;
+  z-index: 999999;
+  user-select: none;
+  border-radius: 5px;
+  word-break: break-all;
+  background-color: white;
+  box-shadow: 0px 0px 8px silver;
+
+  .box {
+    display: flex;
+    align-items: center;
+
+    .svg-tips {
+      width: 1.4em;
+      font-size: 1.5em;
+    }
+
+    .content {
+      flex: 1;
+      margin-left: 0.5em;
+    }
+  }
+
+  .svg-quit {
+    position: absolute;
+    right: .2em;
+    top: .2em;
+    padding: 2px;
+    font-size: 1em;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.fade-right-enter-active {
+  animation: fade-right-in .8s;
+}
+
+.fade-right-leave-active {
+  animation: fade-right-in .8s reverse;
+}
+
+@keyframes fade-right-in {
+  from {
+    transform: translateX(400px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+//#endregion
+
+//#region button component style
+.h-btn {
+  padding: .5em 1em;
+  background: unset;
+  border: solid 1.5px rgba(96, 98, 102, 0.4);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .8s;
+  color: rgba(96, 98, 102, 1);
+
+  &:hover {
+    color: rgba(30, 144, 255, 1);
+    background-color: rgba(30, 144, 255, .2);
+    transition: all .3s;
+  }
+
+  &:active {
+    border-color: map-get($color, 'deepBlue');
+  }
+}
+
+//#endregion
+
+//#region tag component style
+.h-tag {
+  display: inline-block;
+  padding: 0 .5em;
+  font-size: .8em;
+  color: white;
+}
+
+.h-tag-hollow {
+  display: inline-block;
+  padding: 0 .5em;
+  font-size: .8em;
+}
+.tag{
+  width: 100%;
+  line-height: 2em;
+  display: flex;
+  .iconfont{
+    margin-right: 5px;
+  }
+}
+//#endregion

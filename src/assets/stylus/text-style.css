@@ -1,0 +1,7 @@
+.text-ellipse {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+/*# sourceMappingURL=text-style.css.map */

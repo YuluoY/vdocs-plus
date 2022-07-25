@@ -1,0 +1,53 @@
+$base-font-size: 1rem;
+$color: (
+        'info': rgba(144, 147, 153, 1),
+        'primary':rgba(64, 158, 255, 1),
+        'success':rgba(103, 194, 58, 1),
+        'warning': rgba(230, 162, 60, 1),
+        'danger': rgba(245, 108, 108, 1),
+        'base':rgba(96, 98, 102, 1),
+        'base-4':rgba(96, 98, 102, .4),
+        "mask":rgba(0, 0, 0, .1),
+        'blue': rgba(30, 144, 255, 1),
+        'deepBlue': rgba(28, 134, 238, 1),
+        'skyBlue':rgba(42, 142, 225, 1)
+);
+$layer: (
+        1:0.8,
+        2:0.6,
+        3:0.4,
+        4:0.2,
+);
+$sizes: (
+        default:1,
+        large:1.5,
+        small:0.7,
+        middle:1.2
+);
+$circles: (
+        'round':45px,
+        'plain':5px,
+        'circle':50%,
+        'semicircle-right':0px 15px 15px 0px,
+        'semicircle-left':15px 0px 0px 15px,
+);
+@each $rank, $n in $layer {
+
+}
+
+//$primary: rgba(64, 158, 255, 1);
+//$success: rgba(103, 194, 58, 1);
+//$info: rgba(144, 147, 153, 1);
+//$warning: rgba(230, 162, 60, 1);
+//$danger: rgba(245, 108, 108, 1);
+
+//$base: rgba(96, 98, 102, 1);
+//$base-1: rgba(96, 98, 102, 0.8);
+//$base-2: rgba(96, 98, 102, 0.6);
+//$base-3: rgba(96, 98, 102, 0.4);
+
+//$blue: rgba(30, 144, 255, 1);
+//$blue-1: rgba(30, 144, 255, .6);
+//$blue-2: rgba(30, 144, 255, .4);
+//$blue-3: rgba(30, 144, 255, .2);
+//$deepBlue: rgba(28, 134, 238, 1);

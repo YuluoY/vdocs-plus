@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,qCAAqC;EACjC,UAAS;IACL,SAAS,EAAE,eAAe",
+"sources": ["../../../../../%E6%A1%8C%E9%9D%A2/vdocs2/src/assets/stylus/adaptation-style.scss"],
+"names": [],
+"file": "adaptation-style.css"
+}
