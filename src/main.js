@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import 'normalize.css/normalize.css'
 
-import request from './axios'
 import apis from './apis/index'
 
 import './assets/icons/index'  // svg icons
@@ -15,10 +14,11 @@ import './assets/css/animate.min.css'
 
 import VueMarkdownEditor from '@/plugins/VueMarkdownEditor/index'
 
+import './ElementUI'
+
 Vue.use(VueMarkdownEditor);
 
 Vue.config.productionTip = false
-Vue.prototype.$request = request;
 Vue.prototype.$apis = apis;
 Vue.use(UI);
 

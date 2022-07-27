@@ -1,5 +1,5 @@
 <template>
-    <div class="h-header forbid-select-text">
+    <div class="h-header forbid-select-text" v-if="isHeader">
         <div style="width: 100vw;" class="h-header-box">
             <div class="info">
                 <a href="/">
@@ -39,6 +39,7 @@
                 <!--                    <svg-icon :icon-class="n.iconClass"></svg-icon>-->
                 <!--                </h-router-link>-->
                 <div class="little-tools">
+                    <svg-icon icon-class="login" class-name="login" @click="onLoginHandle" title="登录"></svg-icon>
                     <svg-icon icon-class="tip" class-name="tip" @click="onTipHandle" title="友情提示"></svg-icon>
                     <svg-icon icon-class="search" class-name="search" @click="onSearchHandle" title="站内搜索"></svg-icon>
                 </div>
@@ -55,6 +56,9 @@
     export default {
         name: "h-header",
         components: {HRouterLink},
+        props: {
+            isHeader: {type: Boolean, default: true}
+        },
         methods: {
             onOpenDropList(n) {
                 const dropList = document.getElementsByClassName(`dropList-${n.id}`)[0];
@@ -64,6 +68,9 @@
             onHideDropList(n) {
                 const dropList = document.getElementsByClassName(`dropList-${n.id}`)[0];
                 deleteClass(dropList, 'h-header-show')
+            },
+            onLoginHandle() {
+                this.$router.push('/login')
             },
             onTipHandle() {
 

@@ -117,7 +117,7 @@ export const app = {
                     href: 'https://blog.csdn.net/weixin_42390185?type=blog',
                     iconClass: 'CSDN'
                 }
-            ]
+            ],
         },
         section: {
             homePageImg: require('@/assets/img/1.jpg'), // 主页背景图

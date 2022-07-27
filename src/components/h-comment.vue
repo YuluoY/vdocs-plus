@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="h-comment-wrapper"
+         :style="`flex-direction: ${isReverse ? 'column-reverse' : 'column'}`">
         <div class="h-comment">
             <div class="header">
                 <div class="img">
@@ -79,6 +80,9 @@
 
     export default {
         name: "HComment",
+        props: {
+            isReverse: {type: Boolean, default: false}
+        },
         data() {
             return {
                 imgUrl: require('../assets/img/1.jpg'),
@@ -118,8 +122,8 @@
                 this.words = this.replaceAll(this.content, ['&nbsp;', ' ', '<br>', '<div>', '</div>'], '').length;
             },
             getUserInfo() {
-                const user = JSON.parse(localStorage.getItem('userQQInfo')).data;
-                if (user.name === this.name) return;
+                const user = JSON.parse(localStorage.getItem('userQQInfo') || "{}").data;
+                // if (user && user.name === this.name) return;
                 if (this.name) {
                     const xhr = new XMLHttpRequest();
                     xhr.open('GET', 'https://api.usuuu.com/qq/' + this.name);
@@ -156,7 +160,7 @@
             commentInfo: state => state.comment.commentInfo
         }),
         mounted() {
-            const data = JSON.parse(localStorage.getItem('userQQInfo')).data;
+            const data = JSON.parse(localStorage.getItem('userQQInfo') || '{}').data;
             if (data) {
                 this.name = data.name;
                 this.imgUrl = data.avatar;
@@ -167,189 +171,195 @@
 </script>
 
 <style scoped lang="scss">
-  .h-comment {
-    width: 80em;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px silver;
-    margin: 30px auto;
-    font-size: .8em;
+  .h-comment-wrapper{
+    display: flex;
 
-    .header {
-      display: flex;
-      padding: 0 1em;
-
-      .img {
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 5px;
-          margin-top: 10px;
-          margin-right: 10px;
-        }
-      }
-
-      .name {
-        line-height: 78px;
-        flex: 1;
-      }
-
-      .email {
-        line-height: 78px;
-        flex: 1;
-      }
-
-      .address {
-        line-height: 78px;
-        flex: 1;
-      }
-
-      input {
-        line-height: 3em;
-        display: inline-block;
-        width: 100%;
-        border: none;
-        border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
-        font-size: 1.3em;
-
-        &:focus {
-          outline: none;
-          border: none;
-          border-bottom: 1px dashed #409eff;
-        }
-      }
-    }
-
-    .center {
-      width: 100%;
-      position: relative;
-
-      .content {
-        width: 98%;
-        margin: 0 auto;
-        padding: 1em;
-
-        .textarea {
-          outline: none;
-          border: none;
-          word-break: break-all;
-          width: 100%;
-          min-height: 220px;
-          overflow: hidden;
-          font-family: 宋体;
-          font-size: 1.2em;
-        }
-      }
-    }
-
-    .footer {
-      border-top: dashed 1px silver;
-      display: flex;
-
-      .function {
-        flex-grow: 1;
-        text-align: right;
-
-        span {
-          border: none;
-          line-height: 60px;
-          margin: .3em 1em;
-          background-color: unset;
-          font-size: 1.4em;
-          transition: .6s;
-          color: rgba(0, 0, 0, 0.7);
-
-          &:hover {
-            cursor: pointer;
-            color: #409eff;
-          }
-        }
-      }
-
-      .count {
-        width: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1em;
-
-        .words {
-          font-size: 1.2em;
-          color: silver;
-        }
-      }
-    }
-  }
-
-  .comment-display-wrapper {
-    width: 64em;
-    margin: 20px auto;
-
-    .comment-title {
-      font-size: 1.8em;
-      font-weight: bolder;
-      letter-spacing: 10px;
-      color: #34495E;
-      transition: .7s;
-      padding: 10px 15px;
+    .h-comment {
+      width: 80em;
       border-radius: 5px;
+      box-shadow: 0px 0px 10px silver;
+      margin: 30px auto;
+      font-size: .8em;
 
-      &:active {
-        transform: rotateX(360deg);
-        background-color: #409eff;
-      }
-    }
+      .header {
+        display: flex;
+        padding: 0 1em;
 
-    .comment-item-wrapper {
-      display: flex;
-      flex-direction: column;
-      margin-top: 20px;
-
-      .comment-item {
-        .top-info {
-          display: flex;
-
-          .img {
+        .img {
+          img {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-right: 10px;
           }
+        }
 
-          .right {
-            flex-grow: 1;
-            padding: 0 1em;
-            line-height: 1.7em;
+        .name {
+          line-height: 78px;
+          flex: 1;
+        }
 
-            .releaseDate {
-              color: silver;
+        .email {
+          line-height: 78px;
+          flex: 1;
+        }
+
+        .address {
+          line-height: 78px;
+          flex: 1;
+        }
+
+        input {
+          line-height: 3em;
+          display: inline-block;
+          width: 100%;
+          border: none;
+          border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+          font-size: 1.3em;
+
+          &:focus {
+            outline: none;
+            border: none;
+            border-bottom: 1px dashed #409eff;
+          }
+        }
+      }
+
+      .center {
+        width: 100%;
+        position: relative;
+
+        .content {
+          width: 98%;
+          margin: 0 auto;
+          padding: 1em;
+
+          .textarea {
+            outline: none;
+            border: none;
+            word-break: break-all;
+            width: 100%;
+            min-height: 220px;
+            overflow: hidden;
+            font-family: 宋体;
+            font-size: 1.2em;
+          }
+        }
+      }
+
+      .footer {
+        border-top: dashed 1px silver;
+        display: flex;
+
+        .function {
+          flex-grow: 1;
+          text-align: right;
+
+          span {
+            border: none;
+            line-height: 60px;
+            margin: .3em 1em;
+            background-color: unset;
+            font-size: 1.4em;
+            transition: .6s;
+            color: rgba(0, 0, 0, 0.7);
+
+            &:hover {
+              cursor: pointer;
+              color: #409eff;
             }
           }
         }
 
-        .content-wrapper {
+        .count {
+          width: auto;
           display: flex;
-          flex-direction: column;
-          width: 93%;
-          float: right;
-          padding: 10px 0;
+          align-items: center;
+          justify-content: center;
+          padding: 1em;
 
-          .main {
-            flex: 1;
+          .words {
+            font-size: 1.2em;
+            color: silver;
+          }
+        }
+      }
+    }
+
+    .comment-display-wrapper {
+      width: 64em;
+      margin: 20px auto;
+
+      .comment-title {
+        font-size: 1.8em;
+        font-weight: bolder;
+        letter-spacing: 10px;
+        color: #34495E;
+        transition: .7s;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:active {
+          transform: rotateX(360deg);
+          background-color: #409eff;
+        }
+      }
+
+      .comment-item-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        .comment-item {
+          .top-info {
+            display: flex;
+
+            .img {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+            }
+
+            .right {
+              flex-grow: 1;
+              padding: 0 1em;
+              line-height: 1.7em;
+
+              .releaseDate {
+                color: silver;
+              }
+            }
           }
 
-          .main-func {
+          .content-wrapper {
             display: flex;
-            color: red;
-            margin-top: 20px;
-            margin-bottom: 50px;
-            align-items: center;
+            flex-direction: column;
+            width: 93%;
+            float: right;
+            padding: 10px 0;
 
-            & > div {
-              cursor: pointer;
-              margin-right: 20px;
+            .main {
+              flex: 1;
+            }
+
+            .main-func {
+              display: flex;
+              color: red;
+              margin-top: 20px;
+              margin-bottom: 50px;
+              align-items: center;
+
+              & > div {
+                cursor: pointer;
+                margin-right: 20px;
+              }
             }
           }
         }
       }
     }
   }
+
 </style>

@@ -4,7 +4,8 @@ import {isEmptyObj, merge} from "@/utils";
 const Axios = axios.create();
 
 const baseConfigure = {
-    baseURL: process.env.VUE_APP_BASE_URL,
+    // baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL:'http://localhost:3000/api',
     timeout: 10000
 }
 
@@ -38,6 +39,7 @@ const request = async function (options, obj = {}, bind = null, callback = null)
     typeof callback === "function" && callback(res); // 如果有回调，就将值传入回调并使用回调函数
     return res;
 };
+
 
 function requestMiddleWare(options, obj) {
     if (!options["method"] || isEmptyObj(obj)) return options;

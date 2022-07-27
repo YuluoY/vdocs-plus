@@ -1,6 +1,6 @@
 module.exports = {
     async defaultDao(req, res) {
-        const result = await req.Model.find().lean();
+        const result = await req.Model.find()
         return result;
     }
 }

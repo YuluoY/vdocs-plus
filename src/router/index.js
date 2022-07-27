@@ -1,56 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from "@/store";
-import {merge} from "@/utils";
 
 Vue.use(VueRouter)
+import {staticRoutes, build} from "@/router/routes";
+import store from "@/store";
 
-const routes = [
-    {
-        path: '/',
-        redirect: '/home'
-    },
-    {
-        path: '/home',
-        name: 'Home',
-        component: () => import('@/views/Home')
-    },
-]
+const buildNavRoutes = build(store.state.app.header.nav)
+const routes = [...staticRoutes, ...buildNavRoutes]
 
-
-const baseRouterArr = [];
-routes.forEach(item => baseRouterArr.push(item.path))
-
-const dynamicRouter = buildNavRoutes(store.state.app.header.nav)
-
-// 构建动态路由
-function buildNavRoutes(arr, routes = []) {
-    const routerArr = routes
-    arr.forEach(item => {
-        const router = {};
-        if (!baseRouterArr.includes(item.path)) {
-            router.path = item.path;
-            router.component = () => import(`@/views/${item.label}`);
-            router.meta = item;
-            if (item.children) {
-                router.children = buildNavRoutes(item.children);
-            }
-            routerArr.push(router)
-        }
-    })
-    return routerArr;
-}
-
-// 将所有路由页面路径暴露出去
+// 将所有前端路由页面路径暴露出去
 window.$hRoutes = window.$hRoutes || Object.create({});
-window.$hRoutes = {...routes, ...dynamicRouter};
+window.$hRoutes = routes;
 
 const router = new VueRouter({
     routes,
     base: process.env.BASE_URL,
 })
-
-// 添加动态路由
-setTimeout(() => dynamicRouter.forEach(item => router.addRoute(item)));
 
 export default router

@@ -1,10 +1,9 @@
 <template>
-    <transition>
-        <button class="h-btn forbid-select-text" ref="btn"
-                :disabled="disabled">
-            <slot></slot>
-        </button>
-    </transition>
+    <button class="h-btn forbid-select-text" ref="btn"
+
+            :disabled="disabled">
+        <slot></slot>
+    </button>
 </template>
 
 <script type="text/babel">

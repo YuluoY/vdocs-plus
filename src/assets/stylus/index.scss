@@ -67,10 +67,128 @@
 
 .log {
   .log-wrapper {
+    width: 75%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column-reverse;
 
+    .log-item {
+      margin: 20px 0;
+
+      .year {
+        .year-text {
+          font-size: 3em;
+          text-align: center;
+          background-color: #409eff;
+          color: white;
+        }
+
+
+        .log-info {
+          display: flex;
+          font-size: 1.2em;
+          background-color: rgba(222, 225, 230, 1);
+          //margin-top: 20px;
+          padding: 20px 0 20px 40px;
+          position: relative;
+          align-items: center;
+
+          .github-update {
+            margin-right: 10px;
+          }
+
+          .title {
+            flex-grow: 1;
+          }
+
+          & > span {
+            margin: 0 10px;
+          }
+
+          &:before {
+            content: "";
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #42b983;
+            position: absolute;
+            left: 15px;
+          }
+        }
+      }
+    }
   }
 }
 
+.login {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  .bg-blur {
+    position: absolute;
+    top: -2.5%;
+    left: -2.5%;
+    z-index: -3;
+    height: 105%;
+    width: 105%;
+    filter: blur(4px);
+    background-image: url("../../assets/img/2.jpg");
+    background-repeat: no-repeat;
+    background-position: center/cover;
+    background-size: 100% 100%;
+    //filter: invert(1) hue-rotate(270deg);
+  }
+
+  .login-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .box {
+      width: 40%;
+      height: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.1);
+      color: white;
+      text-shadow: 5px 0px 10px black;
+      font-size: 1.3em;
+      transition: .8s;
+
+      &:hover {
+        width: 100%;
+        height: 100vh;
+        //transform: rotate(360deg);
+        background-color: rgba(64, 158, 255, 0.1);
+      }
+
+      & > div {
+        margin-top: 20px;
+      }
+      button{
+        margin-left: 20px;
+      }
+      input {
+        outline: none;
+        border-radius: 45px;
+        border: none;
+        padding: 5px 20px;
+        transition: .8s;
+        font-size: .8em;
+
+        &:focus {
+          outline: solid 2px #409eff;
+        }
+      }
+    }
+  }
+}
 
 
 

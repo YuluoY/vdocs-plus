@@ -374,4 +374,91 @@
     width: 75%;
     margin: 20px auto; }
 
+.log .log-wrapper {
+  width: 75%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column-reverse; }
+  .log .log-wrapper .log-item {
+    margin: 20px 0; }
+    .log .log-wrapper .log-item .year .year-text {
+      font-size: 3em;
+      text-align: center;
+      background-color: #409eff;
+      color: white; }
+    .log .log-wrapper .log-item .year .log-info {
+      display: flex;
+      font-size: 1.2em;
+      background-color: #dee1e6;
+      padding: 20px 0 20px 40px;
+      position: relative;
+      align-items: center; }
+      .log .log-wrapper .log-item .year .log-info .github-update {
+        margin-right: 10px; }
+      .log .log-wrapper .log-item .year .log-info .title {
+        flex-grow: 1; }
+      .log .log-wrapper .log-item .year .log-info > span {
+        margin: 0 10px; }
+      .log .log-wrapper .log-item .year .log-info:before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #42b983;
+        position: absolute;
+        left: 15px; }
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden; }
+  .login .bg-blur {
+    position: absolute;
+    top: -2.5%;
+    left: -2.5%;
+    z-index: -3;
+    height: 105%;
+    width: 105%;
+    filter: blur(4px);
+    background-image: url("../../assets/img/2.jpg");
+    background-repeat: no-repeat;
+    background-position: center/cover;
+    background-size: 100% 100%; }
+  .login .login-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; }
+    .login .login-wrapper .box {
+      width: 40%;
+      height: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.1);
+      color: white;
+      text-shadow: 5px 0px 10px black;
+      font-size: 1.3em;
+      transition: .8s; }
+      .login .login-wrapper .box:hover {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(64, 158, 255, 0.1); }
+      .login .login-wrapper .box > div {
+        margin-top: 20px; }
+      .login .login-wrapper .box button {
+        margin-left: 20px; }
+      .login .login-wrapper .box input {
+        outline: none;
+        border-radius: 45px;
+        border: none;
+        padding: 5px 20px;
+        transition: .8s;
+        font-size: .8em; }
+        .login .login-wrapper .box input:focus {
+          outline: solid 2px #409eff; }
+
 /*# sourceMappingURL=index.css.map */

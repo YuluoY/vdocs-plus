@@ -27,8 +27,8 @@ const install = function (Vue) {
     if (Vue.prototype.$isServer) return;
 
     components.forEach(c => Vue.component(c.name, c));
-    Vue.prototype.$notify = Notification
-    Vue.prototype.$loading = Loading;
+    Vue.prototype.$hNotify = Notification
+    Vue.prototype.$hLoading = Loading;
 }
 
 export default {

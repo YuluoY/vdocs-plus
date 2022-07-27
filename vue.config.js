@@ -10,8 +10,9 @@ module.exports = {
     lintOnSave: false,
     publicPath: PUBLIC_PATH,
     devServer: {
-        port: PORT
+        port: PORT,
     },
+
 
     configureWebpack: {
         name: TITLE
@@ -26,7 +27,7 @@ module.exports = {
             .test(/.svg$/)
             .include.add(resolve(ICON_PACKAGE_PATH)).end()
             .use('svg-sprite-loader')
-                .loader('svg-sprite-loader')
-                .options({symbolId: 'icon-[name]'});
+            .loader('svg-sprite-loader')
+            .options({symbolId: 'icon-[name]'});
     }
 }

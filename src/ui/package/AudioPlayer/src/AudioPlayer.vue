@@ -16,7 +16,7 @@
                 <div class="left" ref="left"
                      :title="'当前歌曲：'+currentSong.song">
                     <div class="halt-wrapper"
-                         @click.prevent.self="!isShowSongInfoX && (isShowSongInfoX=!isShowSongInfoX)">
+                         @click.prevent.self="onShrinkPlayer">
                     <span class="halt-icon iconfont icon-zanting"
                           title="播放" v-show="!isPlay"
                           @click="onAudioSwitch"></span>
@@ -109,6 +109,8 @@
             onShrinkPlayer() {
                 this.isShowSongListX && (this.isShowSongListX = !this.isShowSongListX);
                 this.isShowSongInfoX = !this.isShowSongInfoX;
+                const info = {isShowSongInfo: this.isShowSongInfoX}
+                localStorage.setItem('h-audio-player', JSON.stringify(info));
             },
             // 显示/隐藏歌曲列表
             onSwitchSongList() {
@@ -180,13 +182,20 @@
                 this.onChangeSongBgStyle(this.defaultSong)
                 this.currentSong = this.songList[this.defaultSong]
             })
+
             // setTimeout(() => this.onChange(this.defaultSong + 1))
             window.onload = () => {
+
                 const audio = document.getElementById('h-audio-player');
                 audio.load();  // 加载音频
                 audio.oncanplay = () => {  // 音频能播放时执行
                     this.durationStr = this.setAudioDuration(audio, 'duration');
                     this.setAudioVolume(audio, this.volume);
+
+                    setTimeout(() => {
+                        const info = JSON.parse(localStorage.getItem('h-audio-player') || '{}');
+                        this.isShowSongInfoX = info.isShowSongInfo;
+                    }, 100)
                 }
             }
         }
@@ -214,6 +223,7 @@
     border-top: solid .1px black;
     border-right: solid .1px black;
     border-bottom: solid .1px black;
+    z-index: 9999999999999999999;
 
     .h-audio-player-wrapper {
       width: 100%;
@@ -328,7 +338,7 @@
                 font-size: 2.5rem;
                 color: #409eff;
                 bottom: 0;
-                z-index: 99;
+                z-index: 999;
 
                 &:hover {
                   cursor: pointer;
