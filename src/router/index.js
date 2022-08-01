@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-import {staticRoutes, build} from "@/router/routes";
+import {staticRoutes} from "./routes";
+import {build} from "./routerUtils";
 import store from "@/store";
 
 const buildNavRoutes = build(store.state.app.header.nav)
-const routes = [...staticRoutes, ...buildNavRoutes]
+const buildAdminRoutes = build(store.state.admin.sidebar, 'server')
+const routes = [...staticRoutes, ...buildNavRoutes, ...buildAdminRoutes]
 
 // 将所有前端路由页面路径暴露出去
 window.$hRoutes = window.$hRoutes || Object.create({});

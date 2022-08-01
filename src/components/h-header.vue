@@ -17,7 +17,7 @@
                             :title="n.title"
                             style="display: flex;align-items: center;">
                         <svg-icon :icon-class="n.iconClass"></svg-icon>
-                        <span style="margin-left: 5px;">{{ n.chineseLabel }}</span>
+                        <span style="margin-left: 5px;">{{ n.label }}</span>
                         <svg-icon v-if="n.children" icon-class="drop-down"></svg-icon>
                     </h-router-link>
                     <div :class="`dropList-wrapper dropList-${i}`" v-if="n.children">
@@ -25,7 +25,7 @@
                                 v-for="(item, i) in n.children" :key='i'
                                 :href="item.path"
                                 :title="item.title">
-                            <span>{{ item.chineseLabel }}</span>
+                            <span>{{ item.label }}</span>
                         </h-router-link>
                     </div>
                 </div>
@@ -88,6 +88,7 @@
             document.body.addEventListener('scroll', () => {
                 const header = document.getElementsByClassName('h-header')[0];
                 const sidebar = document.getElementsByClassName('h-sidebar')[0];
+                if(!header || !sidebar) return;
                 if (document.body.scrollTop >= document.body.clientHeight - 30) {
                     deleteClass(header, ['h-header-transparent', 'h-header-show'])
                     addClass(header, 'h-header-hide')
@@ -104,6 +105,7 @@
         },
         beforeDestroy() {
             document.body.removeEventListener('scroll', () => {
+                console.log('销毁顶部导航')
             });
         }
     }

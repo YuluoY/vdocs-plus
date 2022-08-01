@@ -14,5 +14,12 @@ module.exports = {
         }catch (e){
             res.status(status).send(e.message)
         }
+    },
+
+    createMkdir(path){
+        const fs = require('fs')
+        if(!fs.existsSync(path)){
+            fs.mkdirSync(path)
+        }
     }
 }

@@ -333,6 +333,17 @@
       .h-main .h-footer-wrapper .footer-info-wrapper > div {
         margin-top: 10px; }
 
+::-webkit-scrollbar {
+  width: 8px; }
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #409eff; }
+
 .router-link-active {
   color: #2a8ee1;
   border-bottom: #2a8ee1 solid 2px; }

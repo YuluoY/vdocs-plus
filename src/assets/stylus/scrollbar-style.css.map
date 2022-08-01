@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,mBAAoB;EAClB,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;;AAGd,yBAAyB;EACvB,kBAAkB,EAAE,gCAA4B;EAChD,gBAAgB,EAAE,OAAkB;EACpC,aAAa,EAAE,GAAG;;AAIpB,yBAAyB;EACvB,aAAa,EAAE,GAAG;EAClB,kBAAkB,EAAE,gCAA4B;EAChD,gBAAgB,EAAE,OAAO;;AAG3B,0BAA2B;EACzB,gBAAgB,EAAC,KAAkB;;AAGrC,0BAA2B;EACzB,UAAU,EAAE,OAAgB",
+"sources": ["../../../../../%E6%A1%8C%E9%9D%A2/vdocs-plus/src/assets/stylus/scrollbar-style.scss"],
+"names": [],
+"file": "scrollbar-style.css"
+}

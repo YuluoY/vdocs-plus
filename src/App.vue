@@ -1,15 +1,15 @@
 <template>
     <div id="app">
-        <h-header :is-header="isHeader && !isAdmin"></h-header>
+        <h-header :is-header="!isLogin && isHeader"></h-header>
         <router-view/>
         <h-back-to-top :speed="10"></h-back-to-top>
         <h-audio-player
-                :is-disabled="isHeader && !isAdmin"
+                :is-disabled="!isLogin && isHeader"
                 :song-list="songList"
                 :default-song="5"
                 :volume="0.7"></h-audio-player>
         <!-- 评论区 -->
-        <h-comment v-if="isHome && !isAdmin"></h-comment>
+        <h-comment v-if="!isLogin && isComment"></h-comment>
         <h-progress></h-progress>
     </div>
 </template>
@@ -27,7 +27,7 @@
             }
         },
         computed: {
-            isHome() {
+            isComment() {
                 const blacklist = ['/home', '/message', '/login']
                 return !(blacklist.includes(this.$route.path));
             },
@@ -35,8 +35,15 @@
                 const blacklist = ['/login']
                 return !(blacklist.includes(this.$route.path))
             },
-            isAdmin() {
+            isLogin() {
                 return this.$store.getters["router/updateStore"]
+            },
+        },
+        watch: {
+            $route(to, from) {
+                if (['/home', '/login'].includes(to.path)) {
+                    this.$store.commit('router/changeLoginState', false);
+                }
             }
         },
         mounted() {

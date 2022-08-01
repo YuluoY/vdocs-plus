@@ -1,7 +1,7 @@
-export const router = {
+export default {
     namespaced: true,
     state: {
-        isLogin: true,
+        isLogin: JSON.stringify(localStorage.getItem('h-admin-login') || ''),
         routerArr: [
             {}
         ],
@@ -10,8 +10,8 @@ export const router = {
     mutations: {
         changeLoginState(state, bool) {
             state.isLogin = bool;
+            localStorage.setItem('h-admin-login', JSON.stringify(state.isLogin));
         },
-
         saveRouter(state, routes) {
             state.routerArr = routes;
         },

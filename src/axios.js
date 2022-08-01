@@ -3,7 +3,7 @@ import {isEmptyObj, merge} from "@/utils";
 
 const Axios = axios.create();
 
-const baseConfigure = {
+export const baseConfigure = {
     // baseURL: process.env.VUE_APP_BASE_URL,
     baseURL:'http://localhost:3000/api',
     timeout: 10000

@@ -1,4 +1,4 @@
-export const app = {
+export default {
     namespaced: true,
     state: {
         header: {
@@ -7,8 +7,8 @@ export const app = {
                     id: '0',
                     imgUrl: require('@/assets/img/1.gif'),
                     title: '我的小屋',
-                    label: 'Home',
-                    chineseLabel: '首页',
+                    component: 'Home',
+                    label: '首页',
                     path: '/home',
                     iconClass: 'home'
                 },
@@ -16,41 +16,41 @@ export const app = {
                     id: '1',
                     imgUrl: require('@/assets/img/hudieren.jpg'),
                     title: '文章分类',
-                    label: 'Category',
-                    chineseLabel: '分类',
+                    label: '分类',
                     path: '/category',
+                    component: 'Category',
                     iconClass: 'category',
                     children: [
                         {
-                            id: '1-1',
+                            id:'1-1',
                             imgUrl: require('@/assets/img/1.jpg'),
                             title: '我的文章',
-                            label: 'Article',
-                            chineseLabel: '我的文章',
+                            label: '我的文章',
+                            component: 'Article',
                             path: '/category/article'
                         },
                         {
-                            id: '1-2',
+                            id:'1-2',
                             imgUrl: require('@/assets/img/main_img.jpg'),
                             title: '生活随感',
-                            label: 'Life',
-                            chineseLabel: '生活随感',
+                            label: '生活随感',
+                            component: 'Life',
                             path: '/category/life'
                         },
                         {
-                            id: '1-3',
+                            id:'1-3',
                             imgUrl: require('@/assets/img/hudieren.jpg'),
                             title: '文摘小屋',
-                            label: 'Abstract',
-                            chineseLabel: '文摘小屋',
+                            label: '文摘小屋',
+                            component: 'Abstract',
                             path: '/category/abstract'
                         },
                         {
-                            id: '1-4',
+                            id:'1-4',
                             imgUrl: require('@/assets/img/1.jpg'),
                             title: '学习笔记',
-                            label: 'Note',
-                            chineseLabel: '学习笔记',
+                            label: '学习笔记',
+                            component: 'Note',
                             path: '/category/note'
                         }
                     ]
@@ -59,8 +59,8 @@ export const app = {
                     id: '2',
                     imgUrl: require('@/assets/img/1.jpg'),
                     title: '文章归档',
-                    label: 'File',
-                    chineseLabel: '归档',
+                    label: '归档',
+                    component: 'File',
                     path: '/file',
                     iconClass: 'guidang'
                 },
@@ -68,8 +68,8 @@ export const app = {
                     id: '3',
                     imgUrl: require('@/assets/img/main_img.jpg'),
                     title: '关于我',
-                    label: 'About',
-                    chineseLabel: '关于',
+                    label: '关于',
+                    component: 'About',
                     path: '/about',
                     iconClass: 'about'
                 },
@@ -77,8 +77,8 @@ export const app = {
                     id: '4',
                     imgUrl: require('@/assets/img/1.jpg'),
                     title: '留言',
-                    label: 'Message',
-                    chineseLabel: '留言',
+                    label: '留言',
+                    component: "Message",
                     path: '/message',
                     iconClass: 'liuyan'
                 },
@@ -86,8 +86,8 @@ export const app = {
                     id: '5',
                     imgUrl: require("@/assets/img/main_img.jpg"),
                     title: '站点日志',
-                    label: 'Log',
-                    chineseLabel: '日志',
+                    label: '日志',
+                    component: 'Log',
                     path: '/log',
                     iconClass: 'log'
                 },

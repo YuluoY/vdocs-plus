@@ -1,4 +1,4 @@
-export const user = {
+export default {
     namespaced: true,
     state: {
         userInfo: {

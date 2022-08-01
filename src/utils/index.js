@@ -1,4 +1,27 @@
 import dayjs from 'dayjs';
+import {Loading, MessageBox} from "element-ui";
+
+// 比较两个对象是否相等
+export function compareWithTwoObj(obj1, obj2) {
+    let bool = true;
+    Object.keys(obj1).forEach(key => {
+        obj1[key] !== obj2[key] && (bool = false)
+        if(!bool) return bool;
+    });
+    return bool;
+}
+// 消息确认
+export function confirmTip(text, title = "提示", type = "warning") {
+    return MessageBox.confirm(text, title, {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: type
+    }).then(() => {
+        return true;
+    }).catch(() => {
+        return false;
+    });
+}
 
 // 日期格式化
 export function formatDate(time, format = "YYYY年MM月DD日 HH:mm:ss") {
@@ -54,15 +77,15 @@ export function objectDeepClone(target, source) {
 }
 
 // 加载效果
-// export function loading(dom, text) {
-//     return Loading.service({
-//         lock: true, //lock的修改符--默认是false
-//         text: text || "Loading...", //显示在加载图标下方的加载文案
-//         spinner: "el-icon-loading", //自定义加载图标类名
-//         background: "rgba(0, 0, 0, 0.7)",//遮罩层颜色
-//         target: dom || document.body //loadin覆盖的dom元素节点
-//     });
-// };
+export function loading(dom, text) {
+    return Loading.service({
+        lock: true, //lock的修改符--默认是false
+        text: text || "Loading...", //显示在加载图标下方的加载文案
+        spinner: "el-icon-loading", //自定义加载图标类名
+        background: "rgba(0, 0, 0, 0.7)",//遮罩层颜色
+        target: dom || document.body //loadin覆盖的dom元素节点
+    });
+};
 
 export function isEmptyObj(obj) {
     return JSON.stringify(obj) === "{}";

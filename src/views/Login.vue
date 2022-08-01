@@ -16,9 +16,11 @@
                 </div>
                 <div>
                     <h-button type="primary" title="登录"
-                              @click.native="onLogin">登录</h-button>
+                              @click.native="onLogin">登录
+                    </h-button>
                     <h-button type="primary" title="返回主页继续浏览"
-                              @click.native="$router.push('/')">返回</h-button>
+                              @click.native="$router.push('/')">返回
+                    </h-button>
                 </div>
             </div>
         </div>

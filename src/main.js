@@ -12,11 +12,7 @@ import UI from './ui'
 import './ui/stylus/index.css'
 import './assets/css/animate.min.css'
 
-import VueMarkdownEditor from '@/plugins/VueMarkdownEditor/index'
-
 import './ElementUI'
-
-Vue.use(VueMarkdownEditor);
 
 Vue.config.productionTip = false
 Vue.prototype.$apis = apis;

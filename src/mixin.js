@@ -33,3 +33,22 @@ export const useSubBackgroundImgMixin = {
         }
     },
 }
+
+
+export const useVue2FlipCountdownMixin = {
+    data() {
+        return {
+            currentYear: new Date().getFullYear(),
+        }
+    },
+    methods: {
+        timeElapsedHandle() {
+            this.currentYear += 1;
+        }
+    },
+    computed: {
+        deadline() {
+            return `${this.currentYear}-12-23 00:00:00`
+        }
+    }
+}

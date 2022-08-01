@@ -1,11 +1,11 @@
 <template>
     <div class="admin">
         <el-container>
-            <el-aside width="200px">
-                <a-sidebar></a-sidebar>
-            </el-aside>
+            <a-sidebar></a-sidebar>
             <el-container>
-                <el-header>Header</el-header>
+                <el-header>
+                    <a-header></a-header>
+                </el-header>
                 <el-main>
                     <router-view></router-view>
                 </el-main>
@@ -17,9 +17,12 @@
 <script>
 
     import ASidebar from "@/server/a-sidebar";
+    import AHeader from "@/server/a-header";
+
     export default {
         name: "Admin",
-        components:{
+        components: {
+            AHeader,
             ASidebar
         },
         computed: {
@@ -28,38 +31,24 @@
             }
         },
         beforeMount() {
-            // if (!(this.isLogin)) {
-            //     this.$notify.info('您没有访问的权限~');
-            //     this.$router.push('/')
-            // }
+            if (!(this.isLogin)) {
+                this.$notify.info('您没有访问的权限~');
+                this.$router.push('/')
+            }
         },
     }
 </script>
 
 <style scoped lang="scss">
-  .el-header {
-    color: #333;
-    text-align: center;
-  }
-
-  .el-aside {
-    color: white;
-    text-align: center;
-    background: rgba(43,43,43,1);
-    min-height: 100vh;
-  }
 
   .el-main {
-    text-align: center;
+    background-color: #E9EEF3;
+    color: #333;
+    min-height: 90vh;
+    float: right;
   }
-
-  body > .el-container {
-  }
-
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-  }
-
-  .el-container:nth-child(7) .el-aside {
+  .el-header{
+    padding: 0 !important;
+    height: 10vh !important;
   }
 </style>

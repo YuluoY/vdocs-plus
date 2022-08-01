@@ -1,4 +1,4 @@
-export const comment = {
+export default {
     namespaced: true,
     state: {
         commentInfo: [
