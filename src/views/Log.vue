@@ -12,7 +12,7 @@
                     <div class="log-info"
                          v-for="(d, j) in yearFilter(y)" :key="j">
                         <div class="github-update">
-                            <h-router-link href="#">[G]</h-router-link>
+                            <h-router-link :href="d.href">[G]</h-router-link>
                         </div>
                         <div class="date">{{ d.releaseDate.substring(5, d.releaseDate.length) }}</div>
                         <span>/</span>

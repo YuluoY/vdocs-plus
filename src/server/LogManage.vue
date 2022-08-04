@@ -2,7 +2,10 @@
     <div class="logManage">
         <el-form style="margin-bottom: 70px;">
             <el-form-item label="类别名称：" label-width="90px">
-                <el-input v-model="model.title" placeholder="请输入日志" @keydown.enter.native="onSubmit"></el-input>
+                <el-input v-model="model.title" placeholder="请输入日志"></el-input>
+            </el-form-item>
+            <el-form-item label="提交地址：" label-width="90px">
+                <el-input v-model="model.href" placeholder="请输入GitHub提交地址" @keydown.enter.native="onSubmit"></el-input>
             </el-form-item>
             <el-form-item label="发布日期：" label-width="90px">
                 <el-date-picker v-model="model.releaseDate" type="date" value-format="timestamp"></el-date-picker>
@@ -17,12 +20,13 @@
                 style="width: 100%">
             <el-table-column label="Id" prop="_id"></el-table-column>
             <el-table-column label="日志" prop="title"></el-table-column>
-            <el-table-column label="发布日期" prop="releaseDate">
+            <el-table-column label="链接" prop="href"></el-table-column>
+            <el-table-column label="发布日期" prop="releaseDate" width="120px">
                 <template slot-scope="scope">
                     {{ formatDate(scope.row.releaseDate, 'YYYY年MM月DD日') }}
                 </template>
             </el-table-column>
-            <el-table-column label="更新日期" prop="updateDate">
+            <el-table-column label="更新日期" prop="updateDate" width="120px">
                 <template slot-scope="scope">
                     {{ formatDate(scope.row.updateDate, 'YYYY年MM月DD日') }}
                 </template>
@@ -43,6 +47,9 @@
                 <el-form-item label="日志：" label-width="90px">
                     <el-input v-model="form.title" autocomplete="off"></el-input>
                 </el-form-item>
+                <el-form-item label="链接：" label-width="90px">
+                    <el-input v-model="form.href" autocomplete="off"></el-input>
+                </el-form-item>
                 <el-form-item label="发布日期：" label-width="90px">
                     <el-date-picker v-model="form.releaseDate" type="date" value-format="timestamp"></el-date-picker>
                 </el-form-item>
@@ -51,8 +58,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="onUpdateLog">确 定</el-button>
+                <el-button @click="dialogFormVisible = false">取消</el-button>
+                <el-button type="primary" @click="onUpdateLog">确定</el-button>
             </div>
         </el-dialog>
     </div>
