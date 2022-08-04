@@ -9,7 +9,14 @@
                     <el-input type="text" placeholder="请输入作者" v-model="model.author"></el-input>
                 </el-form-item>
                 <el-form-item label="类别：" label-width="60px">
-                    <el-input type="text" placeholder="请输入类别" v-model="model.categories"></el-input>
+                    <el-select v-model="model.categories" placeholder="请选择" multiple style="width: 100%;">
+                        <el-option
+                                v-for="item in categories"
+                                :key="item._id"
+                                :label="item.cateName"
+                                :value="item._id">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="描述：" label-width="60px">
                     <el-input type="text" placeholder="请输入描述" v-model="model.desc"></el-input>
@@ -65,11 +72,14 @@
             return {
                 str: '',
                 model: {
+                    categories: [],
                     releaseDate: Date.now(),
                     updateDate: Date.now(),
                     viewsNum: 0,
-                    commentNum: 0
+                    commentNum: 0,
+                    imgUrl:''
                 },
+                categories: []
             }
         },
         methods: {
@@ -91,14 +101,22 @@
                             releaseDate: Date.now(),
                             updateDate: Date.now(),
                             viewsNum: 0,
-                            commentNum: 0
+                            commentNum: 0,
+                            imgUrl: ''
                         }
                         this.str = '';
                     }
                 } else {
                     this.$message.warning('请先保存文章内容后提交！');
                 }
+            },
+            async getAllCategory() {
+                const a = await this.$apis.admin.getAllCategory('categories')
+                this.categories = a.data;
             }
+        },
+        created() {
+            this.getAllCategory();
         }
     }
 </script>

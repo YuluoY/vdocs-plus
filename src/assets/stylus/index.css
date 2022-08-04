@@ -282,12 +282,15 @@
                 font-family: "Arial", "Microsoft YaHei", "榛戜綋", "瀹嬩綋", sans-serif;
                 font-weight: bolder;
                 border-bottom: 1px solid silver;
-                padding: .6em; }
+                padding: .6em;
+                user-select: text;
+                z-index: 999999;
+                position: relative; }
               .h-main .center .h-content-wrapper .h-content .h-content-card-wrapper .h-content-card .info-wrapper .left .extra-Info-wrapper {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                font-size: .9em;
+                font-size: .8em;
                 border-top: solid 1px silver;
                 padding: 1.2em; }
                 .h-main .center .h-content-wrapper .h-content .h-content-card-wrapper .h-content-card .info-wrapper .left .extra-Info-wrapper > div {

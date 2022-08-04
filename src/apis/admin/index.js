@@ -1,5 +1,9 @@
-import {addArticle} from "@/apis/admin/articleApi";
+import * as Article from "@/apis/admin/articleApi";
+import * as Category from '@/apis/admin/categoryApi'
+import * as Log from '@/apis/admin/logApi'
 
 export default {
-    addArticle,
+    ...Article,
+    ...Category,
+    ...Log,
 }

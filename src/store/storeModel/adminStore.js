@@ -46,14 +46,30 @@ export default {
                             },
                             {
                                 id: "2-2",
-                                title: '类别',
-                                name: 'ArticleCategory',
-                                path: "/articleCategory",
-                                component: 'ArticleCategory',
-                                icon: 'category',
+                                title: '修改',
+                                name: 'ArticleUpdate',
+                                path: "/articleUpdate",
+                                component: 'ArticleUpdate',
+                                icon: 'update',
                             },
                         ]
                     },
+                    {
+                        id: '3',
+                        title: '类别管理',
+                        name: 'CategoryManage',
+                        path: "/categoryManage",
+                        component: 'CategoryManage',
+                        icon: 'category',
+                    },
+                    {
+                        id: '4',
+                        title: '日志管理',
+                        name: 'LogManage',
+                        path: '/logManage',
+                        component: 'LogManage',
+                        icon: 'log'
+                    }
                 ]
             },
 

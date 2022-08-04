@@ -8,6 +8,7 @@
                     text-color="#fff"
                     active-text-color="#ffd04b"
                     :default-active="$route.path"
+                    :default-openeds="['/admin']"
                     router
                     @open="handleOpen"
                     @close="handleClose">

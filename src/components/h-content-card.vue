@@ -5,7 +5,7 @@
             <div class="left">
                 <div class="title">{{ title }}</div>
                 <div class="detail">
-                    <span class="text-ellipse">{{ detail }}</span>
+                    <span class="text-ellipse" v-html="desc"></span>
                 </div>
                 <div class="extra-Info-wrapper">
                     <div class="date" title="发布日期">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="category" title="文章类别">
                         <svg-icon icon-class="category"></svg-icon>
-                        <span>{{ categories.join(',') }}</span>
+                        <span>{{ categories | categoriesFormat }}</span>
                     </div>
                     <div class="view" title="访问数">
                         <svg-icon icon-class="visit"></svg-icon>
@@ -43,20 +43,25 @@
     export default {
         name: "HContentCard",
         props: {
-            id: {type: Number, required: true},
-            imgUrl: {type: String, default: require("@/assets/img/hudieren.jpg")},
+            id: {type: String, required: true},
             viewNum: {type: Number, default: 0},
             commentNum: {type: Number, default: 0},
 
             title: String,
+            imgUrl: String,
             date: {type: Number, default: Date.now()},
-            detail: String,
+            desc: String,
             author: String,
             categories: Array,
         },
         filters: {
             dateFormat(val) {
                 return formatDate(val, 'YYYY年MM月DD日')
+            },
+            categoriesFormat(val) {
+                const cate = []
+                val.forEach(v => cate.push(v.cateName))
+                return cate.join('，');
             }
         },
         mounted() {

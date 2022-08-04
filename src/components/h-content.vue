@@ -4,10 +4,10 @@
             <h-content-card
                     v-for="(n, i) in dataList"
                     :key="i"
-                    :id="n.id"
-                    :imgUrl="n.imgUrl"
+                    :id="n._id"
+                    :imgUrl="n.imgUrl || $store.getters['app/getDefaultArticleImg']"
                     :title="n.title"
-                    :detail="n.detail"
+                    :desc="n.desc"
                     :viewNum="n.viewNum"
                     :commentNum="n.commentNum"
                     :categories="n.categories"
@@ -24,26 +24,17 @@
         components: {HContentCard},
         data() {
             return {
-                dataList: new Array(5).fill(
-                    {
-                        id: 1,
-                        imgUrl: require('@/assets/img/hudieren.jpg'),
-                        title: '我的考研',
-                        detail: '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。' +
-                            '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。' +
-                            '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。' +
-                            '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。' +
-                            '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。' +
-                            '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。' +
-                            '考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。考研是真的煎熬，如果没有坚定的信仰和强大的意志力劝退。',
-                        // supportNum: 2,  // 点赞数
-                        viewNum: 10, // 浏览数量
-                        commentNum: 100,
-                        categories: ['生活'],
-                        author: '雨落'
-                    }
-                )
+                dataList: []
             }
+        },
+        created() {
+            this.$store.commit('app/getContent', this);
+        },
+        mounted() {
+            setTimeout(() => {
+                this.dataList = this.$store.getters["app/getArticles"]
+                this.$forceUpdate()
+            }, 100)
         }
     }
 </script>

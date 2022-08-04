@@ -16,6 +16,12 @@ import {
     DatePicker,
     InputNumber,
     MessageBox,
+    Table,
+    TableColumn,
+    Select,
+    Option,
+    Dialog,
+    Tag,
 } from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css';
 const components = [
@@ -33,6 +39,12 @@ const components = [
     Upload,
     DatePicker,
     InputNumber,
+    Table,
+    TableColumn,
+    Select,
+    Option,
+    Dialog,
+    Tag,
 ]
 
 import Vue from "vue";

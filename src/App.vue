@@ -41,7 +41,7 @@
         },
         watch: {
             $route(to, from) {
-                if (['/home', '/login'].includes(to.path)) {
+                if (['/home', '/login', '/'].includes(to.path)) {
                     this.$store.commit('router/changeLoginState', false);
                 }
             }

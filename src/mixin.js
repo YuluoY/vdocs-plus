@@ -1,4 +1,6 @@
 // 设置一级路由背景图及标题
+import dayjs from "dayjs";
+
 export const useBackgroundImgMixin = {
     data() {
         return {
@@ -34,7 +36,6 @@ export const useSubBackgroundImgMixin = {
     },
 }
 
-
 export const useVue2FlipCountdownMixin = {
     data() {
         return {
@@ -49,6 +50,14 @@ export const useVue2FlipCountdownMixin = {
     computed: {
         deadline() {
             return `${this.currentYear}-12-23 00:00:00`
+        }
+    }
+}
+
+export const useDateFormat = {
+    methods: {
+        formatDate(time, format = "YYYY年MM月DD日 HH:mm:ss") {
+            return dayjs(time).format(format);
         }
     }
 }

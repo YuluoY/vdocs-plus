@@ -22,7 +22,7 @@ export default {
                     iconClass: 'category',
                     children: [
                         {
-                            id:'1-1',
+                            id: '1-1',
                             imgUrl: require('@/assets/img/1.jpg'),
                             title: '我的文章',
                             label: '我的文章',
@@ -30,7 +30,7 @@ export default {
                             path: '/category/article'
                         },
                         {
-                            id:'1-2',
+                            id: '1-2',
                             imgUrl: require('@/assets/img/main_img.jpg'),
                             title: '生活随感',
                             label: '生活随感',
@@ -38,7 +38,7 @@ export default {
                             path: '/category/life'
                         },
                         {
-                            id:'1-3',
+                            id: '1-3',
                             imgUrl: require('@/assets/img/hudieren.jpg'),
                             title: '文摘小屋',
                             label: '文摘小屋',
@@ -46,7 +46,7 @@ export default {
                             path: '/category/abstract'
                         },
                         {
-                            id:'1-4',
+                            id: '1-4',
                             imgUrl: require('@/assets/img/1.jpg'),
                             title: '学习笔记',
                             label: '学习笔记',
@@ -144,7 +144,10 @@ export default {
                     ]
                 }
             },
-            content: {}
+            content: {
+                articles: [],
+                defaultArticleImg: require('@/assets/img/hudieren.jpg')
+            }
         },
         footer: {
             gifUrl: require('@/assets/img/footer.gif'),
@@ -172,7 +175,30 @@ export default {
                 title: '友人帐'
             }
         },
+        pages: {
+            logPage: {
+                logs: []
+            }
+        }
     },
-    mutations: {},
+    mutations: {
+        async getContent(state, that) {
+            state.main.content.articles = (await that.$apis.web.getArticles()).data
+        },
+        async getLogs(state, that){
+            state.pages.logPage.logs = (await that.$apis.web.getLogs()).data
+        }
+    },
     actions: {},
+    getters: {
+        getArticles(state) {
+            return state.main.content.articles;
+        },
+        getLogs(state){
+            return state.pages.logPage.logs;
+        },
+        getDefaultArticleImg(state) {
+            return state.main.content.defaultArticleImg;
+        },
+    }
 }
