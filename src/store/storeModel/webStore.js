@@ -182,7 +182,7 @@ export default {
         }
     },
     mutations: {
-        async getContent(state, that) {
+        async getArticles(state, that) {
             state.main.content.articles = (await that.$apis.web.getArticles()).data
         },
         async getLogs(state, that){

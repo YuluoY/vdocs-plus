@@ -22,6 +22,7 @@ import {
     Option,
     Dialog,
     Tag,
+    Link,
 } from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css';
 const components = [
@@ -45,6 +46,7 @@ const components = [
     Option,
     Dialog,
     Tag,
+    Link,
 ]
 
 import Vue from "vue";

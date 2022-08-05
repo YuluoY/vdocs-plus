@@ -35,6 +35,7 @@ export default {
                         component: 'ArticleManage',
                         redirect: '/articleWrite',
                         icon: 'article',
+                        meta: {filePath: '/Article'},
                         children: [
                             {
                                 id: "2-1",

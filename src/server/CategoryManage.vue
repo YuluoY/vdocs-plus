@@ -16,6 +16,7 @@
             </el-form-item>
             <el-button @click="onSubmit" style="width: 100%;">提交</el-button>
         </el-form>
+
         <el-table
                 :data="tableData.filter(data => !search || data.cateName.toLowerCase().includes(search.toLowerCase()))"
                 style="width: 100%">
@@ -39,7 +40,7 @@
 
         <el-dialog title="类别编辑" :visible.sync="dialogFormVisible">
             <el-form :model="form">
-                <el-form-item>
+                <el-form-item label="父类：" label-width="120px">
                     <el-select v-model="form.parent"
                                multiple placeholder="请选择" style="width: 100%;">
                         <el-option
@@ -50,7 +51,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="类别名称" :label-width="'120px'">
+                <el-form-item label="类别名称：" :label-width="'120px'">
                     <el-input v-model="form.cateName" autocomplete="off"></el-input>
                 </el-form-item>
             </el-form>

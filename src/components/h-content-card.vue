@@ -10,7 +10,7 @@
                 <div class="extra-Info-wrapper">
                     <div class="date" title="发布日期">
                         <svg-icon icon-class="date"></svg-icon>
-                        <span>{{ date | dateFormat }}</span>
+                        <span>{{ createdAt | dateFormat }}</span>
                     </div>
                     <div class="author" title="作者">
                         <svg-icon icon-class="author"></svg-icon>
@@ -29,7 +29,7 @@
                         <span>{{ commentNum }}</span>
                     </div>
                     <div class="reading" title="阅读全文">
-                        <span>阅读全文</span>
+                        <span @click="onReading">阅读全文</span>
                     </div>
                 </div>
             </div>
@@ -49,10 +49,16 @@
 
             title: String,
             imgUrl: String,
-            date: {type: Number, default: Date.now()},
+            content:String,
+            createdAt: {type: Number, default: Date.now()},
             desc: String,
             author: String,
             categories: Array,
+        },
+        methods:{
+            onReading(){
+                console.log(this.content)
+            }
         },
         filters: {
             dateFormat(val) {
@@ -61,7 +67,7 @@
             categoriesFormat(val) {
                 const cate = []
                 val.forEach(v => cate.push(v.cateName))
-                return cate.join('，');
+                return cate.join(',');
             }
         },
         mounted() {

@@ -1,17 +1,11 @@
 <template>
     <div class="logManage">
         <el-form style="margin-bottom: 70px;">
-            <el-form-item label="类别名称：" label-width="90px">
+            <el-form-item label="日志名称：" label-width="90px">
                 <el-input v-model="model.title" placeholder="请输入日志"></el-input>
             </el-form-item>
             <el-form-item label="提交地址：" label-width="90px">
-                <el-input v-model="model.href" placeholder="请输入GitHub提交地址" @keydown.enter.native="onSubmit"></el-input>
-            </el-form-item>
-            <el-form-item label="发布日期：" label-width="90px">
-                <el-date-picker v-model="model.releaseDate" type="date" value-format="timestamp"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="更新日期：" label-width="90px">
-                <el-date-picker v-model="model.updateDate" type="date" value-format="timestamp"></el-date-picker>
+                <el-input v-model="model.href" placeholder="请输入提交地址" @keydown.enter.native="onSubmit"></el-input>
             </el-form-item>
             <el-button @click="onSubmit" style="width: 100%;">提交</el-button>
         </el-form>
@@ -20,15 +14,19 @@
                 style="width: 100%">
             <el-table-column label="Id" prop="_id"></el-table-column>
             <el-table-column label="日志" prop="title"></el-table-column>
-            <el-table-column label="链接" prop="href"></el-table-column>
-            <el-table-column label="发布日期" prop="releaseDate" width="120px">
+            <el-table-column label="链接" prop="href">
                 <template slot-scope="scope">
-                    {{ formatDate(scope.row.releaseDate, 'YYYY年MM月DD日') }}
+                    <el-link :href="scope.row.href" target="_blank">{{scope.row.href}}</el-link>
                 </template>
             </el-table-column>
-            <el-table-column label="更新日期" prop="updateDate" width="120px">
+            <el-table-column label="发布日期" prop="createdAt" width="120px">
                 <template slot-scope="scope">
-                    {{ formatDate(scope.row.updateDate, 'YYYY年MM月DD日') }}
+                    {{ formatDate(scope.row.createdAt) }}
+                </template>
+            </el-table-column>
+            <el-table-column label="更新日期" prop="updatedAt" width="120px">
+                <template slot-scope="scope">
+                    {{ formatDate(scope.row.updatedAt) }}
                 </template>
             </el-table-column>
             <el-table-column align="right">
@@ -50,12 +48,6 @@
                 <el-form-item label="链接：" label-width="90px">
                     <el-input v-model="form.href" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="发布日期：" label-width="90px">
-                    <el-date-picker v-model="form.releaseDate" type="date" value-format="timestamp"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="更新日期：" label-width="90px">
-                    <el-date-picker v-model="form.updateDate" type="date" value-format="timestamp"></el-date-picker>
-                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取消</el-button>
@@ -73,10 +65,7 @@
         mixins: [useDateFormat],
         data() {
             return {
-                model: {
-                    releaseDate: Date.now(),
-                    updateDate: Date.now()
-                },
+                model: {},
                 tableData: [],
                 search: '',
                 dialogTableVisible: false,
@@ -84,8 +73,6 @@
                 form: {
                     _id: '',
                     title: '',
-                    releaseDate: Date.now(),
-                    updateDate: Date.now()
                 }
             }
         },
@@ -94,10 +81,7 @@
                 const res = await this.$apis.admin.addLog(this.model);
                 if (res) {
                     this.$notify.success(`"${this.model.title}"日志添加成功！`)
-                    this.model = {
-                        releaseDate: Date.now(),
-                        updateDate: Date.now()
-                    };
+                    this.model = {};
                     await this.getLogs();
                 }
             },
@@ -131,5 +115,8 @@
 </script>
 
 <style scoped>
-
+    ::v-deep .el-table th,
+    ::v-deep .el-table td {
+        text-align: center !important;
+    }
 </style>

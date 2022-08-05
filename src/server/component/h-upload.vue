@@ -6,7 +6,7 @@
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <img v-if="imgUrl || localImgUrl" :src="imgUrl || localImgUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
     </div>
@@ -18,11 +18,12 @@
     export default {
         name: 'HUpload',
         props: {
-            setImgUrl: Function
+            setImgUrl: Function,
+            imgUrl: {type: String, default: ''},
         },
         data() {
             return {
-                imageUrl: '',
+                localImgUrl: '',
                 axios: ''
             };
         },
@@ -31,7 +32,7 @@
         },
         methods: {
             handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
+                this.localImgUrl = URL.createObjectURL(file.raw);
                 this.setImgUrl && this.setImgUrl(res.url)
             },
             beforeAvatarUpload(file) {

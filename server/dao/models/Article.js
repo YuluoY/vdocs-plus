@@ -7,10 +7,10 @@ const schema = new db.Schema({
     author: {type: String, require: true}, // 文章作者
     categories: [{type: db.SchemaTypes.ObjectId, ref: 'Category'}], // 文章类别
     desc: {type: String, default: '这个作者很吊，未留下描述内容！'}, // 文章描述
-    updateDate: {type: Date, default: Date.now}, // 更新时间
-    releaseDate: {type: Date, default: Date.now}, // 发布时间
+    // updateDate: {type: Date}, // 更新时间
+    // releaseDate: {type: Date}, // 发布时间
     viewNum: {type: Number, default: 1}, // 文章浏览次数
     commentNum: {type: Number, default: 0}, // 评论数
-});
+}, {timestamps: true});
 
 module.exports = db.model('Article', schema, 'article');
