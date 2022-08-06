@@ -9,11 +9,11 @@ export async function addLog(params) {
     }, params)
 }
 
-export async function getLogs(bind) {
+export async function getLogs() {
     return await request.bind(this)({
         url: BASE_URL + '/getLogs',
         method: 'get'
-    }, {}, bind)
+    })
 }
 
 export async function delLog(id) {

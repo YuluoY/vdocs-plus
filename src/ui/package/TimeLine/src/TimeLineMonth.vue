@@ -2,9 +2,10 @@
     <div :class="`month year-${year}`">
         <div class="text-month">
         <span class="text-month-span"
-              :style="`background-color:${weather(month)}`">{{ month }}</span>
-            <span :class="`scalable-month iconfont icon-${this.stretchIcon}`"
-                  @click="onSwitch($event,`month-${month}-${year}`)"></span>
+              :style="`background-color:${weather(month)}`"
+              @click="onSwitch($event,`month-${month}-${year}`)">{{ month }}</span>
+<!--            <span :class="`scalable-month iconfont icon-${this.stretchIcon}`"-->
+<!--                  @click="onSwitch($event,`month-${month}-${year}`)"></span>-->
         </div>
         <slot></slot>
     </div>
@@ -49,9 +50,9 @@
         cursor: pointer;
 
         &:active {
-          width: 100%;
-          border-radius: 5px;
-          transform: rotateX(360deg);
+          //width: 100%;
+          //border-radius: 5px;
+          //transform: rotateX(360deg);
         }
 
         &:hover {
@@ -59,7 +60,7 @@
         }
       }
 
-      span:last-child {
+      span:nth-of-type(3) {
         font-size: .9em;
         margin-right: 50px;
         color: silver;

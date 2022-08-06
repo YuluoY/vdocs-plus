@@ -4,7 +4,7 @@
             <h-time-line-year
                     v-for="(year, i) in Object.keys(models)" :key="i"
                     :year="year" :onSwitch="onSwitch" :stretch-style="stretchStyle"
-                    :annualArticle="annualArticle(year)">
+                    :annualArticles="annualArticles(year)">
                 <h-time-line-month
                         v-for="(month, j) in Object.keys(models[year])" :key="j"
                         :year="year"
@@ -14,15 +14,16 @@
                         :stretch-icon="stretchStyle.openIcon">
                     <div :class="`day-wrapper month-${month}-${year}`">
                         <h-time-line-day
-                                v-for="(day, k) in Object.keys(models[year][month])" :key="k"
+                                v-for="(d, k) in sortDays(models[year][month])" :key="k"
                                 :month="month"
-                                :day="day"
+                                :day="d.day"
                                 :weather="weather">
                             <h-time-line-item
                                     :font-size="titleStyle.fontSize"
                                     :text-color="titleStyle.textColor"
                                     :background="titleStyle.background"
-                                    :title="models[year][month][day].title">
+                                    :title="d.title"
+                                    :updatedAt="d.updatedAt">
 
                             </h-time-line-item>
                         </h-time-line-day>
@@ -40,12 +41,13 @@
     import HTimeLineMonth from "@/ui/package/TimeLine/src/TimeLineMonth";
     import HTimeLineDay from "@/ui/package/TimeLine/src/TimeLineDay";
     import {addClass, deleteClass} from "@/ui/util/dom";
+    import {arrObjectSort} from "@/utils";
 
     export default {
         name: "HTimeLine",
         components: {HTimeLineBox, HTimeLineItem, HTimeLineDay, HTimeLineMonth, HTimeLineYear},
         props: {
-            timeLineData: Array,
+            data: {type: Array, default: () => []},
             // 季节的颜色
             seasonColors: {
                 type: Object,
@@ -106,12 +108,12 @@
                     const state = getComputedStyle(item).display;
                     if (state === 'none') {
                         item.style.display = 'block';
-                        deleteClass(event.target, `icon-${this.stretchStyle.closeIcon}`);
-                        addClass(event.target, `icon-${this.stretchStyle.openIcon}`);
+                        // deleteClass(event.target, `icon-${this.stretchStyle.closeIcon}`);
+                        // addClass(event.target, `icon-${this.stretchStyle.openIcon}`);
                     } else if (state === 'block') {
                         item.style.display = 'none';
-                        deleteClass(event.target, `icon-${this.stretchStyle.openIcon}`);
-                        addClass(event.target, `icon-${this.stretchStyle.closeIcon}`);
+                        // deleteClass(event.target, `icon-${this.stretchStyle.openIcon}`);
+                        // addClass(event.target, `icon-${this.stretchStyle.closeIcon}`);
                     }
                 })
             },
@@ -121,30 +123,34 @@
                     const [year, month, day] = item.split('-');
                     if (Object.keys(obj).includes(year)) {
                         if (!obj[year][month]) {
-                            obj[year][month] = {};
+                            obj[year][month] = [];
                         }
                     } else {
                         obj[year] = {}
-                        obj[year][month] = {}
+                        obj[year][month] = []
                     }
-                    obj[year][month][day] = this.timeLineData[index]
+                    this.data[index].day = day;
+                    obj[year][month].push(this.data[index])
                 })
                 return obj;
             },
-            annualArticle(year){
+            // 计算每年的文章数
+            annualArticles(year) {
                 let articles = 0;
-                Object.keys(this.models[year]).forEach(month => {
-                    articles += Object.keys(this.models[year][month]).length
-                })
+                Object.keys(this.models[year]).forEach(month => articles += Object.keys(this.models[year][month]).length)
                 return articles;
+            },
+            sortDays(days) {
+                arrObjectSort(days, 'day');
+                return days
             }
         },
         mounted() {
             this.$nextTick(() => {
-                const releaseDateArr = []
-                this.timeLineData.forEach(item => releaseDateArr.push(item.releaseDate))
-                this.models = this.build(releaseDateArr)
-                console.log(this.models)
+                const createdAtArr = []
+                this.data.forEach(item => createdAtArr.push(item.createdAt.substring(0, 10)))
+                this.models = this.build(createdAtArr)
+                // console.log(arrObjectSort(this.models))
             })
         }
     }

@@ -16,7 +16,7 @@
             <el-table-column label="日志" prop="title"></el-table-column>
             <el-table-column label="链接" prop="href">
                 <template slot-scope="scope">
-                    <el-link :href="scope.row.href" target="_blank">{{scope.row.href}}</el-link>
+                    <el-link :href="scope.row.href" target="_blank">{{ scope.row.href }}</el-link>
                 </template>
             </el-table-column>
             <el-table-column label="发布日期" prop="createdAt" width="120px">
@@ -109,7 +109,7 @@
             }
         },
         created() {
-            this.getLogs();
+            this.getLogs()
         }
     }
 </script>

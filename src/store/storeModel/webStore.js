@@ -177,25 +177,32 @@ export default {
         },
         pages: {
             logPage: {
-                logs: []
+                logs: [],
+                articles: []
             }
         }
     },
     mutations: {
-        async getArticles(state, that) {
+        async setContentArticles(state, that) {
             state.main.content.articles = (await that.$apis.web.getArticles()).data
         },
-        async getLogs(state, that){
+        async setLogs(state, that) {
             state.pages.logPage.logs = (await that.$apis.web.getLogs()).data
+        },
+        async setArticles(state, that) {
+            state.pages.logPage.articles = (await that.$apis.web.getArticles()).data;
         }
     },
     actions: {},
     getters: {
-        getArticles(state) {
+        getContentArticles(state) {
             return state.main.content.articles;
         },
-        getLogs(state){
+        getLogs(state) {
             return state.pages.logPage.logs;
+        },
+        getArticles(state) {
+            return state.pages.logPage.articles;
         },
         getDefaultArticleImg(state) {
             return state.main.content.defaultArticleImg;

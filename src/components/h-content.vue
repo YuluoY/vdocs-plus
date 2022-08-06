@@ -31,11 +31,11 @@
         },
         created() {
             // 获取所有的文章
-            setTimeout(() => this.$store.commit('app/getArticles', this))
+            setTimeout(() => this.$store.commit('app/setContentArticles', this))
         },
         mounted() {
             setTimeout(() => {
-                this.dataList = this.$store.getters["app/getArticles"]
+                this.dataList = this.$store.getters["app/getContentArticles"]
                 this.dataList.forEach((n, i, arr) => arr[i].createdAt = new Date(n.createdAt).getTime())
                 this.$forceUpdate()
             }, 500)

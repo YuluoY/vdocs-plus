@@ -50,7 +50,6 @@
     import VueMarkdownEditor from "@/plugins/VueMarkdownEditor";
     import HUpload from "@/server/component/h-upload";
     import {isEmptyObj} from "@/utils";
-    import log from "@/views/Log";
 
     export default {
         name: "ArticleWrite",
@@ -92,11 +91,6 @@
                     if (res) {
                         this.$message.success(`文章"${this.model.title}"${operation}成功！`)
                         await this.$router.push('ArticleUpdate')
-                        // this.model = {
-                        //     viewsNum: 0,
-                        //     commentNum: 0,
-                        //     imgUrl: ''
-                        // }
                     }
                 } else {
                     this.$message.warning('请撰写文章后提交！');
@@ -125,13 +119,4 @@
 </script>
 
 <style scoped lang="scss">
-  .el-form {
-
-  }
-
-  .el-form-item {
-  }
-
-  .el-input {
-  }
 </style>

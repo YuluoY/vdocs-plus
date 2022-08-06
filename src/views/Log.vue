@@ -14,7 +14,7 @@
                         <div class="github-update">
                             <h-router-link :href="d.href">[G]</h-router-link>
                         </div>
-                        <div class="date">{{ d.releaseDate.substring(5, d.releaseDate.length) }}</div>
+                        <div class="date">{{ d.createdAt.substring(5, d.createdAt.length) }}</div>
                         <span>/</span>
                         <div class="title">{{ d.title }}</div>
                     </div>
@@ -41,20 +41,22 @@
         },
         methods: {
             yearFilter(val) {
-                return this.logs.filter(log => log.releaseDate.substring(0, 4) === val).reverse();
+                return this.logs.filter(log => log.createdAt.substring(0, 4) === val).reverse();
             }
         },
         created() {
-            this.$store.commit('app/getLogs', this);
+            this.$store.commit('app/setLogs', this);
         },
         mounted() {
 
             setTimeout(() => {
                 this.logs = this.$store.getters["app/getLogs"]
                 this.$forceUpdate()
-                this.logs.forEach((item, i, arr) => arr[i].releaseDate = formatDate(item.releaseDate))
+                // 格式化日期
+                this.logs.forEach((item, i, arr) => arr[i].createdAt = formatDate(item.createdAt))
+                // 提取年份
                 this.logs.forEach(log => {
-                    let year = log.releaseDate.substring(0, 4);
+                    let year = log.createdAt.substring(0, 4);
                     !this.years.includes(year) && this.years.push(year);
                 })
             },100)

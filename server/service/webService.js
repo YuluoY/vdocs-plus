@@ -11,5 +11,5 @@ module.exports = {
 
     async getLogsService(req,res){
         return await webDao.getLogsDao(req);
-    }
+    },
 }

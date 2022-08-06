@@ -28,6 +28,7 @@
     transition: .8s;
     overflow: hidden;
     display: flex;
+    cursor: pointer;
 
     span:first-child {
       width: 90px;

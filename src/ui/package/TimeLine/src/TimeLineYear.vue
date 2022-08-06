@@ -1,13 +1,11 @@
 <template>
     <div class="year">
         <div class="text-year">
-            <span class="text-year-span">{{ year }}</span>
-            <span class="annualArticle">共 {{ annualArticle }} 篇文章</span>
-            <span :class="`scalable-year iconfont icon-${this.stretchStyle.openIcon}`"
-                  :style="style"
-                  @click="onSwitch($event,`year-${year}`)"></span>
-        </div>
-        <div class="annualArticle">
+            <span class="text-year-span" @click="onSwitch($event,`year-${year}`)">{{ year }}</span>
+            <span class="annualArticle">共 {{ annualArticles }} 篇文章</span>
+<!--            <span :class="`scalable-year iconfont icon-${this.stretchStyle.openIcon}`"-->
+<!--                  :style="style"-->
+<!--                  @click="onSwitch($event,`year-${year}`)"></span>-->
         </div>
         <slot></slot>
     </div>
@@ -19,7 +17,7 @@
         props: {
             year: String,
             onSwitch: Function,
-            annualArticle: Number,
+            annualArticles: Number,
             stretchStyle: Object,
         },
         computed: {
@@ -35,7 +33,8 @@
 
 <style scoped lang="scss">
   .year {
-    padding: 20px;
+    width: 100%;
+    padding-left: 20px;
     overflow: hidden;
     border-left: solid 1px silver;
 
@@ -43,17 +42,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      text-align: left;
 
       .text-year-span {
         font-size: 4em;
         font-weight: bolder;
         font-family: 宋体, sans-serif;
         text-shadow: 5px 0px 12px black;
+        transition: .8s;
+        cursor: pointer;
+
+        &:hover {
+          color: #409eff;
+          text-shadow: 5px 0px 12px white;
+        }
       }
 
       .annualArticle {
         font-size: 1.2em;
         color: silver;
+        display: inline-block;
+        width: 100%;
+        text-align: right;
       }
 
       .scalable-year {

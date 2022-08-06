@@ -1,15 +1,44 @@
 import dayjs from 'dayjs';
 import {Loading, MessageBox} from "element-ui";
 
-// 比较两个对象是否相等
+/**
+ * @description：数组对象排序 从小到大排序
+ * @param arr {Array} 包含多个对象。
+ * @param attr {String} 依据对象中共有的属性值排序。
+ * @return Array
+ * @time：2022年08月06日 09:41:13
+ */
+export function arrObjectSort(arr, attr) {
+    if (isNull(arr) || isUndef(arr) || arr.length === 1) return arr;
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+            if (Object.prototype.hasOwnProperty.call(arr[j], attr)) { // 判断对象中是否有attr值的属性
+                if ((arr[j][attr] * 1) < (arr[j + 1][attr] * 1)) {
+                    let temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+    return arr;
+}
+
+/**
+ * 比较两个对象是否相等
+ * @param obj1 {Object} 对象一
+ * @param obj2 {Object} 对象二
+ * @returns {boolean}
+ */
 export function compareWithTwoObj(obj1, obj2) {
     let bool = true;
     Object.keys(obj1).forEach(key => {
         obj1[key] !== obj2[key] && (bool = false)
-        if(!bool) return bool;
+        if (!bool) return bool;
     });
     return bool;
 }
+
 // 消息确认
 export function confirmTip(text, title = "提示", type = "warning") {
     return MessageBox.confirm(text, title, {
@@ -23,7 +52,12 @@ export function confirmTip(text, title = "提示", type = "warning") {
     });
 }
 
-// 日期格式化
+/**
+ * 日期格式化
+ * @param time
+ * @param format
+ * @returns {string}
+ */
 export function formatDate(time, format = "YYYY年MM月DD日 HH:mm:ss") {
     return dayjs(time).format(format);
 }
@@ -50,7 +84,14 @@ export function deepClone(target, source) {
     }
 }
 
+/**
+ * 数组深拷贝
+ * @param target
+ * @param source
+ * @returns {*[]}
+ */
 export function arrayDeepClone(target, source) {
+    target = target || [];
     source = source || [];
     for (const i in source) {
         if (isArray(source[i])) {
@@ -63,6 +104,12 @@ export function arrayDeepClone(target, source) {
     return target;
 }
 
+/**
+ * 对象深拷贝
+ * @param target
+ * @param source
+ * @returns {*}
+ */
 export function objectDeepClone(target, source) {
     source = source || {};
     for (const sourceKey in source) {
@@ -85,7 +132,7 @@ export function loading(dom, text) {
         background: "rgba(0, 0, 0, 0.7)",//遮罩层颜色
         target: dom || document.body //loadin覆盖的dom元素节点
     });
-};
+}
 
 export function isEmptyObj(obj) {
     return JSON.stringify(obj) === "{}";
