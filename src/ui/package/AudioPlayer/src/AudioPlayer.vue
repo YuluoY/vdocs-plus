@@ -184,19 +184,19 @@
             })
 
             // setTimeout(() => this.onChange(this.defaultSong + 1))
-            window.onload = () => {
 
-                const audio = document.getElementById('h-audio-player');
-                audio.load();  // 加载音频
-                audio.oncanplay = () => {  // 音频能播放时执行
-                    this.durationStr = this.setAudioDuration(audio, 'duration');
-                    this.setAudioVolume(audio, this.volume);
+            const audio = document.getElementById('h-audio-player');
+            audio.load();  // 加载音频
+            audio.oncanplay = () => {  // 音频能播放时执行
+                this.durationStr = this.setAudioDuration(audio, 'duration');
+                this.setAudioVolume(audio, this.volume);
 
-                    setTimeout(() => {
+                setTimeout(() => {
+                    if(JSON){
                         const info = JSON.parse(localStorage.getItem('h-audio-player') || '{}');
                         this.isShowSongInfoX = info.isShowSongInfo;
-                    }, 100)
-                }
+                    }
+                }, 500)
             }
         }
     }

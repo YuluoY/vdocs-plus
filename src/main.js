@@ -4,15 +4,20 @@ import router from './router'
 import store from './store'
 import 'normalize.css/normalize.css'
 
-import apis from './apis/index'
+import apis from './apis/index' // api接口
 
 import './assets/icons/index'  // svg icons
-import './assets/stylus/index.css'
-import UI from './ui'
+import './assets/stylus/index.css' // 全局样式
+
+import UI from './ui'  // 自定义ui组件
 import './ui/stylus/index.css'
-import './assets/css/animate.min.css'
+
+import './assets/css/animate.min.css' // 动画样式
 
 import './ElementUI'
+import VueHighlightJS from 'vue-highlightjs'
+Vue.use(VueHighlightJS)
+
 
 Vue.config.productionTip = false
 Vue.prototype.$apis = apis;

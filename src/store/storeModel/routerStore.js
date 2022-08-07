@@ -1,7 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        isLogin: JSON.parse(localStorage.getItem('h-admin-login') || ''),
+        isLogin: '',
         routerArr: [
             {}
         ],

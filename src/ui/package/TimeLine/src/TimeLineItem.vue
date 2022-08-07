@@ -19,6 +19,11 @@
             background: {type: String, default: 'white'},
             href: String,
         },
+        methods:{
+            a(){
+                console.log(1)
+            }
+        },
         computed: {
             style() {
                 return (`
@@ -47,6 +52,7 @@
       justify-content: space-between;
       color: black;
       z-index: -4;
+
 
       div:nth-of-type(2) {
         font-size: .7em;

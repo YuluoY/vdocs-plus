@@ -29,7 +29,7 @@
                         <span>{{ commentNum }}</span>
                     </div>
                     <div class="reading" title="阅读全文">
-                        <span @click="onReading">阅读全文</span>
+                        <span @click="onReadArticle(id)">阅读全文</span>
                     </div>
                 </div>
             </div>
@@ -49,16 +49,12 @@
 
             title: String,
             imgUrl: String,
-            content:String,
+            content: String,
             createdAt: {type: Number, default: Date.now()},
             desc: String,
             author: String,
             categories: Array,
-        },
-        methods:{
-            onReading(){
-                console.log(this.content)
-            }
+            onReadArticle: Function
         },
         filters: {
             dateFormat(val) {

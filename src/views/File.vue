@@ -4,13 +4,14 @@
             <div class="title">{{ title }}</div>
         </div>
         <div class="file-wrapper" v-if="timeLineData.length">
-            <h-time-line :data="timeLineData"></h-time-line>
+            <h-time-line :data="timeLineData" :jump="onJump"></h-time-line>
         </div>
     </div>
 </template>
 
 <script>
     import {useBackgroundImgMixin} from "@/mixin";
+    import marked from "@/Marked";
 
     export default {
         name: "File",
@@ -18,6 +19,16 @@
         data() {
             return {
                 timeLineData: [],
+            }
+        },
+        methods: {
+            onJump(id) {
+                const articles = this.$store.getters["app/getContentArticles"] ||
+                    JSON.parse(localStorage.getItem('vdocs-articles') || "{}")
+                const article = articles.filter(item => item._id === id)[0];
+                article.content = marked.parse(article.content)
+                localStorage.setItem('vdocs-currentArticle', JSON.stringify(article));
+                this.$router.push(`/achieve/${article.title}`);
             }
         },
         created() {

@@ -88,11 +88,15 @@
             document.body.addEventListener('scroll', () => {
                 const header = document.getElementsByClassName('h-header')[0];
                 const sidebar = document.getElementsByClassName('h-sidebar')[0];
-                if(!header || !sidebar) return;
+                const articleSidebar = document.getElementsByClassName('h-article-sidebar')[0];
+                // if(!header || !sidebar) return;
                 if (document.body.scrollTop >= document.body.clientHeight - 30) {
                     deleteClass(header, ['h-header-transparent', 'h-header-show'])
                     addClass(header, 'h-header-hide')
                     sidebar && (sidebar.style.position = 'fixed');
+                    if (articleSidebar) {
+                        addClass(articleSidebar, 'h-article-sidebar2');
+                    }
                 } else if (document.body.scrollTop === 0) {
                     addClass(header, 'h-header-transparent');
                     deleteClass(header, ['h-header-show', 'h-header-hide'])
@@ -100,6 +104,9 @@
                     addClass(header, 'h-header-show');
                     deleteClass(header, ['h-header-hide', 'h-header-transparent'])
                     sidebar && (sidebar.style.position = 'absolute');
+                    if (articleSidebar) {
+                        deleteClass(articleSidebar, 'h-article-sidebar2')
+                    }
                 }
             })
         },

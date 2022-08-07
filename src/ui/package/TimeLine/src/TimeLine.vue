@@ -15,6 +15,8 @@
                     <div :class="`day-wrapper month-${month}-${year}`">
                         <h-time-line-day
                                 v-for="(d, k) in sortDays(models[year][month])" :key="k"
+                                :jump="jump"
+                                :id="d._id"
                                 :month="month"
                                 :day="d.day"
                                 :weather="weather">
@@ -47,6 +49,7 @@
         name: "HTimeLine",
         components: {HTimeLineBox, HTimeLineItem, HTimeLineDay, HTimeLineMonth, HTimeLineYear},
         props: {
+            jump: Function,
             data: {type: Array, default: () => []},
             // 季节的颜色
             seasonColors: {

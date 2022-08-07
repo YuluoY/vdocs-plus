@@ -172,9 +172,11 @@
       & > div {
         margin-top: 20px;
       }
-      button{
+
+      button {
         margin-left: 20px;
       }
+
       input {
         outline: none;
         border-radius: 45px;
@@ -191,7 +193,35 @@
   }
 }
 
+.h-article-sidebar {
+  .title-active {
+    display: inline-block;
+    width: 100%;
+    color: #409eff;
+    background-color: rgba(119, 119, 119, 0.2);
+  }
 
+  .sidebar-wrapper {
+    div {
+      line-height: 2em;
+    }
+
+    .h1 {
+      font-size: 1.4em;
+      border-bottom: silver solid 1px;
+    }
+
+    .h2 {
+      font-size: 1.2em;
+      padding-left: 15px;
+    }
+
+    .h3 {
+      font-size: 1em;
+      padding-left: 30px;
+    }
+  }
+}
 
 
 

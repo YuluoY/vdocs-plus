@@ -48,6 +48,12 @@
         },
         mounted() {
             this.songList = media;
+            window.onload = () => {
+                if (JSON) {
+                    const isLogin = JSON.parse(localStorage.getItem('h-admin-login') || '')
+                    this.$store.commit('router/changeLoginState', isLogin)
+                }
+            }
         }
     }
 </script>

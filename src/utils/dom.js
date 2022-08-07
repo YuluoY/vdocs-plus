@@ -1,6 +1,11 @@
-import {isArray, isClassname, isString} from "@/ui/util/core";
+import {isArray, isString} from "./index";
 
 const $ = document;
+
+// 查看元素是否已存在将要添加的类名
+export function isClassname(el, cls) {
+    return el.className.split(' ').some(str => str === cls);
+}
 
 export function addClass(el, className) {
     if (isClassname(el, className)) return;

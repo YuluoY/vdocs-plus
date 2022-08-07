@@ -11,8 +11,8 @@ const buildAdminRoutes = build(store.state.admin.sidebar, 'server')
 const routes = [...staticRoutes, ...buildNavRoutes, ...buildAdminRoutes]
 
 // 将所有前端路由页面路径暴露出去
-window.$hRoutes = window.$hRoutes || Object.create({});
-window.$hRoutes = routes;
+// window.$hRoutes = window.$hRoutes || Object.create({});
+// window.$hRoutes = routes;
 
 const router = new VueRouter({
     routes,

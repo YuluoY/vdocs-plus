@@ -105,7 +105,7 @@
                 }
             },
             async getLogs() {
-                await this.$apis.admin.getLogs.call(this, 'tableData')
+                this.tableData = (await this.$apis.admin.getLogs()).data;
             }
         },
         created() {

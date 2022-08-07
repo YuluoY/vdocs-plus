@@ -10,7 +10,7 @@ export async function addLog(params) {
 }
 
 export async function getLogs() {
-    return await request.bind(this)({
+    return await request({
         url: BASE_URL + '/getLogs',
         method: 'get'
     })

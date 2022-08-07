@@ -13,13 +13,15 @@
                     :viewNum="n.viewNum"
                     :commentNum="n.commentNum"
                     :categories="n.categories"
-                    :author="n.author"></h-content-card>
+                    :author="n.author"
+                    :onReadArticle="onAchieve"></h-content-card>
         </div>
     </div>
 </template>
 
 <script>
     import HContentCard from "@/components/h-content-card";
+    import marked from "@/Marked";
 
     export default {
         name: "h-content",
@@ -27,6 +29,14 @@
         data() {
             return {
                 dataList: []
+            }
+        },
+        methods: {
+            onAchieve(id) {
+                const article = this.dataList.filter(item => item._id === id)[0];
+                article.content = marked.parse(article.content)
+                localStorage.setItem('vdocs-article', JSON.stringify(article));
+                this.$router.push(`/achieve/${article.title}`);
             }
         },
         created() {

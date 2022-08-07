@@ -1,5 +1,5 @@
 <template>
-    <div class="day">
+    <div class="day" @click="jump(id)">
         <span class="text-day-span">{{ day }}：</span>
         <span class="mask" :style="`background-color:${weather(month)}`"></span>
         <slot></slot>
@@ -12,8 +12,10 @@
         props: {
             day: String,
             month: String,
-            weather: Function
-        }
+            weather: Function,
+            id: String,
+            jump: Function,
+        },
     }
 </script>
 
@@ -24,7 +26,7 @@
     border-bottom: solid 1px silver;
     border-right: solid 2px silver;
     position: relative;
-    z-index: 1;
+    z-index: 999;
     transition: .8s;
     overflow: hidden;
     display: flex;

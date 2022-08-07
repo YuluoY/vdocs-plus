@@ -185,6 +185,7 @@ export default {
     mutations: {
         async setContentArticles(state, that) {
             state.main.content.articles = (await that.$apis.web.getArticles()).data
+            localStorage.setItem('vdocs-articles', JSON.stringify(state.main.content.articles))
         },
         async setLogs(state, that) {
             state.pages.logPage.logs = (await that.$apis.web.getLogs()).data

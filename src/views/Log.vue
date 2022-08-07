@@ -4,7 +4,7 @@
             <div class="title">{{ title }}</div>
         </div>
 
-        <div class="log-wrapper">
+        <div class="log-wrapper" v-if="logs.length">
             <div class="log-item"
                  v-for="(y, i) in years" :key="i">
                 <div class="year">
@@ -48,10 +48,8 @@
             this.$store.commit('app/setLogs', this);
         },
         mounted() {
-
             setTimeout(() => {
                 this.logs = this.$store.getters["app/getLogs"]
-                this.$forceUpdate()
                 // 格式化日期
                 this.logs.forEach((item, i, arr) => arr[i].createdAt = formatDate(item.createdAt))
                 // 提取年份
@@ -59,7 +57,8 @@
                     let year = log.createdAt.substring(0, 4);
                     !this.years.includes(year) && this.years.push(year);
                 })
-            },100)
+                this.$forceUpdate()
+            },400)
         },
     }
 </script>
