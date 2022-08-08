@@ -4,8 +4,8 @@
             <div class="title">{{ title }}</div>
         </div>
         <div class="content-box">
-<!--            <div class="bar">{{ article.categories }}</div>-->
-            <div>  </div>
+            <!--            <div class="bar">{{ article.categories }}</div>-->
+            <div></div>
             <div class="left">
                 <div class="content" v-if="article.content" v-highlightjs v-html="article.content"></div>
             </div>
@@ -17,10 +17,10 @@
 <script>
 
     import {isEmptyObj} from "@/utils";
-    import 'highlight.js/styles/atom-one-dark-reasonable.css'
+    import 'highlight.js/styles/atom-one-dark.css'
     import "@/assets/themes/typora-vue-theme-master/vue.css";
-    import HArticleSidebar from "@/components/h-article-siderbar";
-    import {addClass, deleteClass} from "@/utils/dom";
+    import HArticleSidebar from "@/components/h-article-sidebar";
+    import {deleteClass} from "@/utils/dom";
     import {isClassname} from "@/ui/util/core";
 
     export default {
@@ -36,7 +36,7 @@
         },
         mounted() {
             if (!isEmptyObj(this.$route.meta)) {
-                this.article = {...this.$route.meta.article}
+                this.article = {...this.$route.meta['article']}
                 this.$refs.backgroundImg.style.backgroundImage = `url(${this.article.imgUrl})`
                 this.$refs.backgroundImg.style.backgroundRepeat = "no-repeat";//设置背景不平铺
                 this.$refs.backgroundImg.style.backgroundPosition = "center";//设置背景图的位置

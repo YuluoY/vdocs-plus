@@ -44,15 +44,17 @@
                 if (['/home', '/login', '/'].includes(to.path)) {
                     this.$store.commit('router/changeLoginState', false);
                 }
+
+                if (!['/home', '/login'].includes(to.path) && !this.isLogin) {
+                   this.$store.commit('comment/setCommentsByPath', this)
+                }
             }
         },
         mounted() {
             this.songList = media;
-            window.onload = () => {
-                if (JSON) {
-                    const isLogin = JSON.parse(localStorage.getItem('h-admin-login') || '')
-                    this.$store.commit('router/changeLoginState', isLogin)
-                }
+            if (JSON) {
+                const isLogin = JSON.parse(localStorage.getItem('h-admin-login') || '')
+                this.$store.commit('router/changeLoginState', isLogin)
             }
         }
     }

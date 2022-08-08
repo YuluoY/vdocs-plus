@@ -9,7 +9,7 @@ export const useBackgroundImgMixin = {
     },
     mounted() {
         let pageData = this.$route.meta;
-        this.title = pageData.chineseLabel;
+        this.title = pageData.label;
         this.$refs.backgroundImg.style.backgroundImage = `url(${pageData.imgUrl})`
         this.$refs.backgroundImg.style.backgroundRepeat = "no-repeat";//设置背景不平铺
         this.$refs.backgroundImg.style.backgroundPosition = "center";//设置背景图的位置
@@ -27,7 +27,7 @@ export const useSubBackgroundImgMixin = {
     watch: {
         $route(to, from) {
             const pageData = to.meta;
-            this.title = pageData.chineseLabel;
+            this.title = pageData.label;
             this.$refs.backgroundImg.style.backgroundImage = `url(${pageData.imgUrl})`
             this.$refs.backgroundImg.style.backgroundRepeat = "no-repeat";//设置背景不平铺
             this.$refs.backgroundImg.style.backgroundPosition = "center";//设置背景图的位置

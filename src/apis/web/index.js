@@ -1,9 +1,11 @@
-import * as Login from "@/apis/web/loginApi";
 import * as Article from '@/apis/web/articleApi'
+import * as comment from '@/apis/web/commentApi'
+import * as Login from "@/apis/web/loginApi";
 import * as Log from '@/apis/web/logApi'
 
 export default {
-    ...Login,
     ...Article,
+    ...comment,
+    ...Login,
     ...Log,
 }

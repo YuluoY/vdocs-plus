@@ -1,6 +1,6 @@
 module.exports = {
-    ...require('./ArticleService'),
-    ...require('./CategoryService'),
-    ...require('./LogService')
-
+    ...require('./ArticleService/admin'),
+    ...require('./CategoryService/admin'),
+    ...require('./CommentService/admin'),
+    ...require('./LogService/admin'),
 }

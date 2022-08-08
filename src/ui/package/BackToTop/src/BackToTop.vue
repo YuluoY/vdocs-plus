@@ -22,9 +22,16 @@
         },
         methods: {
             onToTop() {
+                // 以10ms的速率，实现在1.2秒内（小数存在一点误差，但问题不大）置顶
+                const deficit = document.body.scrollTop / 120;
+                clearInterval(this.timer)
+                console.time('h-backToTop component')
                 this.timer = setInterval(_ => {
-                    if (document.body.scrollTop <= 0) clearInterval(this.timer);
-                    document.body.scrollBy(0, -20)
+                    if (document.body.scrollTop <= 0) {
+                        clearInterval(this.timer);
+                        console.timeEnd('h-backToTop component')
+                    }
+                    document.body.scrollBy(0, -deficit)
                 }, this.speed)
             }
         },
@@ -48,6 +55,7 @@
     bottom: .2em;
     font-size: 5em;
     transition: 1s;
+    z-index: 9999999999999;
 
     &:hover {
       cursor: pointer;

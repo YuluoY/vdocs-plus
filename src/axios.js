@@ -1,4 +1,5 @@
 import axios from "axios";
+import Vue from "vue";
 import {isEmptyObj, merge} from "@/utils";
 
 const Axios = axios.create();
@@ -18,6 +19,12 @@ Axios.interceptors.request.use(req => {
 Axios.interceptors.response.use(res => {
     return res;
 }, err => {
+    const {status} = err.response;
+    switch (status){
+        case 405:
+            Vue.prototype.$message.warning(err.response.data);
+            break;
+    }
     return Promise.reject(err)
 })
 

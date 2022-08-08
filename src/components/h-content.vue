@@ -35,7 +35,7 @@
             onAchieve(id) {
                 const article = this.dataList.filter(item => item._id === id)[0];
                 article.content = marked.parse(article.content)
-                localStorage.setItem('vdocs-article', JSON.stringify(article));
+                localStorage.setItem('vdocs-currentArticle', JSON.stringify(article));
                 this.$router.push(`/achieve/${article.title}`);
             }
         },

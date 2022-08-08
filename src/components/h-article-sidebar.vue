@@ -19,7 +19,7 @@
                 titles: [],
                 articleSidebar: [],
                 activeStep: 0,
-                speed: 1,
+                speed: 10,
             }
         },
         methods: {
@@ -29,7 +29,7 @@
                     this.updateTitleActive(event.target)
                 }
             },
-            updateTitleActive(node){
+            updateTitleActive(node) {
                 const TITLEACTIVE = 'title-active';
                 if (!this.titles.length) {
                     const sidebar = document.getElementsByClassName('sidebar-wrapper')[0];
@@ -50,14 +50,21 @@
                 window.location.href = `${header}/#${path}#${anchor}`
 
                 clearInterval(this.timer)
+                console.time('h-article-sidebar')
                 this.timer = setInterval(_ => {
                     // 减去顶部导航高度，并与当前滚动条位置高度比对
                     if (upOrDown > 0) {
-                        if (currentScrollTop >= total) clearInterval(this.timer);
-                        document.body.scrollTo(0, currentScrollTop += 20)
+                        if (currentScrollTop >= total) {
+                            clearInterval(this.timer);
+                            console.timeEnd('h-article-sidebar')
+                        }
+                        document.body.scrollTo(0, currentScrollTop += 50)
                     } else {
-                        if (currentScrollTop <= total) clearInterval(this.timer);
-                        document.body.scrollTo(0, currentScrollTop -= 20)
+                        if (currentScrollTop <= total) {
+                            clearInterval(this.timer);
+                            console.timeEnd('h-article-sidebar')
+                        }
+                        document.body.scrollTo(0, currentScrollTop -= 50)
                     }
                 }, this.speed)
             },

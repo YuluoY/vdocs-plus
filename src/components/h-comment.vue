@@ -4,16 +4,16 @@
         <div class="h-comment">
             <div class="header">
                 <div class="img">
-                    <img :src="imgUrl"/>
+                    <img :src="model.imgUrl"/>
                 </div>
                 <div class="name">
-                    <input v-model="name" :placeholder="nameHint" @focusout="getUserInfo"/>
+                    <input v-model.trim="model.name" :placeholder="model.nameHint" @focusout="getUserInfo"/>
                 </div>
                 <div class="email">
-                    <input v-model="email" :placeholder="emailHint"/>
+                    <input v-model.trim="model.email" :placeholder="model.emailHint"/>
                 </div>
                 <div class="address">
-                    <input v-model="address" :placeholder="addressHint"/>
+                    <input v-model.trim="model.address" :placeholder="model.addressHint"/>
                 </div>
             </div>
             <div class="center">
@@ -22,17 +22,17 @@
                             ref="textarea"
                             class="textarea"
                             @input="onChangeContent"
-                            :style="`color:${words ? 'black':'silver'}`"
-                            @focus="!words && ($refs.textarea.innerHTML = '')"
-                            @focusout="!words && ($refs.textarea.innerHTML = contentHint)"
+                            :style="`color:${model.words ? 'black':'silver'}`"
+                            @focus="!model.words && ($refs.textarea.innerHTML = '')"
+                            @focusout="!model.words && ($refs.textarea.innerHTML = model.contentHint)"
                             contenteditable="true">
-                        {{ contentHint }}
+                        {{ model.contentHint }}
                     </div>
                 </div>
             </div>
             <div class="footer">
                 <div class="count">
-                    <div class="words">字数统计：{{ words }}</div>
+                    <div class="words">字数统计：{{ model.words }}</div>
                 </div>
                 <div class="function" @click.prevent="onRelease">
                     <span>发布</span>
@@ -40,16 +40,17 @@
             </div>
         </div>
         <div class="comment-display-wrapper">
-            <div class="comment-title">{{ commentInfo.length }}条评论</div>
+            <div class="comment-title">{{ title }}</div>
             <div class="comment-item-wrapper">
                 <div class="comment-item"
-                     v-for="(item, i) in commentInfo" :key="i">
+                     v-for="(item, i) in comments" :key="i">
                     <div class="top-info">
-                        <img src="../assets/img/1.jpg" alt="头像" class="img"/>
+                        <img :src="item.imgUrl" alt="头像" class="img"/>
                         <div class="right">
-                            <div class="name">
-                                <span>{{ item.name }}</span>
-                                <span>{{ item.brand }}</span>
+                            <div class="top">
+                                <span class="name">{{ item.name }}</span>
+                                <span class="system">{{ item.system }}</span>
+                                <span class="browser">{{ item.browser }}</span>
                             </div>
                             <div class="releaseDate">{{ item.releaseDate }}</div>
                         </div>
@@ -57,26 +58,27 @@
                     <div class="content-wrapper">
                         <div class="main">{{ item.content }}</div>
                         <div class="main-func">
-                            <div>回复</div>
+                            <div @click="onReplay(item._id)">回复</div>
                             <div>
-                                <span>👍</span>
+                                <span @click="onLike(item._id, $event)" class="like">👍</span>
                                 <span>{{ item.like }}</span>
                             </div>
                             <div>
-                                <span>👎</span>
+                                <span @click="onLike(item._id, $event)" class="dislike">👎</span>
                                 <span>{{ item.dislike }}</span>
                             </div>
                         </div>
+                        <div class="reply-area-wrapper" :ref="item._id" style="display: none">回复评论区</div>
                     </div>
                 </div>
             </div>
         </div>
+        <!--        <div v-else style="text-align: center; font-size: 2em; font-weight: bolder">暂无评论．<{=．．．．</div>-->
     </div>
 </template>
 
 <script>
     import {mapState} from "vuex";
-    import log from "@/views/Log";
 
     export default {
         name: "HComment",
@@ -85,68 +87,99 @@
         },
         data() {
             return {
-                imgUrl: require('../assets/img/1.jpg'),
-                name: '',
-                nameHint: 'QQ/匿名昵称',
-                email: '',
-                emailHint: '邮箱',
-                address: '',
-                addressHint: '地址或博客',
-                content: '',
-                contentHint: '是时候展现你真正的技术了！',
-                words: 0,
+                model: {
+                    imgUrl: require('../assets/img/1.jpg'),
+                    name: '',
+                    nameHint: 'QQ/匿名昵称',
+                    email: '',
+                    emailHint: '邮箱',
+                    address: '',
+                    addressHint: '地址或博客',
+                    content: '',
+                    contentHint: '是时候展现你真正的技术了！',
+                    words: 0,
+                }
             }
         },
         methods: {
-            onRelease() {
+            // 发布评论
+            async onRelease() {
+                console.log(this.model.content)
+                if (this.model.content.trim() === '') {
+                    this.$message.warning('您还没有填写任何评论哦！')
+                    return;
+                }
                 const brandInfo = navigator.userAgent.replace(/(\()|(\))/g, '').split(' ');
                 const system = `${brandInfo[1]} ${brandInfo[3]}`.replace(/(\.0)|(;)/g, '');
                 const browser = brandInfo[10].replace(/(\/)/g, ' ');
 
-                const data = {};
-                data.imgUrl = this.imgUrl;
-                data.name = this.name;
-                data.email = this.email;
-                data.address = this.address || '地球村';
-                data.content = this.content;
-                data.words = this.words;
-                data.system = system;
-                data.browser = browser;
-                data.path = this.$route.path;
+                this.model.name === '' && (this.model.name = 'Anonymous')
+                this.model.address === '' && (this.model.address = '地球村')
+                this.model.system = system; // 操作系统
+                this.model.browser = browser; // 浏览器参数
+                this.model.path = decodeURI(this.$route.path);  // 页面
 
-                this.$refs.textarea.innerHTML = this.contentHint;
-                this.words = 0
+                const res = await this.$apis.web.addComment(this.model);
+                if (res) {
+                    this.$notify.success(`${this.model.name}成功发布一条评论！`)
+                    this.$refs.textarea.innerHTML = this.model.contentHint;
+                    this.model.words = 0
+                    this.model.name = ''
+                    this.model.address = ''
+                    this.$store.commit('comment/setCommentsByPath', this);
+                }
+            },
+            // 回复
+            onReplay(id) {
+                const display = this.$refs[id][0].style.display;
+                if (display === 'none') {
+                    this.$refs[id][0].style.display = 'block';
+                } else if (display === 'block') {
+                    this.$refs[id][0].style.display = 'none';
+                }
+            },
+            // 点赞
+            async onLike(_id, event) {
+                const userInfo = (await this.$apis.web.getUserIp()).data;
+                const field = event.target.className;
+
+                this.$apis.web.updateLike({_id, field, userInfo}).then(res => {
+                    this.$store.commit('comment/setCommentsByPath', this);
+                })
+
             },
             onChangeContent() {
-                this.content = this.$refs.textarea.innerHTML;
-                this.words = this.replaceAll(this.content, ['&nbsp;', ' ', '<br>', '<div>', '</div>'], '').length;
+                this.model.content = this.$refs.textarea.innerText;
+                this.model.words = this.replaceAll(this.model.content,
+                    ['&nbsp;', ' ', '<br>', '<div>', '</div>'], '').length;
             },
             getUserInfo() {
                 const user = JSON.parse(localStorage.getItem('userQQInfo') || "{}").data;
                 // if (user && user.name === this.name) return;
-                if (this.name) {
+                if (this.model.name) {
                     const xhr = new XMLHttpRequest();
-                    xhr.open('GET', 'https://api.usuuu.com/qq/' + this.name);
+                    xhr.open('GET', 'https://api.usuuu.com/qq/' + this.model.name);
                     xhr.send();
                     xhr.onreadystatechange = () => {
                         if (xhr.readyState === 4) {
                             if (xhr.status >= 200 && xhr.status < 300) {
                                 localStorage.setItem('userQQInfo', xhr.response);
                                 const data = JSON.parse(xhr.response).data;
-                                this.name = data.name;
-                                this.imgUrl = data.avatar;
-                                this.email = `${data.qq}@qq.com`
+                                this.model.name = data.name;
+                                this.model.imgUrl = data.avatar;
+                                this.model.email = `${data.qq}@qq.com`
                             } else {
-                                this.imgUrl = require('../assets/img/1.jpg');
-                                this.email = ''
+                                this.model.imgUrl = require('@/assets/img/1.jpg');
+                                this.model.email = ''
                             }
                         }
                     }
                 } else {
-                    this.imgUrl = require('../assets/img/1.jpg');
-                    this.email = ''
+                    this.model.imgUrl = require('@/assets/img/1.jpg');
+                    this.model.email = ''
                 }
             },
+
             replaceAll(str, searchVal, replVal) {
                 if (typeof searchVal === "string") {
                     str = str.replaceAll(searchVal, replVal);
@@ -157,21 +190,35 @@
             }
         },
         computed: mapState({
-            commentInfo: state => state.comment.commentInfo
+            comments: state => state.comment.comments,
+            title() {
+                let title = '';
+                if (this.comments.length === 0) {
+                    if (this.$route.path !== '/message') {
+                        title = '暂无评论'
+                    } else {
+                        title = '暂无留言'
+                    }
+                } else {
+                    title = '共' + this.comments.length + '条评论';
+                    if (this.$route.path === '/message') title = '共' + this.comments.length + '条留言';
+                }
+                return title
+            }
         }),
         mounted() {
             const data = JSON.parse(localStorage.getItem('userQQInfo') || '{}').data;
             if (data) {
-                this.name = data.name;
-                this.imgUrl = data.avatar;
-                this.email = `${data.qq}@qq.com`
+                this.model.name = data.name;
+                this.model.imgUrl = data.avatar;
+                this.model.email = `${data.qq}@qq.com`
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
-  .h-comment-wrapper{
+  .h-comment-wrapper {
     display: flex;
 
     .h-comment {
@@ -242,7 +289,7 @@
             width: 100%;
             min-height: 220px;
             overflow: hidden;
-            font-family: 宋体;
+            font-family: 宋体, sans-serif;
             font-size: 1.2em;
           }
         }
@@ -303,6 +350,7 @@
 
         &:active {
           transform: rotateX(360deg);
+          text-align: right;
           background-color: #409eff;
         }
       }
@@ -315,6 +363,7 @@
         .comment-item {
           .top-info {
             display: flex;
+            align-items: center;
 
             .img {
               width: 50px;
@@ -326,6 +375,24 @@
               flex-grow: 1;
               padding: 0 1em;
               line-height: 1.7em;
+
+              .top {
+                .name {
+                  font-size: 1.2em;
+                }
+
+                .system {
+                  font-size: .9em;
+                  margin-left: 2em;
+                  color: silver;
+                }
+
+                .browser {
+                  font-size: .9em;
+                  margin-left: 2em;
+                  color: silver;
+                }
+              }
 
               .releaseDate {
                 color: silver;
@@ -348,13 +415,17 @@
               display: flex;
               color: red;
               margin-top: 20px;
-              margin-bottom: 50px;
+              margin-bottom: 10px;
               align-items: center;
 
               & > div {
                 cursor: pointer;
                 margin-right: 20px;
               }
+            }
+
+            .reply-area-wrapper {
+              margin-bottom: 30px;
             }
           }
         }

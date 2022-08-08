@@ -1,6 +1,5 @@
 const adminDao = require("../../dao/adminDao");
 module.exports = {
-    // log
     addLogService(event, req, res) {
         return adminDao.addLogDao(event, req);
     },

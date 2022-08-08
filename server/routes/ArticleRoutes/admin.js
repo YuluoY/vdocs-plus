@@ -1,7 +1,7 @@
 const adminService = require("../../service/adminService");
 const {myAssert} = require("../../utils");
 module.exports = router => {
-    const articleService = require('../../service/ArticleService')
+    const articleService = require('../../service/ArticleService/admin')
 
     // 添加文章
     router.post('/addArticle', async (req, res) => {
