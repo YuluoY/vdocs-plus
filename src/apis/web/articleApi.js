@@ -8,3 +8,17 @@ export async function getArticles() {
         method: 'get'
     })
 }
+
+export async function updateViewNum(params) {
+    return await request({
+        url: BASE_URL + '/updateViewNum',
+        method: 'patch'
+    }, params)
+}
+
+export async function getArticleNum() {
+    return await request({
+        url: BASE_URL + '/getArticleNum',
+        method: 'get'
+    })
+}

@@ -9,7 +9,7 @@
 
 <script>
     import {useBackgroundImgMixin} from "@/mixin";
-    import HComment from "@/components/h-comment";
+    import HComment from "@/components/comment/h-comment";
 
     export default {
         name: "Message",

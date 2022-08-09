@@ -11,4 +11,14 @@ module.exports = router => {
         const result = await webService.getArticlesService(req, res);
         myAssert(result, 401, '文章获取失败！', res);
     })
+
+    router.get('/getArticleNum', async (req, res) => {
+        const result = await webService.getArticleNumService(req, res);
+        res.send(result.toString())
+    })
+
+    router.patch('/updateViewNum', async (req, res) => {
+        const result = await webService.updateViewNumService(req.body, req, res);
+        res.send(result)
+    })
 }

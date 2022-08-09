@@ -41,6 +41,7 @@
                 this.$refs.backgroundImg.style.backgroundRepeat = "no-repeat";//设置背景不平铺
                 this.$refs.backgroundImg.style.backgroundPosition = "center";//设置背景图的位置
                 this.$refs.backgroundImg.style.backgroundSize = "cover";//设置背景图像的尺寸
+                this.$apis.web.updateViewNum({_id: this.article._id})
             }
             document.body.addEventListener('scroll', () => {
                 if (/achieve/.test(this.$route.path)) {

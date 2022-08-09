@@ -192,6 +192,10 @@ export default {
         },
         async setArticles(state, that) {
             state.pages.logPage.articles = (await that.$apis.web.getArticles()).data;
+        },
+        async setSidebarUserInfo(state, obj) {
+            const key = Object.keys(obj)[0];
+            state.sidebar.userInfoArea.info[key] = obj[key];
         }
     },
     actions: {},
@@ -208,5 +212,11 @@ export default {
         getDefaultArticleImg(state) {
             return state.main.content.defaultArticleImg;
         },
+        getArticleNum(state){
+            return state.sidebar.userInfoArea.info.article;
+        },
+        getCommentNum(state){
+            return state.sidebar.userInfoArea.info.comment;
+        }
     }
 }

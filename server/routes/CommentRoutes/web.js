@@ -5,17 +5,23 @@
  */
 
 const webService = require("../../service/webService");
-const http = require("http");
 module.exports = router => {
     // 添加评论
     router.post('/addComment', async (req, res) => {
-        const result = await webService.addCommentService(req.body, req, res);
+        const {sub} = req.body;
+        sub && delete req.body.sub;
+        const result = await webService.addCommentService(req.body, sub, req, res);
         res.send(result);
     })
 
     router.get('/getCommentsByPath', async (req, res) => {
         const result = await webService.getCommentsByPathService(req.query, req, res);
         res.send(result);
+    })
+
+    router.get('/getCommentNum', async (req, res) => {
+        const result = await webService.getCommentNumService(req, res);
+        res.send(result.toString())
     })
 
     // 获取用户的ip

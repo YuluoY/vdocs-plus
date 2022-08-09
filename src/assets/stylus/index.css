@@ -357,6 +357,9 @@
   color: #2a8ee1;
   border-bottom: #2a8ee1 solid 2px; }
 
+.hover-blue:hover {
+  color: #409eff !important; }
+
 .h-container {
   background-color: rgba(0, 0, 0, 0.05); }
 

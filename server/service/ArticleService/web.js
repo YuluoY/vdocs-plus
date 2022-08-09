@@ -9,4 +9,12 @@ module.exports = {
     async getArticlesService(req, res) {
         return await webDao.getArticlesDao(req);
     },
+
+    updateViewNumService(event, req, res) {
+        return webDao.updateViewNumDao(event, req);
+    },
+
+    getArticleNumService(req, res) {
+        return webDao.getArticleNumDao(req);
+    }
 }

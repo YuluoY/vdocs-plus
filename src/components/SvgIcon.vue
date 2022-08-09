@@ -1,6 +1,6 @@
 <template>
-    <div style="display: inline-block">
-        <svg :class="svgClass" v-on="$listeners">
+    <div style="display: inline-block;" v-on="$listeners">
+        <svg :class="svgClass">
             <use :xlink:href="iconName"></use>
         </svg>
         <slot></slot>
@@ -38,14 +38,16 @@
         overflow: hidden;
 
     }
-    .swing{
+
+    .swing {
         animation: swing .3s ease-in-out;
     }
+
     @keyframes swing {
-        from{
+        from {
             transform: translateX(-50px);
         }
-        to{
+        to {
             transform: translateX(50px);
         }
     }

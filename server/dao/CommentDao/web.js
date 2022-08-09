@@ -5,12 +5,19 @@
  */
 
 module.exports = {
-    'addCommentDao': async (event, req) => {
-        return await req.Model.create(event);
+    'addCommentDao': async (event, sub, req) => {
+        const {_id} = await req.Model.create(event)
+        if (sub) {
+            return req.Model.findByIdAndUpdate(sub, {$push: {sub: _id}});
+        }
+        return _id;
     },
 
     'getCommentsByPathDao': async (event, req) => {
-        return req.Model.find(event);
+        event.isSub = false;
+        return req.Model.find(event).populate(
+            {path: 'sub', populate: {path: 'sub',populate: {path: 'sub',populate: {path: 'sub',
+                            populate: {path: 'sub',populate: {path: 'sub',populate: {path: 'sub'}}}}}}});
     },
     'updateLikeByIdDao': async ({_id, field, userInfo}, req) => {
         const selfInc = field === 'like' ? {like: 1} : {dislike: 1}
@@ -20,6 +27,9 @@ module.exports = {
         } else {
             return -1;
         }
-
+    },
+    'getCommentNumDao': async (req) => {
+        const res = await req.Model.find().count();
+        return res;
     }
 }

@@ -7,11 +7,11 @@
         <div class="motto" v-html="model.motto"></div>
         <div class="info-wrapper">
             <div class="article">
-                <div>{{ model.info.article }}</div>
+                <div>{{ $store.getters["app/getArticleNum"] }}</div>
                 <div>文章数</div>
             </div>
             <div class="comment">
-                <div>{{ model.info.comment }}</div>
+                <div>{{ $store.getters["app/getCommentNum"] }}</div>
                 <div>评论数</div>
             </div>
             <div class="running">
@@ -33,8 +33,19 @@
         props: {
             model: Object
         },
-        data() {
-            return {}
+        methods: {
+            init() {
+                const {web} = this.$apis;
+                web.getArticleNum().then(({data}) => {
+                    this.$store.commit('app/setSidebarUserInfo', {article: data});
+                })
+                web.getCommentNum().then(({data}) => {
+                    this.$store.commit('app/setSidebarUserInfo', {comment: data});
+                })
+            }
+        },
+        created() {
+            this.init();
         }
     }
 </script>

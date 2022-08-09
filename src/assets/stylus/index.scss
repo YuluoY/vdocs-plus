@@ -11,6 +11,11 @@
   border-bottom: rgba(42, 142, 225, 1) solid 2px;
 }
 
+.hover-blue {
+  &:hover {
+    color: #409eff !important;
+  }
+}
 
 // container
 .h-container {

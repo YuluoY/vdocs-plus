@@ -17,7 +17,7 @@
 <script>
     import HHeader from "@/components/h-header";
     import media from "@/assets/media";
-    import HComment from "@/components/h-comment";
+    import HComment from "../src/components/comment/h-comment";
 
     export default {
         components: {HComment, HHeader},

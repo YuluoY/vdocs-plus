@@ -15,6 +15,20 @@ export async function addComment(params) {
     }, params)
 }
 
+export async function getAllComment() {
+    return await request({
+        url: BASE_URL + '/getAllComment',
+        method: 'get'
+    })
+}
+
+export async function getCommentNum() {
+    return await request({
+        url: BASE_URL + '/getCommentNum',
+        method: 'get'
+    })
+}
+
 export async function getCommentsByPath(params) {
     return await request({
         url: BASE_URL + '/getCommentsByPath',

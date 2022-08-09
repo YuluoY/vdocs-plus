@@ -13,10 +13,12 @@ const schema = new db.Schema({
     like: {type: Number, default: 0},
     dislike: {type: Number, default: 0},
     userInfo: Array,
-    subComment: [{
+    sub: [{
         type: db.SchemaTypes.ObjectId,
-        ref: 'Comment'
-    }]
+        ref: 'Comment',
+        deep:true
+    }],
+    isSub: {type: Boolean, default: false},
 }, {timestamps: true});
 
 module.exports = db.model('Comment', schema, 'comment');
