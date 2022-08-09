@@ -18,12 +18,17 @@
                                     <span>{{ item.system }}</span>
                                 </div>
                             </div>
-                            <div class="createdAt hover-blue">{{ formatDate(item.createdAt) }}</div>
+                            <div class="createdAt">
+                                <span class="hover-blue">{{ formatDate(item.createdAt) }}</span>
+                            </div>
                         </div>
                     </div>
                     <div :class="at ? 'content-wrapper content-wrapper-sub':'content-wrapper'">
                         <div class="main" :style="at && 'margin-left:70px;'">
-                            <a v-if="at" class="at" @click="jump(id)">@{{ at }}：</a>
+                            <a v-if="at" class="at"
+                               @click="jump(isArrayObject(item.sub,'_id')?id:item.sub[0])">
+                                @{{ isArrayObject(item.sub, '_id') ? at : idToName[item.sub[0]] }}：
+                            </a>
                             <span>{{ item.content }}</span>
                         </div>
                         <div class="main-func">
@@ -49,11 +54,12 @@
                                     v-if="states[item._id]"
                             ></h-comment-area>
                         </div>
-                        <div v-if="item.sub.length">
+                        <div v-if="isArrayObject(item.sub, '_id')">
                             <h-comment-display
                                     :isSubComment="true"
                                     :at="item.name"
                                     :id="item._id"
+                                    :idToName="idToName"
                                     :comments="item.sub"
                                     :is-reply-state="isReplyState"
                                     :states="states"
@@ -71,6 +77,7 @@
     import HCommentArea from "@/components/comment/h-comment-area";
     import dayjs from "dayjs";
     import './assets/css/iconfont.css'
+    import {isArrayObject} from "@/utils";
 
     export default {
         name: "HCommentDisplay",
@@ -83,6 +90,7 @@
             isSubComment: {type: Boolean, default: false}, // 这个变量可以告诉display组件传过来的comments是不是子评论
             at: String,  // 传过来的是被回复者的name值，@XX
             id: String,  // 用于定位name上div的id，然后进行jump
+            idToName: Object
         },
         data() {
             return {
@@ -96,6 +104,9 @@
             }
         },
         methods: {
+            isArrayObject(arr, unique) {
+                return arr.every(i => i.hasOwnProperty(unique));
+            },
             jump(id) {
                 Object.keys(this.statesX).forEach(k => {
                     const n = document.getElementById(k);
@@ -156,9 +167,6 @@
                 return `${timeDiff}${model[timeModel]}前`
             }
         },
-        mounted() {
-
-        }
     }
 </script>
 
@@ -179,7 +187,7 @@
     .comment-item-wrapper {
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
+      margin-top: 10px;
 
       .comment-item {
         .top-info {
@@ -199,6 +207,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            border-right: solid 1px black;
 
             .top {
               display: flex;
@@ -223,7 +232,6 @@
             .createdAt {
               color: silver;
               font-size: .9em;
-              width: 6.2%;
             }
           }
         }
@@ -240,14 +248,19 @@
 
           .main {
             flex: 1;
+            border-right: solid 1px black;
           }
 
           .main-func {
             display: flex;
-            margin-top: 10px;
+            flex: 1;
             align-items: center;
+            justify-content: flex-end;
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
 
             & > div {
+              display: inline-block;
               cursor: pointer;
               margin-right: 20px;
             }

@@ -8,6 +8,7 @@ const webService = require("../../service/webService");
 module.exports = router => {
     // 添加评论
     router.post('/addComment', async (req, res) => {
+        console.log(req.body)
         const {sub} = req.body;
         sub && delete req.body.sub;
         const result = await webService.addCommentService(req.body, sub, req, res);

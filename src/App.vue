@@ -18,6 +18,7 @@
     import HHeader from "@/components/h-header";
     import media from "@/assets/media";
     import HComment from "../src/components/comment/h-comment";
+    import {isArrayObject} from "@/utils";
 
     export default {
         components: {HComment, HHeader},

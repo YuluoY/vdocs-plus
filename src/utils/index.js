@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import {Loading, MessageBox} from "element-ui";
 
+
 /**
  * @description：数组对象排序 从小到大排序
  * @param arr {Array} 包含多个对象。
@@ -132,6 +133,10 @@ export function loading(dom, text) {
         background: "rgba(0, 0, 0, 0.7)",//遮罩层颜色
         target: dom || document.body //loadin覆盖的dom元素节点
     });
+}
+
+export function isArrayObject(arr, unique) {
+    return arr.every(item => item.hasOwnProperty(unique))
 }
 
 export function isEmptyObj(obj) {

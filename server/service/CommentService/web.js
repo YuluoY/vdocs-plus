@@ -7,8 +7,8 @@
 
 const webDao = require("../../dao/webDao");
 module.exports = {
-    'addCommentService': async (event, sub, req, res) => {
-        return webDao.addCommentDao(event, sub, req);
+    'addCommentService': async (event, subId, req, res) => {
+        return webDao.addCommentDao(event, subId, req);
     },
     'getCommentsByPathService': async (event, req, res) => {
         return webDao.getCommentsByPathDao(event, req);

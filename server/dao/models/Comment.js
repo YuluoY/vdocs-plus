@@ -16,9 +16,9 @@ const schema = new db.Schema({
     sub: [{
         type: db.SchemaTypes.ObjectId,
         ref: 'Comment',
-        deep:true
     }],
     isSub: {type: Boolean, default: false},
+    parentId: String
 }, {timestamps: true});
 
 module.exports = db.model('Comment', schema, 'comment');

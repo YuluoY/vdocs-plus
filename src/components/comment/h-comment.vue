@@ -6,6 +6,7 @@
         <h-comment-display :comments="$store.getters['comment/getComments']"
                            :isReplyState="isReplyState"
                            :states="states"
+                           :idToName="idToName"
                            :onReplyStateChange="onReplyStateChange"></h-comment-display>
         <div class="comment-title" v-if="isReverse">{{ title }}</div>
     </div>
@@ -26,6 +27,7 @@
             return {
                 isReplyState: true,
                 states: {},
+                idToName: {}
             }
         },
         methods: {
@@ -47,6 +49,7 @@
                     if (item.sub.length > 0) {
                         this.initCommentId(item.sub);
                     }
+                    this.idToName[item._id] = item.name;
                     item._id && this.$set(this.states, item._id, false)
                 })
             },
