@@ -9,6 +9,13 @@ export async function getArticles() {
     })
 }
 
+export async function getArticleById(id) {
+    return await request({
+        url: BASE_URL + '/getArticleById/' + id,
+        method: 'get'
+    })
+}
+
 export async function updateViewNum(params) {
     return await request({
         url: BASE_URL + '/updateViewNum',

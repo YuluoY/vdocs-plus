@@ -22,13 +22,16 @@
             }
         },
         methods: {
-            onJump(id) {
+            async onJump(id) {
                 const articles = this.$store.getters["app/getContentArticles"] ||
                     JSON.parse(localStorage.getItem('vdocs-articles') || "{}")
-                const article = articles.filter(item => item._id === id)[0];
+                let article = articles.filter(item => item._id === id)[0];
+                if (!article) {
+                    article = (await this.$apis.web.getArticleById(id)).data;
+                }
                 article.content = marked.parse(article.content)
                 localStorage.setItem('vdocs-currentArticle', JSON.stringify(article));
-                this.$router.push(`/achieve/${article.title}`);
+                await this.$router.push(`/achieve/${article.title}`);
             }
         },
         created() {

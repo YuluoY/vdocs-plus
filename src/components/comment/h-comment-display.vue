@@ -77,7 +77,6 @@
     import HCommentArea from "@/components/comment/h-comment-area";
     import dayjs from "dayjs";
     import './assets/css/iconfont.css'
-    import {isArrayObject} from "@/utils";
 
     export default {
         name: "HCommentDisplay",
@@ -147,7 +146,10 @@
                 const field = event.target.className.split(' ')[0];
 
                 this.$apis.web.updateLike({_id, field, userInfo}).then(res => {
-                    this.$store.commit('comment/setCommentsByPath', this);
+                    if (res) {
+                        this.$store.commit('comment/setCommentsByPath', this);
+                        event.target.style.color = 'red';
+                    }
                 })
             },
             formatDate(val) {

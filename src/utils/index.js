@@ -181,3 +181,87 @@ export function isObject(obj) {
     return Object.prototype.toString.call(obj) === "[object Object]";
 }
 
+
+/**
+ * 是否为移动端
+ * @param ua 传入navigator.userAgent属性
+ * @returns {boolean}
+ */
+export function isDeviceMobile(ua) {
+    return /android|webos|iphone|ipod|balckberry/i.test(ua)
+}
+
+/**
+ * 是否为PC端
+ * @param ua 传入navigator.userAgent属性
+ * @returns {boolean}
+ */
+export function isPC(ua) {
+    const Agents = ["Android", "iPhone",
+        "SymbianOS", "Windows Phone",
+        "iPad", "iPod"];
+    let flag = true;
+    for (let v = 0; v < Agents.length; v++) {
+        if (ua.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
+
+/**
+ * 是否为QQ浏览器
+ * @param ua 传入navigator.userAgent属性
+ * @returns {boolean}
+ */
+export function isQQBrowser(ua) {
+    return !!ua.match(/mqqbrowser|qzone|qqbrowser|qbwebviewtype/i)
+}
+
+/**
+ * 获取浏览器的类型
+ * @param ua 传入navigator.userAgent属性
+ * @returns {string}
+ */
+export function getBrowserType(ua) {
+    const kUserAgent = {
+        Opera: 'Opera',
+        Firefox: 'Firefox',
+        Chrome: 'Chrome',
+        Safari: 'Safari',
+        IE: 'IE',
+        QQ: 'QQBrowser'
+    };
+    // })
+    if (ua.indexOf('Opera') > -1) {
+        // 判断是否Opera浏览器
+        return kUserAgent.Opera;
+    }
+    if (ua.indexOf('Firefox') > -1) {
+        // 判断是否Firefox浏览器
+        return kUserAgent.Firefox;
+    }
+    if (ua.indexOf('QQBrowser') > -1) {
+        return kUserAgent.QQ
+    }
+    if (ua.indexOf('Chrome') > -1) {
+        // 判断是否为谷歌浏览器
+        return kUserAgent.Chrome;
+    }
+    if (ua.indexOf('Safari') > -1) {
+        // 判断是否Safari浏览器
+        return kUserAgent.Safari;
+    }
+
+    if (
+        ua.indexOf('compatible') > -1 &&
+        ua.indexOf('MSIE') > -1 &&
+        ua.indexOf('Opera') > -1
+    ) {
+        // 判断是否IE浏览器
+        return kUserAgent.IE;
+    }
+    return '';
+}
+

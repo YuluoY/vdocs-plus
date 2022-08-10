@@ -31,11 +31,11 @@
                 <div class="right" v-show="isShowSongInfoX">
                     <div class="song-info-wrapper">
                         <div class="song-info">
-                            <div class="singer text-ellipse">
+                            <div class="singer text-ellipse" :title="currentSong.singer">
                                 <span class="iconfont icon-renwu-ren" style="margin-right: 10px;"></span>
                                 <span>{{ currentSong.singer }}</span>
                             </div>
-                            <div class="song text-ellipse">
+                            <div class="song text-ellipse" :title="currentSong.song">
                                 <span class="iconfont icon-yinle" style="margin-right: 10px;"></span>
                                 <span>{{ currentSong.song }}</span>
                             </div>
@@ -46,7 +46,9 @@
                                 <span>{{ durationStr }}</span>
                             </div>
                             <div class="progress-bar-wrapper"
+                                 :title="'播放进度：'+songPercentage"
                                  @click="onChangeProgress">
+                                <span class="progress-percentage">{{ songPercentage }}</span>
                                 <span class="progress-bar" ref="progressBar"></span>
                             </div>
                             <div class="shrink-icon iconfont icon-xiangzuo1"
@@ -86,6 +88,7 @@
                 currentSong: {},
                 durationStr: '',
                 currentTimeStr: '00:00',
+                songPercentage: '0%'
             }
         },
         methods: {
@@ -156,7 +159,9 @@
                 const progressBarWrapper = document.getElementsByClassName('progress-bar-wrapper')[0];
 
                 const totalWidth = parseInt(getComputedStyle(progressBarWrapper).width);
-                progressBar.style.width = (event.offsetX / totalWidth) * 100 + '%';
+                const val = (event.offsetX / totalWidth) * 100;
+                this.songPercentage = val.toFixed(1) + '%'
+                progressBar.style.width = val + '%';
                 audio.currentTime = (event.offsetX / totalWidth) * audio.duration;
                 this.currentTimeStr = this.setAudioDuration(audio, 'currentTime');
             },
@@ -171,7 +176,9 @@
                         this.onChange(totalSongNum <= this.currentSong.id ? 1 : this.currentSong.id + 1);
                     }
                     this.currentTimeStr = this.setAudioDuration(audio, 'currentTime');
-                    progressBar.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+                    const val = (audio.currentTime / audio.duration) * 100;
+                    this.songPercentage = val.toFixed(1) + '%';
+                    progressBar.style.width = val + '%';
                 }, 10)
             },
         },
@@ -192,7 +199,7 @@
                 this.setAudioVolume(audio, this.volume);
 
                 setTimeout(() => {
-                    if(JSON){
+                    if (JSON) {
                         const info = JSON.parse(localStorage.getItem('h-audio-player') || '{}');
                         this.isShowSongInfoX = info.isShowSongInfo;
                     }
@@ -236,7 +243,7 @@
 
       .player-wrapper {
         //width: 100%;
-        height: 6rem;
+        height: 7rem;
         display: flex;
         flex-direction: row;
         position: relative;
@@ -244,12 +251,12 @@
 
         //#region audio left style
         .left {
-          width: 6rem;
+          width: 7rem;
           position: relative;
 
           .halt-wrapper {
             width: 100%;
-            line-height: 6rem;
+            line-height: 7rem;
             position: absolute;
             text-align: center;
             color: white;
@@ -266,8 +273,10 @@
 
           .song-img-wrapper {
             .song-img {
+              position: absolute;
               width: 100%;
-              height: 6rem;
+              height: 100%;
+              z-index: -1;
             }
           }
         }
@@ -286,7 +295,8 @@
             .song-info {
               width: 100%;
               margin-left: 1rem;
-
+              display: flex;
+              flex-direction: column;
 
               .singer, .song, .play-time {
                 font-size: 1rem;
@@ -307,9 +317,17 @@
                 display: flex;
                 align-items: center;
                 background-color: rgba(0, 0, 0, 0.05);
+                position: relative;
 
                 &:hover {
                   cursor: pointer;
+                }
+
+                .progress-percentage {
+                  position: absolute;
+                  z-index: 2;
+                  width: 100%;
+                  text-align: center;
                 }
 
                 .progress-bar {

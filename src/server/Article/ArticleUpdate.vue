@@ -8,7 +8,7 @@
             <el-table-column label="作者" prop="author"></el-table-column>
             <el-table-column label="类别" prop="categories">
                 <template slot-scope="scope">
-                    <el-tag v-for="(t, i) in scope.row.categories" :key="'tag-'+i">
+                    <el-tag v-for="(t, i) in scope.row.cates" :key="'tag-'+i">
                         {{ t.cateName }}
                     </el-tag>
                 </template>
@@ -24,8 +24,12 @@
                     {{ formatDate(scope.row.updatedAt) }}
                 </template>
             </el-table-column>
-            <el-table-column label="浏览次数" prop="viewNum"></el-table-column>
-            <el-table-column label="评论次数" prop="commentNum"></el-table-column>
+            <el-table-column label="浏览数" prop="viewNum"></el-table-column>
+            <el-table-column label="评论数" prop="comments">
+                <template slot-scope="scope">
+                    {{scope.row.comments.length}}
+                </template>
+            </el-table-column>
             <el-table-column align="right" width="150px">
                 <template slot="header" slot-scope="scope">
                     <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>

@@ -55,7 +55,6 @@
                 })
             },
             countCommentNum(comments) {
-                if(comments === null || comments.length === 0) return;
                 let n = 0;
                 comments.forEach(item => {
                     if (item.sub.length > 0) {
@@ -69,7 +68,7 @@
         computed: {
             title() {
                 const comments = this.$store.getters["comment/getComments"];
-                let n = this.countCommentNum(comments) || 0;
+                let n = this.countCommentNum(comments);
                 let title = '';
                 if (comments.length === 0) {
                     if (this.$route.path !== '/message') {

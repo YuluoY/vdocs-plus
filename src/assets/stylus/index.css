@@ -325,7 +325,9 @@
                 -webkit-line-clamp: 3;
                 line-clamp: 3;
                 color: rgba(0, 0, 0, 0.7);
-                font-family: Cambria; }
+                font-family: Cambria;
+                position: relative;
+                z-index: 9999; }
   .h-main .h-footer-wrapper {
     user-select: text;
     width: 100%;

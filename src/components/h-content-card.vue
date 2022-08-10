@@ -5,7 +5,7 @@
             <div class="left">
                 <div class="title">{{ title }}</div>
                 <div class="detail">
-                    <span class="text-ellipse" v-html="desc"></span>
+                    <span class="text-ellipse" v-html="desc" :title="desc"></span>
                 </div>
                 <div class="extra-Info-wrapper">
                     <div class="date" title="发布日期">

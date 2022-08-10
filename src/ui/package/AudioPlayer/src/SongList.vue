@@ -51,7 +51,7 @@
       position: absolute;
       content: '';
       width: 5px;
-      height: 22.5px;
+      height: 100%;
       background-color: #409eff;
       left: 0;
       top: 0;
@@ -59,7 +59,6 @@
   }
 
   .h-song-list {
-    width: 25rem;
     font-size: .8rem;
 
     .song-title-wrapper {

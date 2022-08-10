@@ -3,7 +3,8 @@ import {isArray, isClassname, isString} from "../core";
 const $ = document;
 
 export function addClass(el, className) {
-    if (isClassname(el, className)) return;
+    const has = isClassname(el, className);
+    if (has || has === undefined) return el;
     if (isString(className)) {
         el.className = el.className + ' ' + className;
     } else if (isArray(className)) {

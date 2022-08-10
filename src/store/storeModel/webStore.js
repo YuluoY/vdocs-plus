@@ -1,6 +1,7 @@
 export default {
     namespaced: true,
     state: {
+        browserType: '',
         header: {
             nav: [
                 {
@@ -183,6 +184,9 @@ export default {
         }
     },
     mutations: {
+        setBrowserType(state, browserType) {
+            state.browserType = browserType;
+        },
         async setContentArticles(state, that) {
             state.main.content.articles = (await that.$apis.web.getArticles()).data
             localStorage.setItem('vdocs-articles', JSON.stringify(state.main.content.articles))
@@ -196,10 +200,13 @@ export default {
         async setSidebarUserInfo(state, obj) {
             const key = Object.keys(obj)[0];
             state.sidebar.userInfoArea.info[key] = obj[key];
-        }
+        },
     },
     actions: {},
     getters: {
+        getBrowserType(state){
+            return state.browserType;
+        },
         getContentArticles(state) {
             return state.main.content.articles;
         },
@@ -212,10 +219,10 @@ export default {
         getDefaultArticleImg(state) {
             return state.main.content.defaultArticleImg;
         },
-        getArticleNum(state){
+        getArticleNum(state) {
             return state.sidebar.userInfoArea.info.article;
         },
-        getCommentNum(state){
+        getCommentNum(state) {
             return state.sidebar.userInfoArea.info.comment;
         }
     }

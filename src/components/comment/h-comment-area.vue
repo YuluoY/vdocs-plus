@@ -74,13 +74,22 @@
         methods: {
             // 发布评论
             async onRelease() {
+                const browserType = this.$store.getters["app/getBrowserType"];
                 if (this.model.content.trim() === '') {
                     this.$message.warning('您还没有填写任何评论哦！')
                     return;
                 }
                 const brandInfo = navigator.userAgent.replace(/(\()|(\))/g, '').split(' ');
                 const system = `${brandInfo[1]} ${brandInfo[3]}`.replace(/(\.0)|(;)/g, '');
-                const browser = brandInfo[10].replace(/(\/)/g, ' ');
+                let browser = browserType;
+
+                if (browserType === 'Chrome') {
+                    browser = brandInfo[10].replace(/(\/)/g, ' ');
+                } else if (browserType === 'Firefox') {
+                    browser = brandInfo[8].replace(/(\/)/g, ' ');
+                } else if (browserType === 'QQBrowser') {
+                    browser = brandInfo[12].replace(/(\/)/g, ' ');
+                }
 
                 this.model.name === '' && (this.model.name = 'Anonymous')
                 this.model.address === '' && (this.model.address = '地球村')

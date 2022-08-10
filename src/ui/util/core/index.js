@@ -57,6 +57,7 @@ export function objectDeepMerge(target = {}, source = {}) {
 
 // 查看元素是否已存在将要添加的类名
 export function isClassname(el, cls) {
+    if(isUndef(el)) return el;
     return el.className.split(' ').some(str => str === cls);
 }
 

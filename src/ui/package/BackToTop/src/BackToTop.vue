@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import {getBrowserType} from "../../../util/env";
+
     export default {
         name: "hBackToTop",
         props: {
@@ -22,8 +24,11 @@
         },
         methods: {
             onToTop() {
+                const env = getBrowserType(navigator.userAgent)
+                let base = 120;
                 // 以10ms的速率，实现在1.2秒内（小数存在一点误差，但问题不大）置顶
-                const deficit = document.body.scrollTop / 120;
+                if (env === 'Firefox') base = 70;
+                const deficit = document.body.scrollTop / base;
                 clearInterval(this.timer)
                 console.time('h-backToTop component')
                 this.timer = setInterval(_ => {

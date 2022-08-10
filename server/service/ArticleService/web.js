@@ -10,6 +10,10 @@ module.exports = {
         return await webDao.getArticlesDao(req);
     },
 
+    getArticleByIdService(event, req, res) {
+        return webDao.getArticleByIdDao(event, req);
+    },
+
     updateViewNumService(event, req, res) {
         return webDao.updateViewNumDao(event, req);
     },

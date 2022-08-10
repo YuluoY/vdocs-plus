@@ -11,8 +11,8 @@
                     :createdAt="n.createdAt"
                     :content="n.content"
                     :viewNum="n.viewNum"
-                    :commentNum="n.commentNum"
-                    :categories="n.categories"
+                    :commentNum="n.comments.length"
+                    :categories="n.cates"
                     :author="n.author"
                     :onReadArticle="onAchieve"></h-content-card>
         </div>
