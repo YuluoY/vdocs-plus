@@ -23,6 +23,8 @@ import {
     Dialog,
     Tag,
     Link,
+    Avatar,
+    Card,
 } from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css';
 const components = [
@@ -47,6 +49,8 @@ const components = [
     Dialog,
     Tag,
     Link,
+    Avatar,
+    Card,
 ]
 
 import Vue from "vue";

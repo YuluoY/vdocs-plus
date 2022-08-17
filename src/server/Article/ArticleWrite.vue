@@ -24,11 +24,37 @@
                 <el-form-item label="上传图片：" label-width="90px">
                     <h-upload :setImgUrl="setImgUrl" :img-url="model.imgUrl"></h-upload>
                 </el-form-item>
-                <el-form-item label="浏览次数：" label-width="90px">
+                <el-form-item label="浏览数：" label-width="90px">
                     <el-input-number v-model="model.viewNum" :min="0" label="描述文字"></el-input-number>
                 </el-form-item>
-                <el-form-item label="评论次数：" label-width="90px">
-                    <el-input-number v-model="model.commentNum" :min="0" label="描述文字"></el-input-number>
+                <el-form-item label="评论列表：">
+                    <el-table
+                            height="200"
+                            :data="model.comments && model.comments.filter(data => !search || data.content.toLowerCase().includes(search.toLowerCase()))"
+                            style="width: 100%">
+                        <el-table-column label="_id" prop="_id"></el-table-column>
+                        <el-table-column label="头像" prop="imgUrl">
+                            <template slot-scope="scope">
+                                <el-avatar :src="scope.row.imgUrl" shape="square"></el-avatar>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="姓名" prop="name"></el-table-column>
+                        <el-table-column label="评论内容" prop="content"></el-table-column>
+                        <el-table-column label="评论时间" prop="createdAt"></el-table-column>
+                        <el-table-column align="right">
+                            <template slot="header" slot-scope="scope">
+                                <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
+                            </template>
+                            <template slot-scope="scope">
+                                <el-button size="mini"
+                                        @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                                <el-button
+                                        size="mini"
+                                        type="danger"
+                                        @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
                 </el-form-item>
             </el-form>
             <vue-markdown-editor v-model="model.content"
@@ -65,10 +91,17 @@
                     commentNum: 0,
                     imgUrl: ''
                 },
-                categories: []
+                categories: [],
+                search:''
             }
         },
         methods: {
+            handleEdit(index, row) {
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                console.log(index, row);
+            },
             setImgUrl(url) {
                 this.model.imgUrl = url;
             },
@@ -111,8 +144,8 @@
             if (!isEmptyObj(this.$route.query)) {
                 const article = JSON.parse(localStorage.getItem('h-article-edit') || '{}');
                 this.model = {...article};
-                this.model.categories = []
-                article.categories.forEach(item => this.model.categories.push(item._id))
+                this.model.categories.length = 0
+                article.cates.forEach(item => this.model.categories.push(item._id))
             }
         }
     }

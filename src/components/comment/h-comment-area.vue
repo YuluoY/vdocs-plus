@@ -62,12 +62,13 @@
                     address: '',
                     content: '',
                     words: 0,
+                    cname:''
                 },
                 hints: {
                     nameHint: 'QQ/匿名昵称',
                     emailHint: '邮箱',
-                    addressHint: '地址或博客',
-                    contentHint: '是时候展现你真正的技术了！',
+                    addressHint: '博客网址',
+                    contentHint: '是时候展现你真正的技术了！（提示：输入QQ号会自动填写头像和邮箱哦~）',
                 }
             }
         },
@@ -92,10 +93,11 @@
                 }
 
                 this.model.name === '' && (this.model.name = 'Anonymous')
-                this.model.address === '' && (this.model.address = '地球村')
+                this.model.address === '' && (this.model.address = '#')
                 this.model.system = system; // 操作系统
                 this.model.browser = browser; // 浏览器参数
                 this.model.path = decodeURI(this.$route.path);  // 页面
+                this.model.cname = (await this.$apis.rest.getUserIp()).data.cname
                 if (this.id) {
                     this.model.sub = this.id
                     this.model.isSub = true;
@@ -179,6 +181,7 @@
       margin: 30px auto;
       font-size: .8em;
       position: relative;
+      z-index: 10;
 
       .header {
         display: flex;

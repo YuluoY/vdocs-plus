@@ -1,6 +1,7 @@
 import request from "@/axios";
+import {LOG_BASE_URL} from "@/apis/web/global";
 
-const BASE_URL = '/web/log'
+const BASE_URL = LOG_BASE_URL;
 
 export async function getLogs() {
     return await request.bind(this)({

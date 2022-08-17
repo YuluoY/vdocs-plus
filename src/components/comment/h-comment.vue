@@ -45,7 +45,7 @@
                 }
             },
             initCommentId(comments) {
-                if(comments === null || comments.length === 0) return;
+                if (comments === null || comments.length === 0) return;
                 comments.forEach(item => {
                     if (item.sub.length > 0) {
                         this.initCommentId(item.sub);
@@ -55,12 +55,10 @@
                 })
             },
             countCommentNum(comments) {
-                if(comments === null || comments.length === 0) return;
+                if (comments === null || comments.length === 0) return;
                 let n = 0;
                 comments.forEach(item => {
-                    if (item.sub.length > 0) {
-                        n += this.countCommentNum(item.sub);
-                    }
+                    item.sub.length > 0 && (n += item.sub.length)
                     n++;
                 })
                 return n;
@@ -93,7 +91,6 @@
 </script>
 
 <style scoped>
-
 
     .h-comment-wrapper {
         display: flex;

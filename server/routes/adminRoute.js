@@ -6,6 +6,7 @@ module.exports = app => {
     require('./CategoryRoutes/admin')(router)
     require('./CommentRoutes/admin')(router)
     require('./LogRoutes/admin')(router)
+    require('./LoginRoutes/admin')(router)
 
     app.use('/api/admin/:resource', inflectionMiddleware(), router)
 }

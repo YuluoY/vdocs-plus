@@ -57,7 +57,8 @@
         name: "h-header",
         components: {HRouterLink},
         props: {
-            isHeader: {type: Boolean, default: true}
+            isHeader: {type: Boolean, default: true},
+            isSidebarAlwaysShow: {type: Boolean, default: true}
         },
         methods: {
             onOpenDropList(n) {
@@ -87,9 +88,12 @@
         mounted() {
             document.body.addEventListener('scroll', () => {
                 const header = document.getElementsByClassName('h-header')[0];
-                const sidebar = document.getElementsByClassName('h-sidebar')[0];
                 const articleSidebar = document.getElementsByClassName('h-article-sidebar')[0];
-                // if(!header || !sidebar) return;
+                let sidebar = null;
+                if (this.isSidebarAlwaysShow) {
+                    sidebar = document.getElementsByClassName('h-sidebar')[0];
+                }
+
                 if (document.body.scrollTop >= document.body.clientHeight - 30) {
                     header && deleteClass(header, ['h-header-transparent', 'h-header-show'])
                     header && addClass(header, 'h-header-hide')

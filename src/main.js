@@ -18,6 +18,8 @@ import './ElementUI'
 import VueHighlightJS from 'vue-highlightjs'
 Vue.use(VueHighlightJS)
 
+import '@/plugins/VueLazyLoadImg'
+import "@/plugins/VueParticles"
 
 Vue.config.productionTip = false
 Vue.prototype.$apis = apis;

@@ -21,7 +21,6 @@ module.exports = router => {
     router.get('/getCommentByPath', async (req, res) => {
         console.log(req.query)
         const result = await adminService.getCommentByPathService(req, res);
-        // res.send(result)
         res.send('1')
     })
     // 根据Id删除评论

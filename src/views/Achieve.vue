@@ -37,7 +37,7 @@
         mounted() {
             if (!isEmptyObj(this.$route.meta)) {
                 this.article = {...this.$route.meta['article']}
-                this.$refs.backgroundImg.style.backgroundImage = `url(${this.article.imgUrl})`
+                this.$refs.backgroundImg.style.backgroundImage = `url(${this.article.imgUrl || require("@/assets/img/1.jpg")})`
                 this.$refs.backgroundImg.style.backgroundRepeat = "no-repeat";//设置背景不平铺
                 this.$refs.backgroundImg.style.backgroundPosition = "center";//设置背景图的位置
                 this.$refs.backgroundImg.style.backgroundSize = "cover";//设置背景图像的尺寸
@@ -66,6 +66,7 @@
   .achieve {
     background-color: rgba(150, 150, 150, .15);
 
+
     .content-box {
       position: relative;
       width: 100%;
@@ -78,6 +79,8 @@
         .content {
           background-color: white;
           padding: 20px 20px;
+          position: relative;
+          z-index: 10;
         }
       }
     }

@@ -1,12 +1,13 @@
 import request from "@/axios";
+import {ARTICLE_BASE_URL} from "@/apis/web/global";
 
-const BASE_URL = '/web/article'
+const BASE_URL = ARTICLE_BASE_URL
 
-export async function getArticles() {
+export async function getArticles(params) {
     return await request({
         url: BASE_URL + '/getArticles',
         method: 'get'
-    })
+    }, params)
 }
 
 export async function getArticleById(id) {

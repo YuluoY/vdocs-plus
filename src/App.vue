@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <h-header :is-header="!isLogin && isHeader"></h-header>
+        <h-header :is-header="!isLogin && isHeader"
+                  :is-sidebar-always-show="false"></h-header>
         <router-view/>
         <h-back-to-top :speed="10"></h-back-to-top>
         <h-audio-player
@@ -11,6 +12,7 @@
         <!-- 评论区 -->
         <h-comment v-if="!isLogin && isComment"></h-comment>
         <h-progress></h-progress>
+
     </div>
 </template>
 
@@ -50,7 +52,12 @@
 
                 // 根据路由获取评论
                 if (!['/home', '/login'].includes(to.path) && !this.isLogin) {
-                    if (to.hash) return;
+                    if (to.hash) {
+                        if (!this.$store.getters["comment/getComments"].length) {
+                            this.$store.commit('comment/setCommentsByPath', this)
+                        }
+                        return;
+                    }
                     this.$store.commit('comment/setCommentsByPath', this)
                 }
             }
@@ -64,17 +71,18 @@
                     const isLogin = JSON.parse(localStorage.getItem('h-admin-login') || '')
                     this.$store.commit('router/changeLoginState', isLogin)
                 }
-            }, 100)
+            }, 10)
         }
     }
 </script>
-<style>
-    html, body {
-        width: 100vm;
-        height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-        font-size: 16px;
-        /*background: rgba(192, 192, 192, 0.32);*/
-    }
+<style lang="scss">
+  html, body {
+    width: 100vm;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 16px;
+    /*background: rgba(192, 192, 192, 0.32);*/
+    position: static;
+  }
 </style>

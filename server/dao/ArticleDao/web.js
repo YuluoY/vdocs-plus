@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-    async getArticlesDao(req) {
+    async getArticlesDao({start, num, sort}, req) {
         const result = await req.Model.aggregate([
             {
                 $lookup: {
@@ -22,7 +22,10 @@ module.exports = {
                     localField: 'categories', // 本地字段，即：category表中的name字段
                     as: 'cates', // 当本地字段与外部字段中的值相等时，就将article表中的这一行数据添加在category_items字段中。
                 },
-            }
+            },
+            {$skip: start},
+            {$limit: num},
+            {$sort: sort},
         ])
         return result;
     },

@@ -1,6 +1,43 @@
 import dayjs from 'dayjs';
 import {Loading, MessageBox} from "element-ui";
 
+/**
+ * 通过字符串对象路径来修改其属性值，有两种路径写法：a/b/c 或 a.b.c
+ * @param path {String} 对象属性路径。用于定位需要修改的属性
+ * @param object {Object,Array,Number,String} 被操作对象。需要修改属性值的对象
+ * @param target {Object,Array,Number,String} 目标对象。对象属性的新值
+ * @param model {String} 模式。两种模式：emerge合并模式，如果是对象且有相同属性，object会被target覆盖。
+ *                          replace替代模式，直接对object的属性进行赋值，值为target。
+ * @returns {*} void
+ */
+export function objValModByPath(path, object, target, model = 'emerge') {
+    if (path === '') return object;
+    let attrs = [];
+    if (path.indexOf('.') > 0) {
+        attrs = path.split('.');
+    } else if (path.indexOf('/') > 0) {
+        attrs = path.split('/');
+    } else {  // path没有多层路径
+        attrs.push(path);
+    }
+
+    let str = 'object';
+    for (let i = 0; i < attrs.length - 1; i++) {
+        str += '["' + attrs[i] + '"]'
+    }
+
+    const lastAttr = attrs[attrs.length - 1]
+    if (model === 'emerge') {
+        if (isObject(target)) {
+            eval(str)[lastAttr] = {...eval(str)[lastAttr], ...target}
+        } else if (isArray(target)) {
+            eval(str)[lastAttr] = [...eval(str)[lastAttr], ...target]
+        }
+    } else if (model === 'replace') {
+        eval(str)[lastAttr] = target
+    }
+}
+
 
 /**
  * @description：数组对象排序 从小到大排序

@@ -11,8 +11,17 @@
         <sidebar-item :title="sidebar.tagInfoArea.title">
             <tag-info-wrapper :model="sidebar.tagInfoArea"></tag-info-wrapper>
         </sidebar-item>
+        <sidebar-item :title="sidebar.recentlyCommentArea.title">
+            <recently-comment-wrapper
+                    :start="0"
+                    :num="5"
+                    :model="sidebar.recentlyCommentArea"></recently-comment-wrapper>
+        </sidebar-item>
         <sidebar-item :title="sidebar.friendInfoArea.title">
             <friend-info-wrapper :model="sidebar.friendInfoArea"></friend-info-wrapper>
+        </sidebar-item>
+        <sidebar-item :title="sidebar.websiteInfoArea.title">
+            <website-info-wrapper :model="sidebar.websiteInfoArea.info"></website-info-wrapper>
         </sidebar-item>
     </div>
 </template>
@@ -25,11 +34,17 @@
     import FlipCountdown from "vue2-flip-countdown";
     import {mapState} from "vuex";
     import {useVue2FlipCountdownMixin} from "@/mixin";
+    import RecentlyCommentWrapper from "@/components/sidebar/RecentlyCommentWrapper";
+    import WebsiteInfoWrapper from "@/components/sidebar/WebsiteInfoWrapper";
 
     export default {
         name: "HSidebar",
-        mixins:[useVue2FlipCountdownMixin],
-        components: {FriendInfoWrapper, TagInfoWrapper, UserInfoWrapper, SidebarItem, FlipCountdown},
+        mixins: [useVue2FlipCountdownMixin],
+        components: {
+            WebsiteInfoWrapper,
+            RecentlyCommentWrapper,
+            FriendInfoWrapper, TagInfoWrapper, UserInfoWrapper, SidebarItem, FlipCountdown
+        },
         computed: mapState({
             sidebar: state => state.app.sidebar,
         }),

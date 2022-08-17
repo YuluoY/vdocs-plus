@@ -22,10 +22,13 @@
                 style="width: 100%">
             <el-table-column label="Id" prop="_id"></el-table-column>
             <el-table-column label="类别" prop="cateName"></el-table-column>
-            <el-table-column label="父类" prop="parent">
-                <template slot-scope="scope" v-if="scope.row.parent.length">
-                    <el-tag v-for="(t,i) in scope.row.parent" :key="'tag'+i">{{ t.cateName }}</el-tag>
+            <el-table-column label="父类" prop="parentCates">
+                <template slot-scope="scope" v-if="scope.row.parentCates.length">
+                    <el-tag v-for="(t,i) in scope.row.parentCates" :key="'tag'+i">{{ t.cateName }}</el-tag>
                 </template>
+            </el-table-column>
+            <el-table-column label="文章数" prop="articles">
+                <template slot-scope="scope">{{scope.row.articles.length}}</template>
             </el-table-column>
             <el-table-column align="right">
                 <template slot="header" slot-scope="scope">
@@ -41,7 +44,7 @@
         <el-dialog title="类别编辑" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="父类：" label-width="120px">
-                    <el-select v-model="form.parent"
+                    <el-select v-model="form.parentCates"
                                multiple placeholder="请选择" style="width: 100%;">
                         <el-option
                                 v-for="(item,i) in tableData"
@@ -76,13 +79,12 @@
                 form: {
                     _id: '',
                     cateName: '',
-                    parent: []
+                    parentCates: []
                 }
             }
         },
         methods: {
             async onSubmit() {
-                console.log(this.model)
                 const res = await this.$apis.admin.addCategory(this.model);
                 if (res) {
                     this.$notify.success(`"${this.model.cateName}"类别添加成功！`)
@@ -92,6 +94,7 @@
             },
             async onModifyCategory() {
                 this.dialogFormVisible = false;
+                this.form.parent = this.form.parentCates;
                 const res = await this.$apis.admin.updateCategory(this.form);
                 if (res) {
                     this.$notify.success(`修改后："${this.form.cateName}"`)

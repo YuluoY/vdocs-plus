@@ -16,7 +16,7 @@
 
 <script>
 
-    import ASidebar from "@/server/a-sidebar";
+    import ASidebar from "@/server/Sidebar/a-sidebar";
     import AHeader from "@/server/a-header";
 
     export default {

@@ -15,16 +15,11 @@
 </template>
 
 <script>
-    import {mapState} from "vuex";
-
     export default {
         name: "h-main",
-        computed: mapState({
-            websiteImg: state => state.app.main.websiteInfo.img
-        })
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

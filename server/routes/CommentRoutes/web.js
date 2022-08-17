@@ -24,20 +24,13 @@ module.exports = router => {
         res.send(result.toString())
     })
 
-    // 获取用户的ip
-    router.get('/getUserIp', async (req, res) => {
-        const http = require('http');
-        http.get('http://pv.sohu.com/cityjson?ie=utf-8', request => {
-            let data = '';
-            request.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            request.on('end', () => {
-                res.send(/\{.*\}/.exec(data)[0])
-            })
-        })
+    router.get('/getComments', async (req, res) => {
+        const {start, num, sort} = req.query;
+        const result = await webService.getCommentsService({start, num, sort}, req);
+        res.send(result)
     })
+
+
 
     router.patch('/updateLikeById', async (req, res) => {
         const result = await webService.updateLikeByIdService(req.body, req, res);

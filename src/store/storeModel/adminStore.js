@@ -70,6 +70,15 @@ export default {
                         path: '/logManage',
                         component: 'LogManage',
                         icon: 'log'
+                    },
+                    {
+                        id: '5',
+                        title: '评论管理',
+                        name: 'CommentManage',
+                        path: '/commentManage',
+                        component: 'CommentManage',
+                        icon: 'comment',
+                        meta: {filePath: '/Comment'},
                     }
                 ]
             },

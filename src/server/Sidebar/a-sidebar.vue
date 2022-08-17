@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import ASidebarItem from "@/server/a-sidebar-item";
+    import ASidebarItem from "./a-sidebar-item";
     import {mapState} from "vuex";
-    import AMenuTransition from "@/server/a-menu-transition";
+    import AMenuTransition from "./a-menu-transition";
 
     export default {
         name: "ASidebar",

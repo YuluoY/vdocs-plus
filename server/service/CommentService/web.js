@@ -13,6 +13,9 @@ module.exports = {
     'getCommentsByPathService': async (event, req, res) => {
         return webDao.getCommentsByPathDao(event, req);
     },
+    'getCommentsService': ({start, num, sort}, req) => {
+        return webDao.getCommentsDao({start, num, sort}, req)
+    },
 
     'updateLikeByIdService': async (event, req, res) => {
         return webDao.updateLikeByIdDao(event, req);

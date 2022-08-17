@@ -8,7 +8,11 @@ const webService = require("../../service/webService");
 const {myAssert} = require("../../utils");
 module.exports = router => {
     router.get('/getArticles', async (req, res) => {
-        const result = await webService.getArticlesService(req, res);
+        let {start, num, sort} = req.query;
+        start = start * 1 || 0
+        num = num * 1 || 100000
+        sort = sort || {'createdAt': -1}
+        const result = await webService.getArticlesService({start, num, sort}, req);
         myAssert(result, 401, '文章获取失败！', res);
     })
 

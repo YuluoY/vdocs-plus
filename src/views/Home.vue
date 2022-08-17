@@ -29,21 +29,16 @@
     import HSection from "@/components/h-section";
     import HMain from "@/components/h-main";
     import HDrop from "@/components/h-drop";
-    import InfoCountWrapper from "@/components/InfoCountWrapper";
-    import CategoryTagWrapper from "@/components/CategoryTagWrapper";
-    import FriendLinksWrapper from "@/components/FriendLinksWrapper";
     import HContent from "@/components/h-content";
     import HFooter from "@/components/h-footer";
-    import HSidebar from "@/components/h-sidebar";
+    import HSidebar from "@/components/sidebar/h-sidebar";
 
     export default {
         name: 'Home',
         components: {
             HSidebar,
             HFooter,
-            HContent,
-            FriendLinksWrapper,
-            CategoryTagWrapper, InfoCountWrapper, HDrop, HMain, HSection, HContainer, hHeader
+            HContent, HDrop, HMain, HSection, HContainer, hHeader
         },
 
         computed: {},

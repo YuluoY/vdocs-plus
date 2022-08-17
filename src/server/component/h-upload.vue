@@ -2,7 +2,7 @@
     <div class="h-upload">
         <el-upload
                 class="avatar-uploader"
-                :action="axios.baseURL + '/rest/upload'"
+                :action="UPLOAD_URL + '/api/rest/upload'"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import {baseConfigure} from "@/axios";
+    import {BASE_URL} from "@/axios";
 
     export default {
         name: 'HUpload',
@@ -24,11 +24,11 @@
         data() {
             return {
                 localImgUrl: '',
-                axios: ''
+                UPLOAD_URL: ''
             };
         },
         created() {
-            this.axios = baseConfigure
+            this.UPLOAD_URL = BASE_URL;
         },
         methods: {
             handleAvatarSuccess(res, file) {

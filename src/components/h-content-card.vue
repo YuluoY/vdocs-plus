@@ -1,6 +1,6 @@
 <template>
     <div class="h-content-card border-gradual" :title="title" ref="contentCard">
-        <img :src="imgUrl" class="img"/>
+        <img v-lazy="imgUrl" class="img"/>
         <div class="info-wrapper">
             <div class="left">
                 <div class="title">{{ title }}</div>
@@ -50,7 +50,7 @@
             title: String,
             imgUrl: String,
             content: String,
-            createdAt: {type: Number, default: Date.now()},
+            createdAt: String,
             desc: String,
             author: String,
             categories: Array,
@@ -58,7 +58,7 @@
         },
         filters: {
             dateFormat(val) {
-                return formatDate(val, 'YYYY年MM月DD日')
+                return formatDate(new Date(val).getTime(), 'YYYY年MM月DD日')
             },
             categoriesFormat(val) {
                 const cate = []

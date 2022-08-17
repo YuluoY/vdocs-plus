@@ -1,3 +1,5 @@
+import {objValModByPath} from "@/utils";
+
 export default {
     namespaced: true,
     state: {
@@ -25,8 +27,8 @@ export default {
                         {
                             id: '1-1',
                             imgUrl: require('@/assets/img/1.jpg'),
-                            title: '我的文章',
-                            label: '我的文章',
+                            title: '编程文章',
+                            label: '编程文章',
                             component: 'Article',
                             path: '/category/article'
                         },
@@ -53,6 +55,14 @@ export default {
                             label: '学习笔记',
                             component: 'Note',
                             path: '/category/note'
+                        },
+                        {
+                            id: '1-5',
+                            imgUrl: require('@/assets/img/7.jpg'),
+                            title: '我的空间',
+                            label: '我的空间',
+                            component: 'Space',
+                            path: '/category/space'
                         }
                     ]
                 },
@@ -127,24 +137,6 @@ export default {
             }
         },
         main: {
-            websiteInfo: {  // 站点信息
-                img: require('@/assets/img/hudieren.jpg'),
-                categoryTag: {
-                    articles: [
-                        {label: '我的日常', href: '/'}
-                    ],
-                    skills: [
-                        {label: 'JavaScript', href: '/'},
-                        {label: 'Vue2', href: '/'},
-                        {label: 'Java', href: '/'},
-                        {label: 'Node', href: '/'},
-                        {label: 'MongoDB', href: '/'}],
-                    friends: [
-                        {label: '百度', href: 'www.baidu.com'},
-                        {label: '雨落', href: '/'}
-                    ]
-                }
-            },
             content: {
                 articles: [],
                 defaultArticleImg: require('@/assets/img/hudieren.jpg')
@@ -155,14 +147,15 @@ export default {
             running: 2222,
             visit: 30000,
             establish: Date.now(),
-            permit: '© 2022 YuLuoCoding 鄂ICP备2021017241号'
+            website: '©2021-2022 By 雨落',
+            permit: '鄂ICP备2021017241号'
         },
         sidebar: {
             userInfoArea: {
-                title: '关于作者',
-                imgUrl: require("@/assets/img/1.jpg"),
+                title: '作者',
+                imgUrl: require("@/assets/img/8.jpg"),
                 name: '雨落',
-                motto: '与其守成法，毋宁尚自然；<br>与其求划一，毋宁展个性。',
+                motto: '愿理想与现实不谋而合。',
                 info: {
                     article: 10,
                     comment: 20,
@@ -170,10 +163,25 @@ export default {
                 }
             },
             tagInfoArea: {
-                title: '标签云'
+                title: '标签云',
+                tags: []
+            },
+            recentlyCommentArea: {
+                title: '最新评论',
+                comments: []
             },
             friendInfoArea: {
-                title: '友人帐'
+                title: '友人帐',
+                friends: []
+            },
+            websiteInfoArea: {
+                title: '小破站',
+                info: {
+                    establish: '2022-08-14 09:09:22', // 建站时间
+                    visitNum: 1000, // 访问次数
+                    visitorNum: 10,  // 访问人数
+                    running: 1660439362000
+                }
             }
         },
         pages: {
@@ -187,8 +195,12 @@ export default {
         setBrowserType(state, browserType) {
             state.browserType = browserType;
         },
-        async setContentArticles(state, that) {
-            state.main.content.articles = (await that.$apis.web.getArticles()).data
+        async setContentArticles(state, [that, params]) {
+            state.main.content.articles = (await that.$apis.web.getArticles(params)).data
+            localStorage.setItem('vdocs-articles', JSON.stringify(state.main.content.articles))
+        },
+        addContentArticles(state, arr) {
+            state.main.content.articles.push(...arr);
             localStorage.setItem('vdocs-articles', JSON.stringify(state.main.content.articles))
         },
         async setLogs(state, that) {
@@ -197,14 +209,14 @@ export default {
         async setArticles(state, that) {
             state.pages.logPage.articles = (await that.$apis.web.getArticles()).data;
         },
-        async setSidebarUserInfo(state, obj) {
-            const key = Object.keys(obj)[0];
-            state.sidebar.userInfoArea.info[key] = obj[key];
+        setSidebar(state, {path, target, model = 'emerge'}){
+            this.getters['app/getCommentNum'] = state.sidebar.userInfoArea.info.comment
+            objValModByPath(path, state.sidebar, target, model)
         },
     },
     actions: {},
     getters: {
-        getBrowserType(state){
+        getBrowserType(state) {
             return state.browserType;
         },
         getContentArticles(state) {
@@ -222,8 +234,8 @@ export default {
         getArticleNum(state) {
             return state.sidebar.userInfoArea.info.article;
         },
-        getCommentNum(state) {
-            return state.sidebar.userInfoArea.info.comment;
-        }
+        getCategoryTags(state) {
+            return state.sidebar.tagInfoArea.tags;
+        },
     }
 }

@@ -16,7 +16,7 @@
                         </div>
                         <div class="date">{{ d.createdAt.substring(5, d.createdAt.length) }}</div>
                         <span>/</span>
-                        <div class="title">{{ d.title }}</div>
+                        <div class="title" v-html="d.title"></div>
                     </div>
                 </div>
             </div>

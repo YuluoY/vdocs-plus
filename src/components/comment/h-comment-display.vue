@@ -5,17 +5,24 @@
                 <div class="comment-item"
                      v-for="(item, i) in comments" :key="i">
                     <div class="top-info">
-                        <img :src="item.imgUrl" alt="头像" class="img"/>
+                        <img v-lazy="item.imgUrl" alt="头像" class="img"/>
                         <div class="right">
                             <div class="top">
-                                <div class="name" :id="item._id">{{ item.name }}</div>
-                                <div class="browser hover-blue">
+                                <a :href="isAddress(item.address)  ? 'javascript:void(0);' : item.address"
+                                   :style="`${isAddress(item.address) && 'cursor: text;'}`">
+                                    <div class="name" :id="item._id">{{ item.name }}</div>
+                                </a>
+                                <div class="browser base-sign hover-blue">
                                     <svg-icon icon-class="browser" style="margin-right: 5px;"></svg-icon>
                                     <span>{{ item.browser }}</span>
                                 </div>
-                                <div class="system hover-blue">
+                                <div class="system base-sign hover-blue">
                                     <svg-icon icon-class="system" style="margin-right: 5px;"></svg-icon>
                                     <span>{{ item.system }}</span>
+                                </div>
+                                <div class="cname base-sign hover-blue">
+                                    <svg-icon icon-class="address" style="margin-right: 5px;"></svg-icon>
+                                    <span>{{ item.cname }}</span>
                                 </div>
                             </div>
                             <div class="createdAt">
@@ -102,7 +109,11 @@
                 this.statesX = newVal;
             }
         },
+
         methods: {
+            isAddress(address) {
+                return address === '#'
+            },
             isArrayObject(arr, unique) {
                 return arr.every(i => i.hasOwnProperty(unique));
             },
@@ -142,7 +153,8 @@
             },
             // 点赞
             async onLike(_id, event) {
-                const userInfo = (await this.$apis.web.getUserIp()).data;
+                const userInfo = (await this.$apis.rest.getUserIp()).data;
+                console.log(userInfo)
                 const field = event.target.className.split(' ')[0];
 
                 this.$apis.web.updateLike({_id, field, userInfo}).then(res => {
@@ -185,6 +197,8 @@
   .comment-display-wrapper {
     width: 64em;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
 
     .comment-item-wrapper {
       display: flex;
@@ -218,13 +232,7 @@
                 font-size: 1.2em;
               }
 
-              .system {
-                font-size: .9em;
-                margin-left: 2em;
-                color: silver;
-              }
-
-              .browser {
+              .base-sign {
                 font-size: .9em;
                 margin-left: 2em;
                 color: silver;

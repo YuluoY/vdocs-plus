@@ -16,6 +16,13 @@
                     :author="n.author"
                     :onReadArticle="onAchieve"></h-content-card>
         </div>
+        <button class="load-more-article" title="更多文章"
+                v-show="isLoading > 0"
+                @click="onLoading">
+            {{ loadMoreArticle }}
+        </button>
+        <div v-show="isLoading < 0" class="load-more-tips">{{ loadMoreTips }}</div>
+        <div v-show="isLoading === 0" class="load-more-tips">落落的裤衩子都让你扒拉干净了😭</div>
     </div>
 </template>
 
@@ -28,10 +35,32 @@
         components: {HContentCard},
         data() {
             return {
-                dataList: []
+                dataList: [],
+                isLoading: 1,
+                params: {
+                    start: 0,
+                    num: 5,
+                },
+                loadMoreArticle: 'Loading...',
+                loadMoreTips: '落落正在拼命加载中😫...'
             }
         },
         methods: {
+            onLoading() {
+                const totalArticle = this.$store.getters["app/getArticleNum"];
+                this.params.start += this.params.num;
+                if (this.params.start > totalArticle) {
+                    this.isLoading = 0
+                    return;
+                }
+                this.isLoading = -1
+                this.$apis.web.getArticles(this.params).then(res => {
+                    if (res) {
+                        this.isLoading = 1;
+                        this.$store.commit('app/addContentArticles', res.data)
+                    }
+                })
+            },
             onAchieve(id) {
                 const article = this.dataList.filter(item => item._id === id)[0];
                 article.content = marked.parse(article.content)
@@ -39,20 +68,22 @@
                 this.$router.push(`/achieve/${article.title}`);
             }
         },
+        watch:{
+            dataList(newVal){
+                this.dataList = newVal;
+            }
+        },
         created() {
-            // 获取所有的文章
-            setTimeout(() => this.$store.commit('app/setContentArticles', this))
+            this.$store.commit('app/setContentArticles', [this, this.params])
         },
         mounted() {
             setTimeout(() => {
                 this.dataList = this.$store.getters["app/getContentArticles"]
-                this.dataList.forEach((n, i, arr) => arr[i].createdAt = new Date(n.createdAt).getTime())
-                this.$forceUpdate()
             }, 500)
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

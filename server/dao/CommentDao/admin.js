@@ -10,7 +10,7 @@ module.exports = {
 
     async getCommentsDao(req) {
         if (req.Model.modelName === 'Comment') {
-            return req.Model.find().populate('parent').lean();
+            return req.Model.find().populate('sub').lean();
         }
     },
 

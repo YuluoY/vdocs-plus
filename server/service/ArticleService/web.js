@@ -6,19 +6,19 @@
 
 const webDao = require("../../dao/webDao");
 module.exports = {
-    async getArticlesService(req, res) {
-        return await webDao.getArticlesDao(req);
+    async getArticlesService({start, num, sort}, req) {
+        return await webDao.getArticlesDao({start, num, sort}, req);
     },
 
-    getArticleByIdService(event, req, res) {
+    getArticleByIdService(event, req) {
         return webDao.getArticleByIdDao(event, req);
     },
 
-    updateViewNumService(event, req, res) {
+    updateViewNumService(event, req) {
         return webDao.updateViewNumDao(event, req);
     },
 
-    getArticleNumService(req, res) {
+    getArticleNumService(req) {
         return webDao.getArticleNumDao(req);
     }
 }

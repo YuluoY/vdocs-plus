@@ -3,10 +3,9 @@ import Vue from "vue";
 import {isEmptyObj, merge} from "@/utils";
 
 const Axios = axios.create();
-
-export const baseConfigure = {
-    // baseURL: process.env.VUE_APP_BASE_URL,
-    baseURL:'http://localhost:3000/api',
+export const BASE_URL = process.env.VUE_APP_BASE_API
+const baseConfigure = {
+    baseURL: BASE_URL + '/api',
     timeout: 10000
 }
 
@@ -20,7 +19,7 @@ Axios.interceptors.response.use(res => {
     return res;
 }, err => {
     const {status} = err.response;
-    switch (status){
+    switch (status) {
         case 405:
             Vue.prototype.$message.warning(err.response.data);
             break;
