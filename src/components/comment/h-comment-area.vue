@@ -47,6 +47,8 @@
 </template>
 
 <script>
+    import {mapState} from "vuex";
+
     export default {
         name: "HCommentArea",
         props: {
@@ -62,7 +64,7 @@
                     address: '',
                     content: '',
                     words: 0,
-                    cname:''
+                    cname: ''
                 },
                 hints: {
                     nameHint: 'QQ/匿名昵称',
@@ -72,23 +74,25 @@
                 }
             }
         },
+        computed: mapState({
+            browserType: state => state.app.browserType,
+        }),
         methods: {
             // 发布评论
             async onRelease() {
-                const browserType = this.$store.getters["app/getBrowserType"];
                 if (this.model.content.trim() === '') {
                     this.$message.warning('您还没有填写任何评论哦！')
                     return;
                 }
                 const brandInfo = navigator.userAgent.replace(/(\()|(\))/g, '').split(' ');
                 const system = `${brandInfo[1]} ${brandInfo[3]}`.replace(/(\.0)|(;)/g, '');
-                let browser = browserType;
+                let browser = this.browserType;
 
-                if (browserType === 'Chrome') {
+                if (this.browserType === 'Chrome') {
                     browser = brandInfo[10].replace(/(\/)/g, ' ');
-                } else if (browserType === 'Firefox') {
+                } else if (this.browserType === 'Firefox') {
                     browser = brandInfo[8].replace(/(\/)/g, ' ');
-                } else if (browserType === 'QQBrowser') {
+                } else if (this.browserType === 'QQBrowser') {
                     browser = brandInfo[12].replace(/(\/)/g, ' ');
                 }
 

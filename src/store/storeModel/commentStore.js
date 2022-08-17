@@ -17,7 +17,7 @@ export default {
     actions: {},
     modules: {},
     getters: {
-        getComments(state) {
+        getCommentsByPath(state) {
             return state.comments;
         }
     }

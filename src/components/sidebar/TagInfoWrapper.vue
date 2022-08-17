@@ -7,6 +7,7 @@
                 :num="t.articles.length"
                 :title="t.cateName + '：'+t.articles.length"
                 is-show-icon
+                @click.native="toTagsPage"
                 radius="plain"
                 :href="'/'">
         </h-tag>

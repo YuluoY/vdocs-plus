@@ -15,11 +15,8 @@ import './ui/stylus/index.css'
 import './assets/css/animate.min.css' // 动画样式
 
 import './ElementUI'
-import VueHighlightJS from 'vue-highlightjs'
-Vue.use(VueHighlightJS)
 
-import '@/plugins/VueLazyLoadImg'
-import "@/plugins/VueParticles"
+import '@/plugins' // 加载插件
 
 Vue.config.productionTip = false
 Vue.prototype.$apis = apis;

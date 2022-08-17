@@ -101,7 +101,6 @@
         data() {
             return {
                 statesX: '',
-                timeDiffStr: 'millisecond'
             }
         },
         watch: {
@@ -170,7 +169,7 @@
                     'year': '年',
                     'month': '月',
                     'week': '周',
-                    'day': '日',
+                    'day': '天',
                     'hour': '小时',
                     'minute': '分钟',
                     'second': '秒',

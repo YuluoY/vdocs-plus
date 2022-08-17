@@ -38,6 +38,19 @@ export function objValModByPath(path, object, target, model = 'emerge') {
     }
 }
 
+export function getResponseTime(performance, callback) {
+    console.time('响应耗时：')
+    performance.mark('markStart')
+    document.onreadystatechange = function () {
+        if (document.readyState === 'complete') {
+            console.timeEnd('响应耗时：')
+            performance.mark('markEnd')
+            performance.measure('time', 'markStart', 'markEnd')
+            const time = performance.getEntriesByName('time')[0].duration;
+            typeof callback === 'function' && callback(time);
+        }
+    }
+}
 
 /**
  * @description：数组对象排序 从小到大排序

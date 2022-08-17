@@ -20,7 +20,7 @@
     import HHeader from "@/components/h-header";
     import media from "@/assets/media";
     import HComment from "../src/components/comment/h-comment";
-    import {getBrowserType, isArrayObject} from "@/utils";
+    import {getBrowserType, getResponseTime} from "@/utils";
 
     export default {
         components: {HComment, HHeader},
@@ -53,7 +53,7 @@
                 // 根据路由获取评论
                 if (!['/home', '/login'].includes(to.path) && !this.isLogin) {
                     if (to.hash) {
-                        if (!this.$store.getters["comment/getComments"].length) {
+                        if (!this.$store.getters["comment/getCommentsByPath"].length) {
                             this.$store.commit('comment/setCommentsByPath', this)
                         }
                         return;
@@ -72,6 +72,9 @@
                     this.$store.commit('router/changeLoginState', isLogin)
                 }
             }, 10)
+            getResponseTime(window.performance, time =>
+                this.$store.commit('app/setWebResponseTime', Math.floor(time))
+            )
         }
     }
 </script>

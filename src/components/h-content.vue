@@ -2,10 +2,10 @@
     <div class="h-content">
         <div class="h-content-card-wrapper">
             <h-content-card
-                    v-for="(n, i) in dataList"
+                    v-for="(n, i) in contentArticles"
                     :key="i"
                     :id="n._id"
-                    :imgUrl="n.imgUrl || $store.getters['app/getDefaultArticleImg']"
+                    :imgUrl="n.imgUrl || defaultArticleImg"
                     :title="n.title"
                     :desc="n.desc"
                     :createdAt="n.createdAt"
@@ -29,25 +29,25 @@
 <script>
     import HContentCard from "@/components/h-content-card";
     import marked from "@/Marked";
+    import {mapState} from "vuex";
 
     export default {
         name: "h-content",
         components: {HContentCard},
         data() {
             return {
-                dataList: [],
-                isLoading: 1,
                 params: {
                     start: 0,
                     num: 5,
                 },
+                isLoading: 1, // 1表示待加载，用户未点击按钮状态。0表示已全部加载。-1表示正在加载
                 loadMoreArticle: 'Loading...',
                 loadMoreTips: '落落正在拼命加载中😫...'
             }
         },
         methods: {
             onLoading() {
-                const totalArticle = this.$store.getters["app/getArticleNum"];
+                const totalArticle = this.articleNum
                 this.params.start += this.params.num;
                 if (this.params.start > totalArticle) {
                     this.isLoading = 0
@@ -62,25 +62,20 @@
                 })
             },
             onAchieve(id) {
-                const article = this.dataList.filter(item => item._id === id)[0];
+                const article = this.contentArticles.filter(item => item._id === id)[0];
                 article.content = marked.parse(article.content)
                 localStorage.setItem('vdocs-currentArticle', JSON.stringify(article));
                 this.$router.push(`/achieve/${article.title}`);
             }
         },
-        watch:{
-            dataList(newVal){
-                this.dataList = newVal;
-            }
-        },
+        computed: mapState({
+            articleNum: state => state.app.sidebar.userInfoArea.info.article,
+            defaultArticleImg: state => state.app.main.content.defaultArticleImg,
+            contentArticles: state => state.app.main.content.articles
+        }),
         created() {
             this.$store.commit('app/setContentArticles', [this, this.params])
         },
-        mounted() {
-            setTimeout(() => {
-                this.dataList = this.$store.getters["app/getContentArticles"]
-            }, 500)
-        }
     }
 </script>
 

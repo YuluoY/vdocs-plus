@@ -45,7 +45,7 @@
             }
         },
         created() {
-            this.$store.commit('app/setLogs', this);
+            this.$store.commit('app/setLogPageLogs', this);
         },
         mounted() {
             setTimeout(() => {
@@ -57,8 +57,7 @@
                     let year = log.createdAt.substring(0, 4);
                     !this.years.includes(year) && this.years.push(year);
                 })
-                this.$forceUpdate()
-            },400)
+            }, 300)
         },
     }
 </script>

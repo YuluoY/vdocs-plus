@@ -3,7 +3,7 @@ import {objValModByPath} from "@/utils";
 export default {
     namespaced: true,
     state: {
-        browserType: '',
+        browserType: 'browser', // 浏览器类型
         header: {
             nav: [
                 {
@@ -180,13 +180,16 @@ export default {
                     establish: '2022-08-14 09:09:22', // 建站时间
                     visitNum: 1000, // 访问次数
                     visitorNum: 10,  // 访问人数
-                    running: 1660439362000
+                    running: 1660439362000,
+                    webResponseTime: 0, // 响应时间
                 }
             }
         },
         pages: {
             logPage: {
                 logs: [],
+            },
+            filePage: {
                 articles: []
             }
         }
@@ -194,6 +197,9 @@ export default {
     mutations: {
         setBrowserType(state, browserType) {
             state.browserType = browserType;
+        },
+        setWebResponseTime(state, time) {
+            state.sidebar.websiteInfoArea.info.webResponseTime = time;
         },
         async setContentArticles(state, [that, params]) {
             state.main.content.articles = (await that.$apis.web.getArticles(params)).data
@@ -203,39 +209,26 @@ export default {
             state.main.content.articles.push(...arr);
             localStorage.setItem('vdocs-articles', JSON.stringify(state.main.content.articles))
         },
-        async setLogs(state, that) {
+        async setLogPageLogs(state, that) {
             state.pages.logPage.logs = (await that.$apis.web.getLogs()).data
         },
-        async setArticles(state, that) {
-            state.pages.logPage.articles = (await that.$apis.web.getArticles()).data;
+        async setFilePageArticles(state, that) {
+            state.pages.filePage.articles = (await that.$apis.web.getArticles()).data;
         },
-        setSidebar(state, {path, target, model = 'emerge'}){
-            this.getters['app/getCommentNum'] = state.sidebar.userInfoArea.info.comment
+        setSidebar(state, {path, target, model = 'emerge'}) {
             objValModByPath(path, state.sidebar, target, model)
         },
     },
     actions: {},
     getters: {
-        getBrowserType(state) {
-            return state.browserType;
-        },
-        getContentArticles(state) {
-            return state.main.content.articles;
-        },
         getLogs(state) {
             return state.pages.logPage.logs;
         },
-        getArticles(state) {
-            return state.pages.logPage.articles;
+        getCompleteArticles(state) {
+            return state.pages.filePage.articles;
         },
-        getDefaultArticleImg(state) {
-            return state.main.content.defaultArticleImg;
-        },
-        getArticleNum(state) {
-            return state.sidebar.userInfoArea.info.article;
-        },
-        getCategoryTags(state) {
+        getCompleteCategory(state) {
             return state.sidebar.tagInfoArea.tags;
-        },
+        }
     }
 }

@@ -20,9 +20,7 @@
         <sidebar-item :title="sidebar.friendInfoArea.title">
             <friend-info-wrapper :model="sidebar.friendInfoArea"></friend-info-wrapper>
         </sidebar-item>
-        <sidebar-item :title="sidebar.websiteInfoArea.title">
-            <website-info-wrapper :model="sidebar.websiteInfoArea.info"></website-info-wrapper>
-        </sidebar-item>
+        <website-info-wrapper></website-info-wrapper>
     </div>
 </template>
 

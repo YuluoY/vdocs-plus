@@ -3,8 +3,8 @@
         <div class="backgroundImg baseBackgroundImg" ref="backgroundImg">
             <div class="title">{{ title }}</div>
         </div>
-        <div class="file-wrapper" v-if="timeLineData.length">
-            <h-time-line :data="timeLineData" :jump="onJump"></h-time-line>
+        <div class="file-wrapper" v-if="articles.length">
+            <h-time-line :data="articles" :jump="onJump"></h-time-line>
         </div>
     </div>
 </template>
@@ -12,18 +12,14 @@
 <script>
     import {useBackgroundImgMixin} from "@/mixin";
     import marked from "@/Marked";
+    import {mapState} from "vuex";
 
     export default {
         name: "File",
         mixins: [useBackgroundImgMixin],
-        data() {
-            return {
-                timeLineData: [],
-            }
-        },
         methods: {
             async onJump(id) {
-                const articles = this.$store.getters["app/getContentArticles"] ||
+                const articles = this.articles ||
                     JSON.parse(localStorage.getItem('vdocs-articles') || "{}")
                 let article = articles.filter(item => item._id === id)[0];
                 if (!article) {
@@ -34,15 +30,12 @@
                 await this.$router.push(`/achieve/${article.title}`);
             }
         },
+        computed: mapState({
+            articles: state => state.app.pages.filePage.articles
+        }),
         created() {
-            this.$store.commit('app/setArticles', this);
+            this.$store.commit('app/setFilePageArticles', this);
         },
-        mounted() {
-            setTimeout(() => {
-                this.timeLineData = this.$store.getters["app/getArticles"]
-                this.$forceUpdate()
-            }, 500)
-        }
     }
 </script>
 

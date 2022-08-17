@@ -1,22 +1,25 @@
 <template>
-    <div class="websiteInfoWrapper">
-        <div class="website-info-box">
-            <div class="visitorNum">访问人数：{{ model.visitorNum }}</div>
-            <div class="visitNum">访问次数：{{ model.visitNum }}</div>
-            <!--            <div class="establish">建站时间：{{ model.establish }}</div>-->
-            <div class="running">本站已运行：{{ runningStr }}</div>
+    <sidebar-item :title="website.title">
+        <div class="websiteInfoWrapper">
+            <div class="website-info-box">
+                <div class="visitorNum">访问人数：{{ website.info.visitorNum }}</div>
+                <div class="visitNum">访问次数：{{ website.info.visitNum }}</div>
+                <!--            <div class="establish">建站时间：{{ model.establish }}</div>-->
+                <div class="responseTime">响应耗时：{{ website.info.webResponseTime }}ms</div>
+                <div class="running">本站已运行：{{ runningStr }}</div>
+            </div>
         </div>
-    </div>
+    </sidebar-item>
 </template>
 
 <script>
     import dayjs from "dayjs";
+    import SidebarItem from "@/components/sidebar/SidebarItem";
+    import {mapState} from "vuex";
 
     export default {
         name: "WebsiteInfoWrapper",
-        props: {
-            model: Object
-        },
+        components: {SidebarItem},
         data() {
             return {
                 runningStr: ''
@@ -45,11 +48,14 @@
                 })
             }
         },
+        computed: mapState({
+            website: state => state.app.sidebar.websiteInfoArea
+        }),
         created() {
             this.init();
         },
         mounted() {
-            this.timer = setInterval(() => this.dateFormatter(this.model.running), 1000)
+            this.timer = setInterval(() => this.dateFormatter(this.website.info.running), 1000)
         },
         beforeDestroy() {
             clearInterval(this.timer)

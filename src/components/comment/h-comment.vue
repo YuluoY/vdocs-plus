@@ -3,7 +3,7 @@
          :style="`flex-direction: ${isReverse ? 'column-reverse' : 'column'}`">
         <h-comment-area v-if="isReplyState" :isReplyState="isReplyState"></h-comment-area>
         <div class="comment-title" v-if="!isReverse">{{ title }}</div>
-        <h-comment-display :comments="$store.getters['comment/getComments']"
+        <h-comment-display :comments="$store.getters['comment/getCommentsByPath']"
                            :isReplyState="isReplyState"
                            :states="states"
                            :idToName="idToName"
@@ -32,7 +32,7 @@
         },
         methods: {
             onReplyStateChange(id) {
-                const comments = this.$store.getters["comment/getComments"];
+                const comments = this.$store.getters["comment/getCommentsByPath"];
                 if (id !== 'init') {
                     const state = this.states[id]; // 取出当前回复的状态
 
@@ -66,7 +66,7 @@
         },
         computed: {
             title() {
-                const comments = this.$store.getters["comment/getComments"];
+                const comments = this.$store.getters["comment/getCommentsByPath"];
                 let n = this.countCommentNum(comments) || 0;
                 let title = '';
                 if (comments.length === 0) {
@@ -84,7 +84,7 @@
         },
         mounted() {
             setTimeout(() => {
-                this.initCommentId(this.$store.getters["comment/getComments"])
+                this.initCommentId(this.$store.getters["comment/getCommentsByPath"])
             }, 200)
         }
     }
