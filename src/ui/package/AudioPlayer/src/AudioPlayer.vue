@@ -236,7 +236,7 @@
       width: 100%;
 
       .song-list-wrapper {
-        max-height: 20rem;
+        max-height: 15rem;
         overflow-y: auto;
         transition: 1s;
       }

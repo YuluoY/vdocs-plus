@@ -9,13 +9,20 @@ const baseConfigure = {
     timeout: 10000
 }
 
+let num = 0
+
 Axios.interceptors.request.use(req => {
+    num++;
     return req;
 }, err => {
     return Promise.reject(err);
 })
 
 Axios.interceptors.response.use(res => {
+    num--;
+    if(num <= 0){
+        import('./Adapt')
+    }
     return res;
 }, err => {
     const {status} = err.response;

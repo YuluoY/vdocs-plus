@@ -38,8 +38,13 @@ module.exports = {
         return req.Model.find(event).populate('sub')
     },
     'updateLikeByIdDao': async ({_id, field, userInfo}, req) => {
+        const {isDevelopment} = require('../../utils');
         const selfInc = field === 'like' ? {like: 1} : {dislike: 1}
-        const comment = await req.Model.findById(_id, {'userInfo.cip': userInfo.cip})
+        let projection = {'userInfo.cip': userInfo.cip}
+        if (!isDevelopment()) {
+            projection = {'userInfo.ip': userInfo.ip}
+        }
+        const comment = await req.Model.findById(_id, projection)
         if (comment.userInfo.length === 0) {
             return req.Model.updateOne({_id}, {$push: {userInfo}, $inc: selfInc})
         }

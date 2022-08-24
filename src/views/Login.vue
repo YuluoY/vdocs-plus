@@ -11,7 +11,8 @@
                 </div>
                 <div>
                     <label style="margin-left: 20px;">
-                        密码：<input v-model="model.password" type="password" placeholder="请输入密码"/>
+                        密码：<input v-model="model.password" type="password" placeholder="请输入密码"
+                            @keydown.enter.self="onLogin"/>
                     </label>
                 </div>
                 <div>

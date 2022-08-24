@@ -4,7 +4,7 @@
   margin: 0 auto;
   user-select: text;
   position: relative;
-
+  min-width: 1440px;
 
   .center {
     width: 100%;
@@ -94,6 +94,7 @@
     }
 
     .h-content-wrapper {
+      min-width: 1440px;
       .h-content {
         width: 65%;
         height: auto;

@@ -66,7 +66,6 @@
   .achieve {
     background-color: rgba(150, 150, 150, .15);
 
-
     .content-box {
       position: relative;
       width: 100%;

@@ -7,12 +7,11 @@
         <h-audio-player
                 :is-disabled="!isLogin && isHeader"
                 :song-list="getSongList"
-                :default-song="5"
+                :default-song="4"
                 :volume="0.7"></h-audio-player>
         <!-- 评论区 -->
         <h-comment v-if="!isLogin && isComment"></h-comment>
         <h-progress></h-progress>
-
     </div>
 </template>
 
@@ -86,6 +85,7 @@
     overflow-x: hidden;
     font-size: 16px;
     /*background: rgba(192, 192, 192, 0.32);*/
-    position: static;
+    position: relative;
+    min-width: 1440px;
   }
 </style>

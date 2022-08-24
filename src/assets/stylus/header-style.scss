@@ -22,6 +22,7 @@
   //position: sticky;
   position: fixed;
   transition: .8s;
+  min-width: 1440px;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.9);
@@ -33,6 +34,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
+    min-width: 1440px;
 
     .info {
       width: 15%;

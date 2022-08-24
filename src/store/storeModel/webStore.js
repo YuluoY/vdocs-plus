@@ -147,8 +147,8 @@ export default {
             running: 2222,
             visit: 30000,
             establish: Date.now(),
-            website: '©2021-2022 By 雨落',
-            permit: '鄂ICP备2021017241号'
+            website: 'Copyright © 2021-2022 By 雨落',
+            permit: '鄂ICP备2021018528号'
         },
         sidebar: {
             userInfoArea: {

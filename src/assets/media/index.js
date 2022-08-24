@@ -1,4 +1,4 @@
-const svgContext = require.context('./audio', true, /\.(mp3|mgg|flac)$/);
+const svgContext = require.context('./audio', true, /\.(mp3|mgg|flac|wav)$/);
 const audioUrls = svgContext.keys().map(svgContext);
 let audioInfos = []
 audioUrls.forEach((item, index, arr) => {

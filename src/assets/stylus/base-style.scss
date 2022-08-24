@@ -1,0 +1,26 @@
+a {
+  color: black;
+  text-decoration: none;
+  transition: .6s;
+  cursor: pointer;
+
+  &:hover {
+    color: #409eff;
+  }
+}
+.container {
+
+  .flip-card{
+    font-size: 1.8em !important;
+    .flip-card__top{
+      color: #409eff !important;
+    }
+    .flip-card__bottom{
+      color: #409eff !important;
+    }
+  }
+  .flip-clock__slot{
+    margin-top: 5px;
+    font-size: .9em !important;
+  }
+}

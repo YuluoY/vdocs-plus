@@ -5,5 +5,5 @@
  */
 
 import Vue from "vue";
-import VueHighlightJS from 'vue-highlightjs'
-Vue.use(VueHighlightJS)
+import vueHighlightJS from './vue-highlightjs'
+Vue.use(vueHighlightJS)

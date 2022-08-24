@@ -14,6 +14,10 @@ const schema = new db.Schema({
     }
 }, {timestamps: true});
 
+schema.pre('findOneAndUpdate', function (next) {
+    this.setUpdate({$inc: this.getUpdate().$inc})
+    next()
+})
 schema.pre('save', function (next) {
     this.path = '/achieve/' + this.title
     next();

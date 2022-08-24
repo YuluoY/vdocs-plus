@@ -16,11 +16,11 @@ schema.virtual('children', {
     ref: 'Category'
 })
 
-// schema.virtual("category", {
-//     localField: "_id",
-//     foreignField: "cateName",
-//     justOne: false,
-//     ref: "Article",
-// });
+schema.virtual("category", {
+    localField: "_id",
+    foreignField: "cateName",
+    justOne: false,
+    ref: "Article",
+});
 
 module.exports = db.model('Category', schema, 'category');

@@ -4,28 +4,24 @@ module.exports = {
     },
 
     async getAllCategoryDao(req) {
-        if (req.Model.modelName === 'Category') {
-            return req.Model.aggregate([
-                {
-                    $lookup: {
-                        from: 'article',
-                        foreignField: 'categories',
-                        localField: '_id',
-                        as: 'articles'
-                    },
+        return req.Model.aggregate([
+            {
+                $lookup: {
+                    from: 'article',
+                    foreignField: 'categories',
+                    localField: '_id',
+                    as: 'articles'
                 },
-                {
-                    $lookup: {
-                        from: 'category',
-                        foreignField: 'parent',
-                        localField: '_id',
-                        as: 'parentCates'
-                    }
+            },
+            {
+                $lookup: {
+                    from: 'category',
+                    foreignField: '_id',
+                    localField: 'parent',
+                    as: 'parentCates'
                 }
-            ]);
-
-            // return req.Model.find().populate('parent').lean();
-        }
+            }
+        ]);
     },
 
     async delCategoryDao(event, req) {

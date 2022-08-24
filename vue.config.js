@@ -3,7 +3,7 @@ const resolve = dir => path.join(__dirname, dir); // 路径对接
 
 const PORT = 8080;  // 端口号
 const PUBLIC_PATH = './'; // 基本公共路径
-const TITLE = "雨落的博客";  // 浏览器标题
+const TITLE = "雨落的博客 | 欢迎光临😄";  // 浏览器标题
 const ICON_PACKAGE_PATH = './src/assets/icons/svg';
 
 module.exports = {
@@ -12,7 +12,6 @@ module.exports = {
     devServer: {
         port: PORT,
     },
-
 
     configureWebpack: {
         name: TITLE

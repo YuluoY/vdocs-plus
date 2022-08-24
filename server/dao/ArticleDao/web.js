@@ -6,7 +6,7 @@
 
 module.exports = {
     async getArticlesDao({start, num, sort}, req) {
-        const result = await req.Model.aggregate([
+        return req.Model.aggregate([
             {
                 $lookup: {
                     from: 'comment',  // 关联article表
@@ -25,9 +25,8 @@ module.exports = {
             },
             {$skip: start},
             {$limit: num},
-            {$sort: sort},
-        ])
-        return result;
+        ]).sort(sort && {'createdAt': -1});
+
     },
     async getArticleByIdDao(event, req) {
         const res = await req.Model.findOne(event);
@@ -35,8 +34,7 @@ module.exports = {
     },
 
     async updateViewNumDao(event, req) {
-        const result = await req.Model.findByIdAndUpdate(event, {$inc: {viewNum: 1}})
-        return result;
+        return req.Model.findByIdAndUpdate(event, {$inc: {viewNum: 1}});
     },
 
     async getArticleNumDao(req) {

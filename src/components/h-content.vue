@@ -39,6 +39,7 @@
                 params: {
                     start: 0,
                     num: 5,
+                    sort: true
                 },
                 isLoading: 1, // 1表示待加载，用户未点击按钮状态。0表示已全部加载。-1表示正在加载
                 loadMoreArticle: 'Loading...',

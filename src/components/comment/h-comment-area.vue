@@ -101,7 +101,14 @@
                 this.model.system = system; // 操作系统
                 this.model.browser = browser; // 浏览器参数
                 this.model.path = decodeURI(this.$route.path);  // 页面
-                this.model.cname = (await this.$apis.rest.getUserIp()).data.cname
+
+                const userInfo = (await this.$apis.rest.getUserIp()).data;
+                if (process.env.VUE_APP_BASE_API === 'http://localhost:3000') {
+                    this.model.cname = userInfo.cname
+                } else {
+                    this.model.cname = userInfo.province;
+                }
+
                 if (this.id) {
                     this.model.sub = this.id
                     this.model.isSub = true;

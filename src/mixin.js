@@ -1,5 +1,6 @@
 // 设置一级路由背景图及标题
 import dayjs from "dayjs";
+import {isDeviceMobile} from "@/utils";
 
 export const useBackgroundImgMixin = {
     data() {
@@ -59,5 +60,11 @@ export const useDateFormat = {
         formatDate(time, format = "YYYY年MM月DD日 HH:mm:ss") {
             return dayjs(time).format(format);
         }
+    }
+}
+
+export const useAdaptHeight = {
+    mounted() {
+
     }
 }

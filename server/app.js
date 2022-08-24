@@ -10,6 +10,7 @@ require('./routes/restRoute')(app)
 require('./routes/webRoute')(app)
 require('./routes/adminRoute')(app)
 
+
 app.listen(3000, () => {
     console.log("vdocs2 server is listen http://localhost:3000/")
 })

@@ -189,6 +189,10 @@ export function isArrayObject(arr, unique) {
     return arr.every(item => item.hasOwnProperty(unique))
 }
 
+export function isFunc(f){
+    return typeof f === 'function';
+}
+
 export function isEmptyObj(obj) {
     return JSON.stringify(obj) === "{}";
 }

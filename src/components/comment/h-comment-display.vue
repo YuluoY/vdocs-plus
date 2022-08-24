@@ -105,7 +105,7 @@
         },
         watch: {
             states(newVal) {
-                this.statesX = newVal;
+                this.states = newVal;
             }
         },
 
@@ -117,7 +117,7 @@
                 return arr.every(i => i.hasOwnProperty(unique));
             },
             jump(id) {
-                Object.keys(this.statesX).forEach(k => {
+                Object.keys(this.states).forEach(k => {
                     const n = document.getElementById(k);
                     if (n.style.color === 'red') {
                         n.style.color = 'black' // 设置姓名为红色的恢复为黑色
@@ -125,35 +125,27 @@
                 })
                 let tar = document.getElementById(id)// 获取需要滚动的距离
                 tar.style.color = 'red'; // 设置被点击@的name为红色
-                let total = tar.parentNode.offsetTop;
-                let currentScrollTop = document.body.scrollTop;
-                const upOrDown = total - currentScrollTop;
 
                 const header = window.location.origin // http://localhost/8080
                 const path = window.location.hash.substring(1).split('#')[0] // 路由路径
                 const anchor = tar.id // 锚点名称
                 window.location.href = `${header}/#${path}#${anchor}`
 
+                let gap = 5;
+                tar.getBoundingClientRect().bottom < 0 && (gap = -gap);
                 clearInterval(this.timer)
                 this.timer = setInterval(_ => {
-                    // 减去顶部导航高度，并与当前滚动条位置高度比对
-                    if (upOrDown > 0) {
-                        if (currentScrollTop >= total) {
-                            clearInterval(this.timer);
-                        }
-                        document.body.scrollTo(0, currentScrollTop += 5)
-                    } else {
-                        if (currentScrollTop <= total) {
-                            clearInterval(this.timer);
-                        }
-                        document.body.scrollTo(0, currentScrollTop -= 5)
+                    let total = tar.getBoundingClientRect().bottom - 100; // 减去顶部导航栏高度
+                    if ((gap < 0 && total >= 0) || (gap > 0 && total <= 0)) {
+                        clearInterval(this.timer)
                     }
+                    document.body.scrollTo(0, document.body.scrollTop + gap)
                 }, 1)
+
             },
             // 点赞
             async onLike(_id, event) {
                 const userInfo = (await this.$apis.rest.getUserIp()).data;
-                console.log(userInfo)
                 const field = event.target.className.split(' ')[0];
 
                 this.$apis.web.updateLike({_id, field, userInfo}).then(res => {
